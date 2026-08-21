@@ -1931,3 +1931,390 @@ a.contacts__note:hover {
     height: 34px;
   }
 }
+
+/* ======================================================================
+   Страница проекта — первый экран и описание
+
+   Шапка, меню и типографика общие с главной, поэтому здесь только два
+   блока. Размеры, как и везде, в единицах макета: `calc(N * var(--px))`.
+   ====================================================================== */
+
+/* ---------- Главное фото ---------- */
+
+.project-hero {
+  position: relative;
+  height: calc(976 * var(--px));
+  overflow: hidden;
+  color: var(--paper);
+}
+
+.project-hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+/* Снимок в макете именно растянут на блок, а не обрезан по краям. */
+.project-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.project-hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.breadcrumbs {
+  position: absolute;
+  left: var(--gutter);
+  top: calc(30 * var(--px));
+  z-index: 2;
+  display: flex;
+  align-items: baseline;
+  gap: calc(10 * var(--px));
+  font-size: calc(22 * var(--px));
+  line-height: 1.5;
+}
+
+.breadcrumbs__link,
+.breadcrumbs__sep {
+  color: inherit;
+  font-weight: 300;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.breadcrumbs__link:hover {
+  opacity: 0.7;
+}
+
+.breadcrumbs__current {
+  font-weight: 500;
+}
+
+.project-hero__title {
+  position: absolute;
+  left: calc(428 * var(--px));
+  top: calc(414 * var(--px));
+  z-index: 1;
+  margin: 0;
+  font-size: calc(100 * var(--px));
+  font-weight: 400;
+  line-height: 1.48;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Круг здесь не залит, а обведён — в отличие от такого же на главной. */
+.project-hero__next {
+  position: absolute;
+  left: calc(1708 * var(--px));
+  top: calc(412 * var(--px));
+  z-index: 2;
+  width: calc(152 * var(--px));
+  height: calc(152 * var(--px));
+  padding: 0;
+  border: calc(3 * var(--px)) solid currentColor;
+  border-radius: 50%;
+  background: none;
+  color: var(--paper);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.project-hero__next:hover {
+  background: var(--paper);
+  color: #000000;
+}
+
+.project-hero__next svg {
+  position: absolute;
+  left: 26.974%; /* 41 / 152 */
+  top: 30.921%; /* 47 / 152 */
+  width: 46.053%; /* 70 / 152 */
+  height: 38.816%; /* 59 / 152 */
+  overflow: visible;
+}
+
+.project-hero__dots {
+  position: absolute;
+  left: calc(911 * var(--px));
+  top: calc(889 * var(--px));
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: calc(20 * var(--px));
+}
+
+.dot {
+  width: calc(16 * var(--px));
+  height: calc(16 * var(--px));
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #d0d0d0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dot:hover {
+  background: var(--paper);
+}
+
+.dot--active {
+  width: calc(27 * var(--px));
+  height: calc(27 * var(--px));
+  background: var(--paper);
+}
+
+/* ---------- Описание проекта ---------- */
+
+.project-info {
+  position: relative;
+  height: calc(768 * var(--px));
+  background: var(--paper);
+  color: #000000;
+}
+
+.project-info__head {
+  position: absolute;
+  left: var(--gutter);
+  top: calc(120 * var(--px));
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: calc(1800 * var(--px));
+}
+
+.project-info__text {
+  width: calc(885 * var(--px));
+}
+
+.project-info__title {
+  margin: 0;
+  font-size: calc(28 * var(--px));
+  font-weight: 500;
+  line-height: 1.464286;
+  text-transform: uppercase;
+}
+
+.project-info__body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(40 * var(--px));
+  margin-top: calc(60 * var(--px));
+}
+
+.project-info__body p {
+  margin: 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* Бокс ссылки шире набора: справа в макете остаётся воздух. */
+.project-info__more {
+  display: flex;
+  align-items: center;
+  gap: calc(10 * var(--px));
+  width: calc(235 * var(--px));
+  color: inherit;
+  font-size: calc(30 * var(--px));
+  line-height: 1.48;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.project-info__more:hover {
+  opacity: 0.6;
+}
+
+/* ---------- Цифры об объекте ---------- */
+
+.project-stats {
+  position: absolute;
+  left: calc(1128 * var(--px));
+  top: calc(221 * var(--px));
+  display: grid;
+  grid-template-columns: repeat(2, calc(138 * var(--px)));
+  gap: calc(100 * var(--px));
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: calc(10 * var(--px));
+}
+
+.stat__value {
+  margin: 0;
+  font-size: calc(50 * var(--px));
+  font-weight: 400;
+  line-height: 1.48;
+}
+
+.stat__unit {
+  font-size: calc(24 * var(--px));
+  line-height: 1.5;
+  vertical-align: top;
+}
+
+.stat__label {
+  margin: 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* ---------- Планшет и телефон ---------- */
+
+@media (max-width: 1199px) {
+  .project-hero {
+    height: auto;
+  }
+
+  /* На узком экране пропорция блока другая, поэтому снимок кадрируется,
+     а не растягивается. */
+  .project-hero__media {
+    position: static;
+  }
+
+  .project-hero__media img {
+    aspect-ratio: 320 / 358;
+    object-fit: cover;
+  }
+
+  .breadcrumbs {
+    top: calc(20 * var(--px));
+    font-size: 16px;
+  }
+
+  .project-hero__title {
+    left: var(--gutter);
+    top: auto;
+    bottom: calc(70 * var(--px));
+    font-size: 42px;
+    line-height: 1.12;
+    white-space: normal;
+  }
+
+  .project-hero__next {
+    left: auto;
+    right: var(--gutter);
+    top: calc(70 * var(--px));
+    width: 50px;
+    height: 50px;
+    border-width: 2px;
+  }
+
+  .project-hero__dots {
+    left: 50%;
+    top: auto;
+    bottom: calc(25 * var(--px));
+    gap: 10px;
+    transform: translateX(-50%);
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .dot--active {
+    width: 16px;
+    height: 16px;
+  }
+
+  .project-info {
+    height: auto;
+    padding: 50px var(--gutter);
+  }
+
+  .project-info__head {
+    position: static;
+    flex-direction: column;
+    gap: 40px;
+    width: auto;
+  }
+
+  .project-info__text {
+    width: auto;
+  }
+
+  .project-info__body {
+    gap: 30px;
+    margin-top: 30px;
+  }
+
+  .project-info__body p {
+    font-size: 16px;
+  }
+
+  .project-info__more {
+    width: auto;
+    font-size: 22px;
+  }
+
+  .project-stats {
+    position: static;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 20px;
+    margin-top: 50px;
+  }
+
+  .stat__value {
+    font-size: 40px;
+  }
+
+  .stat__label {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .project-hero__media img {
+    aspect-ratio: 1024 / 640;
+  }
+
+  .project-hero__title {
+    bottom: calc(90 * var(--px));
+    font-size: 76px;
+  }
+
+  .project-hero__next {
+    width: 88px;
+    height: 88px;
+    border-width: 3px;
+  }
+
+  .project-info {
+    padding: 80px var(--gutter);
+  }
+
+  .project-info__title {
+    font-size: 36px;
+  }
+
+  .project-info__body p,
+  .project-info__more,
+  .stat__label {
+    font-size: 18px;
+  }
+
+  .project-info__more {
+    font-size: 26px;
+  }
+
+  .project-stats {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  .stat__value {
+    font-size: 50px;
+  }
+}

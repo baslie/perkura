@@ -1,20 +1,23 @@
 /* Слайдер первого экрана: шаг считаем от фактических размеров, они резиновые. */
 const track = document.querySelector(".hero__track");
-const slides = track.querySelectorAll(".slide");
-let index = 0;
 
-const step = () => slides[0].offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0);
+if (track) {
+  const slides = track.querySelectorAll(".slide");
+  let index = 0;
 
-const move = () => {
-  track.style.transform = `translateX(${-index * step()}px)`;
-};
+  const step = () => slides[0].offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0);
 
-document.querySelector(".hero__next").addEventListener("click", () => {
-  index = (index + 1) % slides.length;
-  move();
-});
+  const move = () => {
+    track.style.transform = `translateX(${-index * step()}px)`;
+  };
 
-window.addEventListener("resize", move);
+  document.querySelector(".hero__next").addEventListener("click", () => {
+    index = (index + 1) % slides.length;
+    move();
+  });
+
+  window.addEventListener("resize", move);
+}
 
 /* Меню под бургером. На планшете и десктопе панель не используется:
    там навигация — обычная строка, и кнопка скрыта стилями. */
