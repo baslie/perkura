@@ -2142,12 +2142,13 @@ a.contacts__note:hover {
   display: flex;
   align-items: center;
   gap: calc(10 * var(--px));
-  width: calc(235 * var(--px));
+  min-width: calc(235 * var(--px)); /* капс занимает почти весь бокс — пусть растёт влево */
   color: inherit;
   font-size: calc(30 * var(--px));
   line-height: 1.48;
   text-decoration: none;
   white-space: nowrap;
+  text-transform: uppercase;
   transition: opacity 0.2s ease;
 }
 
@@ -2361,6 +2362,7 @@ a.contacts__note:hover {
   font-size: calc(100 * var(--px));
   font-weight: 600;
   line-height: 1.48;
+  text-transform: uppercase;
 }
 
 .project-plan__row {
@@ -2415,6 +2417,7 @@ a.contacts__note:hover {
   font-size: calc(28 * var(--px));
   font-weight: 500;
   line-height: 1.464286;
+  text-transform: uppercase;
 }
 
 .spec {
@@ -2549,10 +2552,12 @@ a.contacts__note:hover {
   left: calc(980 * var(--px));
 }
 
+/* Заголовок заходит на левый снимок и должен лежать поверх него. */
 .project-pair__title {
   position: absolute;
   left: var(--gutter);
   top: calc(423 * var(--px));
+  z-index: 1;
   margin: 0;
   font-size: calc(50 * var(--px));
   font-weight: 400;
