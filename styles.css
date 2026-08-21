@@ -852,6 +852,11 @@ a.contacts__note:hover {
   margin-top: calc(30 * var(--px));
 }
 
+/* Поле — это label с двумя блоками внутри, поэтому ему нужен блочный бокс. */
+.field {
+  display: block;
+}
+
 .field__label {
   display: block;
   font-size: calc(22 * var(--px));
@@ -976,8 +981,10 @@ a.contacts__note:hover {
 
 /* ---------- Футер ---------- */
 
+/* Линия в макете нулевой высоты с обводкой 2, поэтому верхнее поле на 1 меньше:
+   так черта ложится ровно на 60, а строка — на 90, и секция выходит 190. */
 .footer {
-  padding: calc(60 * var(--px)) var(--gutter);
+  padding: calc(59 * var(--px)) var(--gutter) calc(60 * var(--px));
   background: var(--ink);
   color: var(--paper);
 }
@@ -993,7 +1000,7 @@ a.contacts__note:hover {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  margin-top: calc(30 * var(--px));
+  margin-top: calc(29 * var(--px));
   height: calc(40 * var(--px));
 }
 
