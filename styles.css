@@ -2346,3 +2346,390 @@ a.contacts__note:hover {
     font-size: 50px;
   }
 }
+
+/* ---------- До и после ---------- */
+
+.project-plan {
+  height: calc(1016 * var(--px));
+  padding: calc(120 * var(--px)) var(--gutter) 0;
+  background: var(--paper);
+  color: #000000;
+}
+
+.project-plan__title {
+  margin: 0;
+  font-size: calc(100 * var(--px));
+  font-weight: 600;
+  line-height: 1.48;
+}
+
+.project-plan__row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: calc(30 * var(--px));
+}
+
+.project-plan__figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(30 * var(--px));
+  width: calc(733 * var(--px));
+}
+
+.project-plan__media {
+  width: 100%;
+  height: calc(551 * var(--px));
+  margin: 0;
+  overflow: hidden;
+}
+
+/* План, как и снимки на этой странице, в макете растянут на блок. */
+.project-plan__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.project-plan__dots {
+  display: flex;
+  align-items: center;
+  gap: calc(20 * var(--px));
+}
+
+/* На светлом фоне активная точка чёрная. */
+.dot--ink,
+.dot--ink:hover {
+  background: #000000;
+}
+
+/* ---------- Характеристики объекта ---------- */
+
+.specs {
+  width: calc(885 * var(--px));
+  margin: 0;
+}
+
+.specs__title {
+  margin: 0 0 calc(40 * var(--px));
+  font-size: calc(28 * var(--px));
+  font-weight: 500;
+  line-height: 1.464286;
+}
+
+.spec {
+  display: flex;
+  align-items: baseline;
+  padding-bottom: calc(29 * var(--px)); /* строка вместе с чертой — 64, как в макете */
+  border-bottom: calc(2 * var(--px)) solid #000000;
+}
+
+.spec + .spec {
+  margin-top: calc(40 * var(--px));
+}
+
+.spec__name,
+.spec__value {
+  margin: 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.spec__name {
+  width: calc(698 * var(--px));
+  flex: none;
+}
+
+/* ---------- Проект: крупный кадр и два боковых ---------- */
+
+.project-set {
+  position: relative;
+  height: calc(950 * var(--px));
+  background: var(--paper);
+  color: #000000;
+}
+
+.project-set__main,
+.project-set__side {
+  position: absolute;
+  margin: 0;
+  overflow: hidden;
+}
+
+.project-set__main img,
+.project-set__side img {
+  width: 100%;
+  height: 100%;
+}
+
+.project-set__main {
+  left: var(--gutter);
+  top: calc(120 * var(--px));
+  width: calc(915 * var(--px));
+  height: calc(551 * var(--px));
+}
+
+.project-set__main img {
+  object-fit: fill;
+}
+
+.project-set__side {
+  top: calc(163 * var(--px));
+  width: calc(350 * var(--px));
+  height: calc(465 * var(--px));
+}
+
+.project-set__side img {
+  object-fit: cover;
+}
+
+.project-set__side--1 {
+  left: calc(1130 * var(--px));
+}
+
+.project-set__side--2 {
+  left: calc(1510 * var(--px));
+}
+
+/* Заголовок лежит поверх кадров — так в макете. */
+.project-set__title {
+  position: absolute;
+  left: calc(663 * var(--px));
+  top: calc(359 * var(--px));
+  z-index: 1;
+  margin: 0;
+  font-size: calc(50 * var(--px));
+  font-weight: 400;
+  line-height: 1.48;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.project-set__text {
+  position: absolute;
+  left: var(--gutter);
+  top: calc(731 * var(--px));
+  width: calc(915 * var(--px));
+  margin: 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* ---------- Проект: пара кадров ---------- */
+
+.project-pair {
+  position: relative;
+  height: calc(1144 * var(--px));
+  background: var(--paper);
+  color: #000000;
+}
+
+.project-pair__media {
+  position: absolute;
+  top: calc(120 * var(--px));
+  width: calc(572 * var(--px));
+  height: calc(679 * var(--px));
+  margin: 0;
+  overflow: hidden;
+}
+
+.project-pair__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.project-pair__media--1 {
+  left: calc(368 * var(--px));
+}
+
+.project-pair__media--2 {
+  left: calc(980 * var(--px));
+}
+
+.project-pair__title {
+  position: absolute;
+  left: var(--gutter);
+  top: calc(423 * var(--px));
+  margin: 0;
+  font-size: calc(50 * var(--px));
+  font-weight: 400;
+  line-height: 1.48;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.project-pair__text {
+  position: absolute;
+  left: var(--gutter);
+  top: calc(859 * var(--px));
+  width: calc(915 * var(--px));
+  margin: 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* ---------- Планшет и телефон ---------- */
+
+@media (max-width: 1199px) {
+  .project-plan {
+    height: auto;
+    padding: 50px var(--gutter);
+  }
+
+  .project-plan__title {
+    font-size: 32px;
+  }
+
+  .project-plan__row {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .project-plan__figure {
+    width: auto;
+  }
+
+  .project-plan__media {
+    height: auto;
+    aspect-ratio: 733 / 551;
+  }
+
+  .specs {
+    width: auto;
+  }
+
+  .specs__title {
+    margin-bottom: 30px;
+  }
+
+  .spec {
+    justify-content: space-between;
+    padding-bottom: 12px;
+  }
+
+  .spec + .spec {
+    margin-top: 20px;
+  }
+
+  .spec__name {
+    width: auto;
+    flex: 1 1 auto;
+    padding-right: 20px;
+  }
+
+  .spec__value {
+    text-align: right;
+  }
+
+  .spec__name,
+  .spec__value {
+    font-size: 16px;
+  }
+
+  /* Кадры выстраиваются в столбик, заголовок уходит над ними. */
+  .project-set,
+  .project-pair {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding: 50px var(--gutter);
+  }
+
+  .project-set__main,
+  .project-set__side,
+  .project-pair__media {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+
+  .project-set__main img,
+  .project-pair__media img {
+    object-fit: cover;
+  }
+
+  .project-set__main {
+    order: 2;
+    aspect-ratio: 915 / 551;
+    margin-top: 30px;
+  }
+
+  .project-set__side {
+    order: 3;
+    aspect-ratio: 350 / 465;
+    margin-top: 20px;
+  }
+
+  .project-set__text {
+    order: 4;
+  }
+
+  .project-pair__media--1 {
+    order: 2;
+    margin-top: 30px;
+  }
+
+  .project-pair__media--2 {
+    order: 3;
+    margin-top: 20px;
+  }
+
+  .project-pair__media {
+    aspect-ratio: 572 / 679;
+  }
+
+  .project-pair__text {
+    order: 4;
+  }
+
+  .project-set__title,
+  .project-pair__title {
+    position: static;
+    order: 1;
+    font-size: 32px;
+    white-space: normal;
+  }
+
+  .project-set__text,
+  .project-pair__text {
+    position: static;
+    width: auto;
+    margin-top: 30px;
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .project-plan {
+    padding: 80px var(--gutter);
+  }
+
+  .project-plan__title {
+    font-size: 56px;
+  }
+
+  .spec__name,
+  .spec__value,
+  .project-set__text,
+  .project-pair__text {
+    font-size: 18px;
+  }
+
+  .specs__title {
+    font-size: 32px;
+  }
+
+  .project-set,
+  .project-pair {
+    padding: 80px var(--gutter);
+  }
+
+  .project-set__title,
+  .project-pair__title {
+    font-size: 50px;
+  }
+}
