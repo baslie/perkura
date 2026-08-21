@@ -38,7 +38,7 @@ python -m http.server 8000
 
 Сайт публикуется через GitHub Pages из ветки `main` (корень репозитория).
 
-**Адрес:** https://baslie.github.io/perkura/
+**Адрес:** https://roman-purtow.ru/perkura/
 
 ---
 
