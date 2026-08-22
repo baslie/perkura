@@ -2738,3 +2738,400 @@ a.contacts__note:hover {
     font-size: 50px;
   }
 }
+
+/* ---------- Проект: малый и крупный кадр ---------- */
+
+.project-split {
+  position: relative;
+  height: calc(1049 * var(--px));
+  background: var(--paper);
+  color: #000000;
+}
+
+.project-split__small,
+.project-split__large {
+  position: absolute;
+  margin: 0;
+  overflow: hidden;
+}
+
+.project-split__small img,
+.project-split__large img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* в макете кадры растянуты на бокс */
+}
+
+.project-split__small {
+  left: var(--gutter);
+  top: calc(219 * var(--px));
+  width: calc(580 * var(--px));
+  height: calc(354 * var(--px));
+}
+
+.project-split__large {
+  left: calc(960 * var(--px));
+  top: calc(120 * var(--px));
+  width: calc(915 * var(--px));
+  height: calc(551 * var(--px));
+}
+
+/* Заголовок заходит на левый кадр и должен лежать поверх него. */
+.project-split__title {
+  position: absolute;
+  left: calc(408 * var(--px));
+  top: calc(359 * var(--px));
+  z-index: 1;
+  margin: 0;
+  font-size: calc(50 * var(--px));
+  font-weight: 400;
+  line-height: 1.48;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.project-split__small-text,
+.project-split__large-text {
+  position: absolute;
+  margin: 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.project-split__small-text {
+  left: var(--gutter);
+  top: calc(633 * var(--px));
+  width: calc(580 * var(--px));
+}
+
+/* Подпись под крупным кадром центрирована по нему. */
+.project-split__large-text {
+  left: calc(1044 * var(--px));
+  top: calc(731 * var(--px));
+  width: calc(748 * var(--px));
+}
+
+/* ---------- Проект: три кадра в ряд ---------- */
+
+.project-row {
+  display: flex;
+  gap: calc(30 * var(--px));
+  height: calc(919 * var(--px));
+  padding: calc(120 * var(--px)) var(--gutter);
+  background: var(--paper);
+}
+
+.project-row__media {
+  width: calc(580 * var(--px));
+  height: calc(679 * var(--px));
+  margin: 0;
+  overflow: hidden;
+  flex: none;
+}
+
+.project-row__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Другие проекты ---------- */
+
+/* Лента шире экрана и уходит за оба края — как в макете. */
+.other {
+  position: relative;
+  height: calc(1154 * var(--px));
+  overflow: hidden;
+  background: var(--paper);
+  color: #000000;
+}
+
+.other__title {
+  position: absolute;
+  left: var(--gutter);
+  top: calc(120 * var(--px));
+  margin: 0;
+  font-size: calc(100 * var(--px));
+  font-weight: 600;
+  line-height: 1.48;
+  text-transform: uppercase;
+}
+
+.other__card {
+  position: absolute;
+  margin: 0;
+  overflow: hidden;
+}
+
+.other__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Карточки к краям ленты мельчают: центральная крупнее всех. */
+.other__card--1,
+.other__card--5 {
+  top: calc(447 * var(--px));
+  width: calc(326 * var(--px));
+  height: calc(382 * var(--px));
+}
+
+.other__card--2,
+.other__card--4 {
+  top: calc(413 * var(--px));
+  width: calc(384 * var(--px));
+  height: calc(450 * var(--px));
+}
+
+.other__card--1 {
+  left: calc(-100 * var(--px));
+}
+
+.other__card--2 {
+  left: calc(256 * var(--px));
+}
+
+.other__card--3 {
+  left: calc(670 * var(--px));
+  top: calc(298 * var(--px));
+  width: calc(580 * var(--px));
+  height: calc(679 * var(--px));
+  overflow: visible;
+}
+
+.other__card--4 {
+  left: calc(1280 * var(--px));
+}
+
+.other__card--5 {
+  left: calc(1694 * var(--px));
+}
+
+/* Круг на центральной карточке залит чёрным, набор белый. */
+.other__cta {
+  position: absolute;
+  left: calc(324 * var(--px));
+  top: calc(50 * var(--px));
+  z-index: 1;
+  width: calc(206 * var(--px));
+  height: calc(206 * var(--px));
+  border-radius: 50%;
+  background: #000000;
+  color: var(--paper);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.other__cta:hover {
+  background: var(--paper);
+  color: #000000;
+}
+
+.other__cta-label {
+  position: absolute;
+  left: calc(20 * var(--px));
+  top: calc(87 * var(--px));
+  display: flex;
+  align-items: flex-start;
+  gap: calc(8 * var(--px));
+  font-size: calc(22 * var(--px));
+  line-height: 1.5;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.other__cta-arrow {
+  width: calc(22 * var(--px));
+  height: calc(17 * var(--px));
+  margin-top: calc(8 * var(--px));
+  flex: none;
+}
+
+.other__dots {
+  position: absolute;
+  left: calc(911 * var(--px));
+  top: calc(1007 * var(--px));
+  display: flex;
+  align-items: center;
+  gap: calc(20 * var(--px));
+}
+
+/* ---------- Планшет и телефон ---------- */
+
+@media (max-width: 1199px) {
+  /* Кадры и подписи выстраиваются в столбик, заголовок уходит наверх. */
+  .project-split {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding: 50px var(--gutter);
+  }
+
+  .project-split__small,
+  .project-split__large {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+
+  .project-split__small img,
+  .project-split__large img {
+    object-fit: cover;
+  }
+
+  .project-split__small {
+    order: 2;
+    aspect-ratio: 580 / 354;
+    margin-top: 30px;
+  }
+
+  .project-split__small-text {
+    order: 3;
+  }
+
+  .project-split__large {
+    order: 4;
+    aspect-ratio: 915 / 551;
+    margin-top: 40px;
+  }
+
+  .project-split__large-text {
+    order: 5;
+  }
+
+  .project-split__title {
+    position: static;
+    order: 1;
+    font-size: 32px;
+    white-space: normal;
+  }
+
+  .project-split__small-text,
+  .project-split__large-text {
+    position: static;
+    width: auto;
+    margin-top: 30px;
+    font-size: 16px;
+  }
+
+  .project-row {
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+    padding: 50px var(--gutter);
+  }
+
+  .project-row__media {
+    width: auto;
+    height: auto;
+    aspect-ratio: 580 / 679;
+  }
+
+  /* Лента превращается в горизонтальную прокрутку. */
+  .other {
+    height: auto;
+    padding: 50px 0;
+  }
+
+  .other__title {
+    position: static;
+    padding: 0 var(--gutter);
+    font-size: 32px;
+  }
+
+  .other__track {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px;
+    padding: 0 var(--gutter);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .other__card {
+    position: static;
+    top: auto;
+    left: auto;
+    width: 78vw;
+    height: auto;
+    aspect-ratio: 580 / 679;
+    flex: none;
+    scroll-snap-align: center;
+  }
+
+  .other__cta {
+    left: auto;
+    right: 20px;
+    top: 20px;
+    width: 120px;
+    height: 120px;
+  }
+
+  .other__cta-label {
+    left: 50%;
+    top: 50%;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    transform: translate(-50%, -50%);
+  }
+
+  .other__cta-arrow {
+    margin: 0;
+    transform: rotate(90deg);
+  }
+
+  .other__dots {
+    position: static;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 10px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .project-split,
+  .project-row,
+  .other {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .project-split__title,
+  .other__title {
+    font-size: 56px;
+  }
+
+  .project-split__small-text,
+  .project-split__large-text {
+    font-size: 18px;
+  }
+
+  /* Три кадра снова встают в ряд. */
+  .project-row {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .project-row__media {
+    width: calc((100% - 40px) / 3);
+    aspect-ratio: 580 / 679;
+  }
+
+  .other__card {
+    width: 46vw;
+  }
+
+  .other__cta {
+    width: 160px;
+    height: 160px;
+  }
+
+  .other__cta-label {
+    font-size: 18px;
+  }
+}
