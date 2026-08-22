@@ -3135,3 +3135,173 @@ a.contacts__note:hover {
     font-size: 18px;
   }
 }
+
+/* ======================================================================
+   Оглавление (index.html)
+
+   Служебная страница: показывает клиенту, какие страницы уже свёрстаны.
+   Никакой графики, только набор — открывается мгновенно. Размеры здесь
+   в обычных пикселях: страница не повторяет макет, ей незачем тянуться.
+   ====================================================================== */
+
+.dir {
+  min-height: 100vh;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.dir__inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 80px 24px 120px;
+}
+
+.dir__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dir__logo {
+  width: 118px;
+  height: 30px;
+  flex: none;
+}
+
+.dir__caption {
+  margin: 0;
+  padding-left: 16px;
+  border-left: 1px solid currentColor;
+  font-size: 15px;
+  font-weight: 200;
+  line-height: 1.3;
+}
+
+.dir__title {
+  margin: 64px 0 0;
+  font-size: 88px;
+  font-weight: 600;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.dir__lead {
+  max-width: 46ch;
+  margin: 20px 0 0;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.55;
+  opacity: 0.72;
+}
+
+.dir__group {
+  margin: 72px 0 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.dir__list {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dir__row {
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.dir__row:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.dir__link {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 4px;
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s ease, padding-left 0.2s ease;
+}
+
+a.dir__link:hover,
+a.dir__link:focus-visible {
+  padding-left: 12px;
+  opacity: 0.65;
+}
+
+.dir__num {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1;
+  opacity: 0.5;
+  flex: none;
+}
+
+.dir__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 auto;
+}
+
+.dir__name {
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.dir__note {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.45;
+  opacity: 0.6;
+}
+
+.dir .arrow-ne {
+  width: 26px;
+  height: 26px;
+}
+
+/* Строки без вёрстки не кликаются и приглушены. */
+.dir__row--soon .dir__link {
+  cursor: default;
+  opacity: 0.4;
+}
+
+@media (max-width: 640px) {
+  .dir__inner {
+    padding: 48px 20px 80px;
+  }
+
+  .dir__title {
+    margin-top: 40px;
+    font-size: 48px;
+  }
+
+  .dir__lead {
+    font-size: 16px;
+  }
+
+  .dir__group {
+    margin-top: 48px;
+  }
+
+  .dir__link {
+    gap: 16px;
+    padding: 20px 2px;
+  }
+
+  .dir__name {
+    font-size: 22px;
+  }
+
+  .dir__note {
+    font-size: 14px;
+  }
+}
