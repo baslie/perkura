@@ -1298,9 +1298,14 @@ a.contacts__note:hover {
     transform: translateX(-50%);
   }
 
-  /* Заголовок заходит на нижний край снимка — как в макете. */
+  /* Заголовок заходит на нижний край снимка — как в макете. Он в потоке, а
+     снимок позиционирован, поэтому без z-index первая строка уезжает под
+     фотографию: на десктопе тот же z-index: 1 стоит в базовом правиле. */
   .slide__title {
-    position: static;
+    position: relative;
+    left: auto; /* иначе смещения из десктопного правила поедут в relative */
+    top: auto;
+    z-index: 1;
     margin: -67px 0 0 var(--gutter);
     font-size: 42px;
     line-height: 1.05;
