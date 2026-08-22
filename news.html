@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Проекты — студия интерьерного дизайна Perkura</title>
+    <title>Новости — студия интерьерного дизайна Perkura</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -47,172 +47,80 @@
         <nav class="nav" id="site-nav" aria-label="Основная навигация">
           <a class="nav__link" href="home.html#about">О нас</a>
           <a class="nav__link" href="home.html#services">Услуги</a>
-          <a class="nav__link nav__link--active" href="portfolio.html">Портфолио</a>
-          <a class="nav__link" href="news.html">Блог</a>
+          <a class="nav__link" href="portfolio.html">Портфолио</a>
+          <a class="nav__link nav__link--active" href="news.html">Блог</a>
           <a class="nav__link" href="home.html#contacts">Контакты</a>
           <a class="nav__phone" href="tel:+79999999999">+7(999)999-99-99</a>
         </nav>
       </div>
     </header>
-    <section class="portfolio">
+    <section class="blog">
       <nav class="breadcrumbs breadcrumbs--flow" aria-label="Хлебные крошки">
         <a class="breadcrumbs__link" href="home.html">Главная</a>
         <span class="breadcrumbs__sep" aria-hidden="true">-</span>
-        <span class="breadcrumbs__current" aria-current="page">Проекты</span>
+        <span class="breadcrumbs__current" aria-current="page">Новости</span>
       </nav>
 
-      <div class="portfolio__head">
-        <h1 class="portfolio__title">Проекты</h1>
-        <p class="portfolio__lead">A design project is a package of documents (drawings, visualizations, specifications) that provides detailed instructions for interior renovation and creation, combining aesthetics and functionality of the space, taking into account the budget and lifestyle of the customer, in order to avoid mistakes and plan the work.</p>
-      </div>
+      <article class="blog__head post post--lead">
+        <h1 class="blog__title">Новости</h1>
 
-      <div class="portfolio__grid">
-        <article class="card">
-          <a class="card__media" href="project.html">
-            <img src="assets/shot-3.jpg" alt="Тёмная спальня с медиазоной и панелью из оникса" loading="lazy" />
-            <span class="card__overlay">
-              <span class="card__name">ЖК&nbsp;“Валентиновка Life”</span>
-              <span class="card__arrow ring-arrow">
-                <svg viewBox="0 0 152 152" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle class="ring-arrow__ring" cx="76" cy="76" r="74.5" />
-                  <g class="ring-arrow__arrow" transform="translate(41 47)">
-                    <path fill="none" stroke="currentColor" stroke-width="18.06" stroke-linejoin="miter" transform="translate(0 0.703) scale(0.3867 0.3882)" d="M0 74.49995l170.145 0c2.20101 0 2.862-3.1629 0.857-4.07049-28.507-12.9044-75.4571-39.7591-94.002-70.42946" />
-                    <path fill="none" stroke="currentColor" stroke-width="18.06" stroke-linejoin="miter" transform="translate(0 29.038) scale(0.3867 0.3882)" d="M0 0l170.145 0c2.20101 0 2.85999 3.15521 0.85199 4.05811-28.677 12.8995-76.44609 39.7619-94.99699 70.4419" />
-                  </g>
-                </svg>
-              </span>
-            </span>
-          </a>
+        <a class="post__media" href="article.html">
+          <img src="assets/article-1.jpg" alt="Светлая гостиная с длинным диваном и кольцевыми светильниками" />
+        </a>
 
-          <div class="card__text">
-            <h2 class="card__title">ЖК&nbsp;“Валентиновка Life”</h2>
-            <p class="card__desc">Комплекс работ по интерьеру и дизайну, квартира 150м2</p>
-          </div>
-        </article>
+        <div class="post__text">
+          <p class="post__excerpt">A design project is a package of documents (drawings, visualizations, specifications) that provides detailed instructions for interior renovation and creation, combining aesthetics and functionality of the space, taking into account the budget and lifestyle of the customer, in order to avoid mistakes and plan the work.</p>
+          <a class="post__more" href="article.html">Подробнее</a>
+        </div>
+      </article>
 
-        <article class="card">
-          <a class="card__media" href="project.html">
+      <div class="blog__grid">
+        <article class="post">
+          <a class="post__media" href="article.html">
             <img src="assets/shot-2.jpg" alt="Спальня с ониксовой стеной и выходом в ванную" loading="lazy" />
-            <span class="card__overlay">
-              <span class="card__name">ЖК&nbsp;“Валентиновка Life”</span>
-              <span class="card__arrow ring-arrow">
-                <svg viewBox="0 0 152 152" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle class="ring-arrow__ring" cx="76" cy="76" r="74.5" />
-                  <g class="ring-arrow__arrow" transform="translate(41 47)">
-                    <path fill="none" stroke="currentColor" stroke-width="18.06" stroke-linejoin="miter" transform="translate(0 0.703) scale(0.3867 0.3882)" d="M0 74.49995l170.145 0c2.20101 0 2.862-3.1629 0.857-4.07049-28.507-12.9044-75.4571-39.7591-94.002-70.42946" />
-                    <path fill="none" stroke="currentColor" stroke-width="18.06" stroke-linejoin="miter" transform="translate(0 29.038) scale(0.3867 0.3882)" d="M0 0l170.145 0c2.20101 0 2.85999 3.15521 0.85199 4.05811-28.677 12.8995-76.44609 39.7619-94.99699 70.4419" />
-                  </g>
-                </svg>
-              </span>
-            </span>
           </a>
 
-          <div class="card__text">
-            <h2 class="card__title">ЖК&nbsp;“Валентиновка Life”</h2>
-            <p class="card__desc">Комплекс работ по интерьеру и дизайну, квартира 150м2</p>
+          <div class="post__text">
+            <p class="post__excerpt">A design project is a package of documents (drawings, visualizations, specifications) that provides detailed instructions for interior renovation and creation, combining aesthetics and functionality of the space, taking into account the budget and lifestyle of the customer, in order to avoid mistakes and plan the work.</p>
+            <a class="post__more" href="article.html">Подробнее</a>
           </div>
         </article>
 
-        <article class="card">
-          <a class="card__media" href="project.html">
-            <img src="assets/about-1.jpg" alt="Гостиная с круглыми мраморными столиками" loading="lazy" />
-            <span class="card__play" aria-hidden="true">
-            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M0 0l0 48 48-26-48-22z" /></svg>
-          </span>
-          <span class="card__overlay">
-              <span class="card__name">ЖК&nbsp;“Валентиновка Life”</span>
-              <span class="card__arrow ring-arrow">
-                <svg viewBox="0 0 152 152" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle class="ring-arrow__ring" cx="76" cy="76" r="74.5" />
-                  <g class="ring-arrow__arrow" transform="translate(41 47)">
-                    <path fill="none" stroke="currentColor" stroke-width="18.06" stroke-linejoin="miter" transform="translate(0 0.703) scale(0.3867 0.3882)" d="M0 74.49995l170.145 0c2.20101 0 2.862-3.1629 0.857-4.07049-28.507-12.9044-75.4571-39.7591-94.002-70.42946" />
-                    <path fill="none" stroke="currentColor" stroke-width="18.06" stroke-linejoin="miter" transform="translate(0 29.038) scale(0.3867 0.3882)" d="M0 0l170.145 0c2.20101 0 2.85999 3.15521 0.85199 4.05811-28.677 12.8995-76.44609 39.7619-94.99699 70.4419" />
-                  </g>
-                </svg>
-              </span>
-            </span>
+        <article class="post">
+          <a class="post__media" href="article.html">
+            <img src="assets/shot-2.jpg" alt="Спальня с ониксовой стеной и выходом в ванную" loading="lazy" />
           </a>
 
-          <div class="card__text">
-            <h2 class="card__title">ЖК&nbsp;“Валентиновка Life”</h2>
-            <p class="card__desc">Комплекс работ по интерьеру и дизайну, квартира 150м2</p>
+          <div class="post__text">
+            <p class="post__excerpt">A design project is a package of documents (drawings, visualizations, specifications) that provides detailed instructions for interior renovation and creation, combining aesthetics and functionality of the space, taking into account the budget and lifestyle of the customer, in order to avoid mistakes and plan the work.</p>
+            <a class="post__more" href="article.html">Подробнее</a>
           </div>
         </article>
 
-        <article class="card">
-          <a class="card__media" href="project.html">
-            <img src="assets/portfolio-1.jpg" alt="Столовая в пудровой палитре с зеркальной стеной" loading="lazy" />
-            <span class="card__overlay">
-              <span class="card__name">ЖК&nbsp;“Валентиновка Life”</span>
-              <span class="card__arrow ring-arrow">
-                <svg viewBox="0 0 152 152" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle class="ring-arrow__ring" cx="76" cy="76" r="74.5" />
-                  <g class="ring-arrow__arrow" transform="translate(41 47)">
-                    <path fill="none" stroke="currentColor" stroke-width="18.06" stroke-linejoin="miter" transform="translate(0 0.703) scale(0.3867 0.3882)" d="M0 74.49995l170.145 0c2.20101 0 2.862-3.1629 0.857-4.07049-28.507-12.9044-75.4571-39.7591-94.002-70.42946" />
-                    <path fill="none" stroke="currentColor" stroke-width="18.06" stroke-linejoin="miter" transform="translate(0 29.038) scale(0.3867 0.3882)" d="M0 0l170.145 0c2.20101 0 2.85999 3.15521 0.85199 4.05811-28.677 12.8995-76.44609 39.7619-94.99699 70.4419" />
-                  </g>
-                </svg>
-              </span>
-            </span>
+        <article class="post">
+          <a class="post__media" href="article.html">
+            <img src="assets/shot-2.jpg" alt="Спальня с ониксовой стеной и выходом в ванную" loading="lazy" />
           </a>
 
-          <div class="card__text">
-            <h2 class="card__title">ЖК&nbsp;“Валентиновка Life”</h2>
-            <p class="card__desc">Комплекс работ по интерьеру и дизайну, квартира 150м2</p>
+          <div class="post__text">
+            <p class="post__excerpt">A design project is a package of documents (drawings, visualizations, specifications) that provides detailed instructions for interior renovation and creation, combining aesthetics and functionality of the space, taking into account the budget and lifestyle of the customer, in order to avoid mistakes and plan the work.</p>
+            <a class="post__more" href="article.html">Подробнее</a>
           </div>
         </article>
 
-        <article class="card">
-          <a class="card__media" href="project.html">
-            <img src="assets/portfolio-1.jpg" alt="Столовая в пудровой палитре с зеркальной стеной" loading="lazy" />
-            <span class="card__overlay">
-              <span class="card__name">ЖК&nbsp;“Валентиновка Life”</span>
-              <span class="card__arrow ring-arrow">
-                <svg viewBox="0 0 152 152" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle class="ring-arrow__ring" cx="76" cy="76" r="74.5" />
-                  <g class="ring-arrow__arrow" transform="translate(41 47)">
-                    <path fill="none" stroke="currentColor" stroke-width="18.06" stroke-linejoin="miter" transform="translate(0 0.703) scale(0.3867 0.3882)" d="M0 74.49995l170.145 0c2.20101 0 2.862-3.1629 0.857-4.07049-28.507-12.9044-75.4571-39.7591-94.002-70.42946" />
-                    <path fill="none" stroke="currentColor" stroke-width="18.06" stroke-linejoin="miter" transform="translate(0 29.038) scale(0.3867 0.3882)" d="M0 0l170.145 0c2.20101 0 2.85999 3.15521 0.85199 4.05811-28.677 12.8995-76.44609 39.7619-94.99699 70.4419" />
-                  </g>
-                </svg>
-              </span>
-            </span>
+        <article class="post">
+          <a class="post__media" href="article.html">
+            <img src="assets/shot-2.jpg" alt="Спальня с ониксовой стеной и выходом в ванную" loading="lazy" />
           </a>
 
-          <div class="card__text">
-            <h2 class="card__title">ЖК&nbsp;“Валентиновка Life”</h2>
-            <p class="card__desc">Комплекс работ по интерьеру и дизайну, квартира 150м2</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <a class="card__media" href="project.html">
-            <img src="assets/about-1.jpg" alt="Гостиная с круглыми мраморными столиками" loading="lazy" />
-            <span class="card__play" aria-hidden="true">
-            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M0 0l0 48 48-26-48-22z" /></svg>
-          </span>
-          <span class="card__overlay">
-              <span class="card__name">ЖК&nbsp;“Валентиновка Life”</span>
-              <span class="card__arrow ring-arrow">
-                <svg viewBox="0 0 152 152" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle class="ring-arrow__ring" cx="76" cy="76" r="74.5" />
-                  <g class="ring-arrow__arrow" transform="translate(41 47)">
-                    <path fill="none" stroke="currentColor" stroke-width="18.06" stroke-linejoin="miter" transform="translate(0 0.703) scale(0.3867 0.3882)" d="M0 74.49995l170.145 0c2.20101 0 2.862-3.1629 0.857-4.07049-28.507-12.9044-75.4571-39.7591-94.002-70.42946" />
-                    <path fill="none" stroke="currentColor" stroke-width="18.06" stroke-linejoin="miter" transform="translate(0 29.038) scale(0.3867 0.3882)" d="M0 0l170.145 0c2.20101 0 2.85999 3.15521 0.85199 4.05811-28.677 12.8995-76.44609 39.7619-94.99699 70.4419" />
-                  </g>
-                </svg>
-              </span>
-            </span>
-          </a>
-
-          <div class="card__text">
-            <h2 class="card__title">ЖК&nbsp;“Валентиновка Life”</h2>
-            <p class="card__desc">Комплекс работ по интерьеру и дизайну, квартира 150м2</p>
+          <div class="post__text">
+            <p class="post__excerpt">A design project is a package of documents (drawings, visualizations, specifications) that provides detailed instructions for interior renovation and creation, combining aesthetics and functionality of the space, taking into account the budget and lifestyle of the customer, in order to avoid mistakes and plan the work.</p>
+            <a class="post__more" href="article.html">Подробнее</a>
           </div>
         </article>
       </div>
 
-      <a class="portfolio__more" href="index.html">Смотреть все</a>
+      <a class="blog__more" href="index.html">Смотреть все</a>
     </section>
 
     <section class="contacts" id="contacts">

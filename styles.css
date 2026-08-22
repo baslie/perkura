@@ -3666,6 +3666,294 @@ a.contacts__note:hover {
 }
 
 /* ======================================================================
+   НОВОСТИ (news.html)
+
+   Лента публикаций: первая крупная — заголовок и текст слева, снимок
+   справа, — под ней четыре обычные в две колонки и кнопка «смотреть все».
+   Шапка, крошки, Contact me и футер — общие, живут выше по файлу.
+   ====================================================================== */
+
+.blog {
+  padding: 0 var(--gutter) calc(120 * var(--px));
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.blog > .breadcrumbs {
+  margin-bottom: calc(120 * var(--px));
+  padding-top: calc(30 * var(--px));
+}
+
+/* Первая публикация занимает две колонки: слева заголовок и текст,
+   справа снимок во всю высоту блока. */
+.blog__head {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: calc(148 * var(--px)) auto; /* строка заголовка: 100 * 1.48 */
+  align-items: start;
+  column-gap: calc(30 * var(--px));
+}
+
+.blog__title {
+  grid-column: 1;
+  margin: 0;
+  font-size: calc(100 * var(--px));
+  font-weight: 600;
+  line-height: 1.48;
+  text-transform: uppercase;
+}
+
+.blog__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: calc(30 * var(--px));
+  column-gap: calc(30 * var(--px));
+  row-gap: calc(30 * var(--px));
+}
+
+.blog__more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(580 * var(--px));
+  height: calc(59 * var(--px));
+  margin: calc(60 * var(--px)) auto 0;
+  background: #000000;
+  color: var(--paper);
+  font-size: calc(22 * var(--px));
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.blog__more:hover {
+  opacity: 0.8;
+}
+
+/* ---------- Карточка публикации ---------- */
+
+.post__media {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 885 / 533;
+}
+
+.post__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.post__media:hover img {
+  transform: scale(1.03);
+}
+
+.post__text {
+  margin-top: calc(30 * var(--px));
+}
+
+.post__excerpt {
+  margin: 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* Ссылка прижата к правому краю карточки — в макете так же. */
+.post__more {
+  display: block;
+  margin-top: calc(10 * var(--px));
+  color: inherit;
+  font-size: calc(26 * var(--px));
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: right;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity 0.2s ease;
+}
+
+.post__more:hover {
+  opacity: 0.6;
+}
+
+/* Первая публикация: снимок другой пропорции, набор мельче, а текст
+   отбит от заголовка так, чтобы низ колонки сошёлся с низом снимка. */
+.post--lead .post__media {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  aspect-ratio: 885 / 589;
+}
+
+.post--lead .post__text {
+  grid-column: 1;
+  margin-top: calc(51 * var(--px));
+}
+
+.post--lead .post__excerpt {
+  min-height: calc(99 * var(--px)); /* три строки по 33 */
+}
+
+.post--lead .post__more {
+  margin-top: calc(60 * var(--px));
+  font-size: calc(22 * var(--px));
+  font-weight: 500;
+}
+
+/* В карточках ленты под текст отведено четыре строки, занято три —
+   так в макете, и ряды от этого стоят ровно. */
+.blog__grid .post__excerpt {
+  min-height: calc(132 * var(--px));
+}
+
+/* ---------- Планшет и телефон ---------- */
+
+@media (max-width: 1199px) {
+  /* Телефон: одна колонка, ритм 30, заголовок над снимком первой публикации. */
+  .blog {
+    padding-bottom: 60px;
+  }
+
+  .blog > .breadcrumbs {
+    margin-bottom: 30px;
+    padding-top: 30px;
+  }
+
+  .blog__head {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+  }
+
+  .blog__title {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.4667;
+  }
+
+  .blog__grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 30px;
+  }
+
+  .post__media {
+    aspect-ratio: 290 / 205;
+  }
+
+  .post__excerpt {
+    font-size: 16px;
+  }
+
+  .post__more {
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .post--lead .post__media {
+    grid-column: auto;
+    grid-row: auto;
+    margin-top: 30px;
+    aspect-ratio: 290 / 205;
+  }
+
+  .post--lead .post__text {
+    grid-column: auto;
+    margin-top: 30px;
+  }
+
+  .post--lead .post__excerpt,
+  .blog__grid .post__excerpt {
+    min-height: 168px; /* семь строк по 24 */
+  }
+
+  .post--lead .post__more {
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .blog__more {
+    width: 100%;
+    height: 30px;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  /* Планшет: обе сетки возвращаются в две колонки, набор крупнее. */
+  .blog {
+    padding-bottom: 80px;
+  }
+
+  .blog > .breadcrumbs {
+    margin-bottom: 60px;
+  }
+
+  .blog__head {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: 83px auto; /* строка заголовка: 56 * 1.48 */
+    column-gap: 30px;
+  }
+
+  .blog__title {
+    font-size: 56px;
+    font-weight: 600;
+  }
+
+  .blog__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 30px;
+  }
+
+  .post__media {
+    aspect-ratio: 885 / 533;
+  }
+
+  .post__excerpt {
+    font-size: 18px;
+  }
+
+  .post__more {
+    margin-top: 10px;
+    font-size: 20px;
+  }
+
+  .post--lead .post__media {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin-top: 0;
+    aspect-ratio: 885 / 589;
+  }
+
+  .post--lead .post__text {
+    grid-column: 1;
+    margin-top: 24px;
+  }
+
+  .post--lead .post__excerpt,
+  .blog__grid .post__excerpt {
+    min-height: 0;
+  }
+
+  .post--lead .post__more {
+    margin-top: 24px;
+    font-size: 18px;
+  }
+
+  .blog__more {
+    width: 380px;
+    height: 48px;
+    margin-top: 40px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+/* ======================================================================
    Оглавление (index.html)
 
    Служебная страница: показывает клиенту, какие страницы уже свёрстаны.
