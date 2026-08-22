@@ -3098,67 +3098,64 @@ a.contacts__note:hover {
     aspect-ratio: 580 / 679;
   }
 
-  /* Лента превращается в горизонтальную прокрутку. */
+  /* Лента «other projects» не перестраивается в столбик, а остаётся той же
+     композицией, что на десктопе, — просто уменьшенной. Для этого секции
+     возвращается макетный --px: выше по файлу он переключён на реальный
+     пиксель, чтобы остальные блоки набирались нормальным кеглем, а здесь
+     нужна пропорция от ширины окна. --gutter при этом остаётся общим для
+     страницы: заголовок отступает от края как у соседних секций. */
   .other {
+    --px: 0.05208333vw;
+
     height: auto;
     padding: 50px 0;
   }
 
+  /* Заголовок из масштабирования исключён: в макетных долях он ужимался бы
+     до нечитаемого, поэтому набирается тем же кеглем, что заголовки
+     соседних секций. */
   .other__title {
     position: static;
     padding: 0 var(--gutter);
     font-size: 32px;
   }
 
+  /* Раз заголовок встал в поток, карточки отсчитываются от ленты, а не от
+     секции: их макетные top уменьшены на 298 — на столько верх композиции
+     отстоял от верха секции, когда заголовок лежал поверх неё. Высота ленты
+     равна высоте центрального кадра, самого высокого из пяти. */
   .other__track {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+    position: relative;
+    height: calc(679 * var(--px));
     margin-top: 30px;
-    padding: 0 var(--gutter);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
   }
 
-  .other__card {
-    position: static;
-    top: auto;
-    left: auto;
-    width: 78vw;
-    height: auto;
-    aspect-ratio: 580 / 679;
-    flex: none;
-    scroll-snap-align: center;
+  .other__card--3 {
+    top: 0;
   }
 
-  .other__cta {
-    left: auto;
-    right: 20px;
-    top: 20px;
-    width: 120px;
-    height: 120px;
+  .other__card--2,
+  .other__card--4 {
+    top: calc(115 * var(--px));
   }
 
-  .other__cta-label {
-    left: 50%;
-    top: 50%;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-    transform: translate(-50%, -50%);
+  .other__card--1,
+  .other__card--5 {
+    top: calc(149 * var(--px));
   }
 
-  .other__cta-arrow {
-    margin: 0;
-    transform: rotate(90deg);
-  }
-
+  /* На десктопе точки стоят под центральным кадром, а он лежит ровно по
+     середине ленты — статичный ряд по центру даёт ту же картину. */
   .other__dots {
     position: static;
     justify-content: center;
     margin-top: 30px;
     gap: 10px;
+  }
+
+  /* Круглая кнопка на центральном кадре в таком масштабе нечитаема. */
+  .other__cta {
+    display: none;
   }
 }
 
@@ -3189,19 +3186,6 @@ a.contacts__note:hover {
   .project-row__media {
     width: calc((100% - 40px) / 3);
     aspect-ratio: 580 / 679;
-  }
-
-  .other__card {
-    width: 46vw;
-  }
-
-  .other__cta {
-    width: 160px;
-    height: 160px;
-  }
-
-  .other__cta-label {
-    font-size: 18px;
   }
 }
 
