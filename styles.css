@@ -14,6 +14,17 @@
 
   --accent: #b88247;
   --gutter: calc(60 * var(--px));
+
+  /* Высота окна для первых экранов. svh — самая маленькая из динамических
+     высот мобильного браузера: экран влезает целиком при любом положении
+     адресной строки и не дёргается, когда она уезжает при скролле. */
+  --vh: 100vh;
+}
+
+@supports (height: 100svh) {
+  :root {
+    --vh: 100svh;
+  }
 }
 
 *,
@@ -153,28 +164,42 @@ img {
 /* ---------- Первый экран ---------- */
 
 /* Своей заливки у секции в макете нет — она берёт чёрный фон страницы.
-   Без него белый заголовок и подпись «scroll to explore» пропали бы. */
+   Без него белый заголовок и подпись «scroll to explore» пропали бы.
+
+   Высота секции — окно минус шапка: первый экран виден целиком и ни на
+   пиксель больше. Пропорции макета при этом сохраняются — внутри секции
+   работает своя единица --u: тот же макетный пиксель, ужатый ровно
+   настолько, чтобы 990 макетной высоты уложились в окно. Когда окно выше
+   макета, --u упирается в --px, а лишнюю высоту забирает снимок: он
+   кадрируется по `cover` и от этого не страдает.
+
+   Поэтому всё внутри первого экрана считается в --u, а не в --px, а
+   вертикали, привязанные к снимку, заданы долями его высоты. */
 .hero {
+  --hero-h: calc(var(--vh) - 63 * var(--px));
+  --u: min(var(--px), calc(var(--hero-h) / 990));
+  --media-top: calc(120 * var(--u));
+  --media-h: calc(var(--hero-h) - 334 * var(--u)); /* 990 - 656 — всё, кроме снимка */
   position: relative;
-  height: calc(990 * var(--px));
+  height: var(--hero-h);
   overflow: hidden;
   color: var(--paper);
 }
 
 .hero__track {
   position: absolute;
-  left: calc(-4 * var(--px));
-  top: calc(120 * var(--px));
-  height: calc(656 * var(--px));
+  left: calc(-4 * var(--u));
+  top: var(--media-top);
+  height: var(--media-h);
   display: flex;
-  gap: calc(276 * var(--px)); /* шаг 1500 минус ширина слайда 1224 */
+  gap: calc(276 * var(--u)); /* шаг 1500 минус ширина слайда 1224 */
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .slide {
   position: relative;
   flex: none;
-  width: calc(1224 * var(--px));
+  width: calc(1224 * var(--u));
   height: 100%;
 }
 
@@ -200,17 +225,17 @@ img {
 
 .slide__button {
   position: absolute;
-  left: calc(50 * var(--px));
-  top: calc(296 * var(--px));
+  left: calc(50 * var(--u));
+  top: 45.122%; /* 296 / 656 — доля высоты снимка */
   z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(295 * var(--px));
-  height: calc(64 * var(--px));
+  width: calc(295 * var(--u));
+  height: calc(64 * var(--u));
   background: var(--paper);
   color: #000000;
-  font-size: calc(30 * var(--px));
+  font-size: calc(30 * var(--u));
   font-weight: 400;
   line-height: 1.48;
   text-decoration: none;
@@ -224,12 +249,12 @@ img {
 
 .slide__title {
   position: absolute;
-  left: calc(597 * var(--px));
-  top: calc(76 * var(--px));
+  left: calc(597 * var(--u));
+  top: 11.585%; /* 76 / 656 — доля высоты снимка */
   z-index: 1;
   margin: 0;
   color: var(--paper);
-  font-size: calc(150 * var(--px));
+  font-size: calc(150 * var(--u));
   font-weight: 400;
   line-height: 1.12;
   white-space: nowrap;
@@ -237,10 +262,10 @@ img {
 
 .hero__next {
   position: absolute;
-  left: calc(1144 * var(--px));
-  top: calc(275 * var(--px));
-  width: calc(152 * var(--px));
-  height: calc(152 * var(--px));
+  left: calc(1144 * var(--u));
+  top: calc(var(--media-top) + var(--media-h) * 0.23628); /* 155 / 656 от верха снимка */
+  width: calc(152 * var(--u));
+  height: calc(152 * var(--u));
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -265,9 +290,9 @@ img {
 
 .hero__scroll {
   position: absolute;
-  left: calc(810 * var(--px));
-  top: calc(826 * var(--px));
-  font-size: calc(30 * var(--px));
+  left: calc(810 * var(--u));
+  top: calc(var(--media-top) + var(--media-h) + 50 * var(--u)); /* 50 под снимком */
+  font-size: calc(30 * var(--u));
   font-weight: 400;
   line-height: 1.48;
   white-space: nowrap;
@@ -1235,7 +1260,13 @@ a.contacts__note:hover {
   /* ---------- Первый экран ---------- */
 
   .hero {
-    --media-h: calc(var(--col) * 191 / 305);
+    --hero-h: calc(var(--vh) - 59px);
+    /* Первый экран ровно в окно: снимок забирает всю высоту, которая
+       остаётся от полей, заголовка и подписи — 50 + (132 - 67) + 30 + 24
+       + 50 = 219. Ниже 200 снимок не опускаем: на альбомном телефоне
+       лучше немного вылезти за экран, чем оставить от фотографии полоску. */
+    --media-h: max(200px, calc(var(--hero-h) - 219px));
+    min-height: var(--hero-h);
     height: auto;
     padding: 50px 0 50px;
   }
@@ -1254,7 +1285,7 @@ a.contacts__note:hover {
   .slide__media {
     position: relative;
     inset: auto;
-    height: calc(var(--media-h) + 0px);
+    height: var(--media-h);
   }
 
   .slide__button {
@@ -1753,7 +1784,8 @@ a.contacts__note:hover {
   }
 
   .hero {
-    --media-h: calc(var(--col) * 191 / 305);
+    /* Как на телефоне, только крупнее: 60 + (239 - 96) + 30 + 33 + 60 = 326. */
+    --media-h: max(280px, calc(var(--hero-h) - 326px));
     padding: 60px 0 60px;
   }
 
@@ -1941,9 +1973,14 @@ a.contacts__note:hover {
 
 /* ---------- Главное фото ---------- */
 
+/* Высота — окно минус шапка: снимок открывается ровно на экран и ни на
+   пиксель больше. Пересчитывать внутренности не пришлось: в макете заголовок
+   и кружок стоят точно по центру блока (414 + 74 = 488 = 976 / 2), точки — в
+   60 от низа, крошки — в 30 от верха. Все четыре привязаны к краям и потому
+   переживают любую высоту. */
 .project-hero {
   position: relative;
-  height: calc(976 * var(--px));
+  height: calc(var(--vh) - 63 * var(--px));
   overflow: hidden;
   color: var(--paper);
 }
@@ -1953,11 +1990,13 @@ a.contacts__note:hover {
   inset: 0;
 }
 
-/* Снимок в макете именно растянут на блок, а не обрезан по краям. */
+/* В макете снимок растянут на блок, а не обрезан. Но там высота блока была
+   известна заранее, а теперь она равна окну: растяжение искажало бы кадр тем
+   сильнее, чем ниже окно. Поэтому снимок кадрируется по центру. */
 .project-hero__media img {
   width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit: cover;
 }
 
 .project-hero__media::after {
@@ -1998,7 +2037,8 @@ a.contacts__note:hover {
 .project-hero__title {
   position: absolute;
   left: calc(428 * var(--px));
-  top: calc(414 * var(--px));
+  top: 50%; /* в макете 414: строка высотой 148, её середина — середина блока */
+  transform: translateY(-50%);
   z-index: 1;
   margin: 0;
   font-size: calc(100 * var(--px));
@@ -2014,7 +2054,8 @@ a.contacts__note:hover {
 .project-hero__next {
   position: absolute;
   left: calc(1708 * var(--px));
-  top: calc(412 * var(--px));
+  top: 50%; /* в макете 412 + 76 = 488 — середина блока */
+  transform: translateY(-50%);
   z-index: 2;
   width: calc(152 * var(--px));
   height: calc(152 * var(--px));
@@ -2064,7 +2105,7 @@ a.contacts__note:hover {
 .project-hero__dots {
   position: absolute;
   left: calc(911 * var(--px));
-  top: calc(889 * var(--px));
+  bottom: calc(60 * var(--px)); /* в макете 889 сверху: 976 - 889 - 27 */
   z-index: 2;
   display: flex;
   align-items: center;
@@ -2197,18 +2238,7 @@ a.contacts__note:hover {
 
 @media (max-width: 1199px) {
   .project-hero {
-    height: auto;
-  }
-
-  /* На узком экране пропорция блока другая, поэтому снимок кадрируется,
-     а не растягивается. */
-  .project-hero__media {
-    position: static;
-  }
-
-  .project-hero__media img {
-    aspect-ratio: 320 / 358;
-    object-fit: cover;
+    height: calc(var(--vh) - 59px);
   }
 
   .breadcrumbs {
@@ -2223,6 +2253,7 @@ a.contacts__note:hover {
     font-size: 42px;
     line-height: 1.12;
     white-space: normal;
+    transform: none;
   }
 
   .project-hero__next {
@@ -2231,6 +2262,7 @@ a.contacts__note:hover {
     top: calc(70 * var(--px));
     width: 50px;
     height: 50px;
+    transform: none;
   }
 
   .project-hero__ring {
@@ -2302,10 +2334,6 @@ a.contacts__note:hover {
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
-  .project-hero__media img {
-    aspect-ratio: 1024 / 640;
-  }
-
   .project-hero__title {
     bottom: calc(90 * var(--px));
     font-size: 76px;
