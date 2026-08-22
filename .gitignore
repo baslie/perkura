@@ -13,3 +13,7 @@ node_modules/
 
 # Logs
 *.log
+
+# Служебные артефакты MCP-инструментов и снимки для сверки вёрстки
+.playwright-mcp/
+/*.png

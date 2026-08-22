@@ -1438,25 +1438,39 @@ a.contacts__note:hover {
     letter-spacing: 2.5px;
   }
 
+  /* «agency» дочитывает фразу с предыдущей строки, поэтому идёт вплотную к
+     ней: собственный интерлиньяж строки уже даёт нужный просвет. */
   .fullservice__row {
     position: static;
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
-    margin-top: 40px;
+    margin-top: 0;
   }
 
+  /* В одну колонку «agency» дочитывает фразу с предыдущей строки, поэтому
+     стоит по центру под заголовком, а не у правого края, как в макете. */
   .fullservice__accent {
     font-size: 50px;
     letter-spacing: 2px;
-    text-align: right;
+    text-align: center;
   }
 
+  /* Абзац тоже по центру; отступ первой строки при этом теряет смысл.
+     Переносы в разметке расставлены под ширину десктопной колонки — здесь
+     они рвут текст на куски, поэтому гасим их и даём тексту течь. Ширина
+     ограничена, иначе на планшете строка растягивается через весь экран. */
   .fullservice__text {
     width: auto;
-    margin: 0;
+    max-width: 480px;
+    margin: 0 auto;
     font-size: 16px;
-    text-indent: 32px;
+    text-align: center;
+    text-indent: 0;
+  }
+
+  .fullservice__text br {
+    display: none;
   }
 
   .fullservice__scroll {
@@ -1469,16 +1483,40 @@ a.contacts__note:hover {
 
   /* ---------- Works ---------- */
 
+  /* Круговая композиция та же, что на десктопе: большая окружность, дуга со
+     стрелками внутри неё и круглая кнопка — всё вокруг одного центра. На
+     десктопе центр лежит на середине правой кромки снимка; здесь колонка
+     одна, поэтому он переезжает на середину нижней кромки, а композиция
+     разворачивается на 90° — точка на окружности и стрелка в кнопке
+     смотрят вниз, на список проектов.
+
+     Размеры считаются от ширины секции, а не заданы пикселями макета: иначе
+     круги прилипают к левому краю и сплющиваются в овалы. Диаметр большой
+     окружности равен ширине секции — её края касаются нижней кромки снимка
+     и не уходят за экран; дуга внутри уменьшается вместе с ней. Кнопка и
+     высота снимка — линейная интерполяция между 320 и 1199: кнопка растёт
+     от 147 до 240, снимок от 262 до 620. */
   .works {
+    --cta: calc(10.6vw + 113px);
+    --photo-h: calc(40.7vw + 132px);
+
     height: auto;
     padding-bottom: 60px;
   }
 
+  /* Черта у верхней кромки идёт по разметке раньше снимка, поэтому ей нужен
+     слой поверх него. */
+  .works__rule {
+    z-index: 1;
+  }
+
+  /* position: relative — снимок перекрывает орбиту, как на десктопе, и
+     затемнение ::after ложится на него, а не на всю секцию. */
   .works__photo {
-    position: static;
+    position: relative;
     width: 100%;
-    height: auto;
-    aspect-ratio: 320 / 358;
+    height: var(--photo-h);
+    aspect-ratio: auto;
   }
 
   .works__title {
@@ -1487,26 +1525,40 @@ a.contacts__note:hover {
     font-size: 50px;
   }
 
+  /* Сама окружность занимает 0.9435 стороны рамки, поэтому рамку берём с
+     запасом — тогда окружность выходит ровно в ширину секции. Центр
+     окружности внутри рамки лежит на 48.79% / 49.99% её стороны: сдвигаем
+     рамку на эту долю, и центр попадает в точку left/top, вокруг него же
+     идёт поворот. Пропорция 849:828 держится aspect-ratio, иначе круг
+     превращается в овал. */
   .works__orbit {
-    left: 84px;
-    top: 205px;
-    width: 499px;
-    height: 298px;
+    left: 50%;
+    top: var(--photo-h);
+    width: calc(100% / 0.9435);
+    height: auto;
+    aspect-ratio: 849 / 828;
+    transform-origin: 48.79% 49.99%;
+    transform: translate(-48.79%, -49.99%) rotate(90deg);
   }
 
   .works__cta {
-    left: 87px;
-    top: 284px;
-    width: 147px;
-    height: 147px;
+    left: 50%;
+    top: var(--photo-h);
+    width: var(--cta);
+    height: var(--cta);
+    margin: calc(var(--cta) / -2) 0 0 calc(var(--cta) / -2);
   }
 
+  /* Кнопка стоит на снимке, а не на светлом фоне секции, как на десктопе,
+     поэтому надпись и стрелка внутри неё белые. Стрелка берёт цвет через
+     currentColor. */
   .works__cta-label {
     left: 50%;
     top: 50%;
     flex-direction: column;
     align-items: center;
     gap: 8px;
+    color: var(--paper);
     font-size: 16px;
     transform: translate(-50%, -50%);
   }
@@ -1519,7 +1571,9 @@ a.contacts__note:hover {
     transform: rotate(90deg);
   }
 
-  /* Названия проектов идут простым столбиком по центру. */
+  /* Названия проектов идут простым столбиком по центру — ниже точки, которой
+     кончается окружность. Отступ считается от ширины секции: 50% — радиус
+     окружности, ещё 2% — точка на ней. */
   .works__list {
     position: static;
     display: flex;
@@ -1528,7 +1582,7 @@ a.contacts__note:hover {
     gap: 22px;
     width: auto;
     height: auto;
-    margin-top: 183px;
+    margin-top: calc(52% + 26px);
     padding: 0 var(--gutter);
   }
 
@@ -1878,26 +1932,8 @@ a.contacts__note:hover {
     font-size: 96px;
   }
 
-  .works__orbit {
-    left: 140px;
-    top: 240px;
-    width: 760px;
-    height: 454px;
-  }
-
-  .works__cta {
-    left: 150px;
-    top: 330px;
-    width: 190px;
-    height: 190px;
-  }
-
   .works__cta-label {
     font-size: 20px;
-  }
-
-  .works__list {
-    margin-top: 200px;
   }
 
   /* Лента новостей — две колонки. */
