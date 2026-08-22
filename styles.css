@@ -2089,17 +2089,18 @@ a.contacts__note:hover {
   white-space: nowrap;
 }
 
-/* Круг здесь не залит, а обведён — в отличие от такого же на главной.
+/* Обведённый круг со стрелкой. Общий компонент: он же стоит на первом
+   экране страницы проекта и на карточках портфолио. Размер задаёт хозяин
+   блока, внутренности тянутся за viewBox сами.
+
+   Круг здесь не залит, а обведён — в отличие от такого же на главной.
    При наведении круг заливается белым, а стрелка вырезается маской:
-   сквозь неё видно снимок. */
-.project-hero__next {
-  position: absolute;
-  left: calc(1708 * var(--px));
-  top: 50%; /* в макете 412 + 76 = 488 — середина блока */
-  transform: translateY(-50%);
-  z-index: 2;
-  width: calc(152 * var(--px));
-  height: calc(152 * var(--px));
+   сквозь неё видно снимок. Маска нужна не всегда: где заливки нет,
+   в разметке просто не рисуют .ring-arrow__fill. */
+.ring-arrow {
+  display: block;
+  width: 100%;
+  height: 100%;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -2108,39 +2109,49 @@ a.contacts__note:hover {
   cursor: pointer;
 }
 
-.project-hero__next svg {
+.ring-arrow svg {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.project-hero__ring {
+.ring-arrow__ring {
   fill: none;
   stroke: currentColor;
   stroke-width: 3;
   transition: opacity 0.2s ease;
 }
 
-.project-hero__arrow {
+.ring-arrow__arrow {
   transition: opacity 0.2s ease;
 }
 
-.project-hero__fill {
+.ring-arrow__fill {
   fill: var(--paper);
   opacity: 0;
   transition: opacity 0.2s ease;
 }
 
-.project-hero__next:hover .project-hero__ring,
-.project-hero__next:hover .project-hero__arrow,
-.project-hero__next:focus-visible .project-hero__ring,
-.project-hero__next:focus-visible .project-hero__arrow {
+.ring-arrow:hover .ring-arrow__ring,
+.ring-arrow:hover .ring-arrow__arrow,
+.ring-arrow:focus-visible .ring-arrow__ring,
+.ring-arrow:focus-visible .ring-arrow__arrow {
   opacity: 0;
 }
 
-.project-hero__next:hover .project-hero__fill,
-.project-hero__next:focus-visible .project-hero__fill {
+.ring-arrow:hover .ring-arrow__fill,
+.ring-arrow:focus-visible .ring-arrow__fill {
   opacity: 1;
+}
+
+.project-hero__next {
+  position: absolute;
+  left: calc(1708 * var(--px));
+  top: 50%; /* в макете 412 + 76 = 488 — середина блока */
+  transform: translateY(-50%);
+  z-index: 2;
+  width: calc(152 * var(--px));
+  height: calc(152 * var(--px));
 }
 
 .project-hero__dots {
@@ -2306,7 +2317,7 @@ a.contacts__note:hover {
     transform: none;
   }
 
-  .project-hero__ring {
+  .ring-arrow__ring {
     stroke-width: 6;
   }
 
@@ -2385,7 +2396,7 @@ a.contacts__note:hover {
     height: 88px;
   }
 
-  .project-hero__ring {
+  .ring-arrow__ring {
     stroke-width: 4;
   }
 
@@ -3186,6 +3197,304 @@ a.contacts__note:hover {
   .project-row__media {
     width: calc((100% - 40px) / 3);
     aspect-ratio: 580 / 679;
+  }
+}
+
+/* ======================================================================
+   ПОРТФОЛИО (portfolio.html)
+
+   Список проектов: две колонки карточек, под ними кнопка «смотреть все».
+   Шапка, крошки, кружок со стрелкой, Contact me и футер здесь общие —
+   взяты со страниц home.html и project.html и живут выше по файлу.
+   ====================================================================== */
+
+.portfolio {
+  padding: 0 var(--gutter) calc(60 * var(--px));
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* Тут крошки идут обычной строкой по потоку, а не поверх снимка,
+   как на странице проекта. */
+.breadcrumbs--flow {
+  position: static;
+  margin-bottom: calc(60 * var(--px));
+  padding-top: calc(60 * var(--px));
+}
+
+/* Заголовок слева, вводный абзац — во второй колонке той же сетки,
+   что и карточки. */
+.portfolio__head {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: calc(30 * var(--px));
+}
+
+.portfolio__title {
+  margin: 0;
+  font-size: calc(100 * var(--px));
+  font-weight: 600;
+  line-height: 1.48;
+  text-transform: uppercase;
+}
+
+.portfolio__lead {
+  margin: calc(25 * var(--px)) 0 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.portfolio__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: calc(60 * var(--px));
+  column-gap: calc(30 * var(--px));
+  row-gap: calc(60 * var(--px));
+}
+
+/* ---------- Карточка проекта ---------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--px));
+}
+
+.card__media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 885 / 533;
+  color: var(--paper);
+}
+
+.card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* В макете это состояние нарисовано на первой карточке: снимок уходит
+   под чёрное полупрозрачное полотно, поверх выходят название и стрелка. */
+.card__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #00000080;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.card__media:hover .card__overlay,
+.card__media:focus-visible .card__overlay {
+  opacity: 1;
+}
+
+.card__name {
+  font-size: calc(26 * var(--px));
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.card__arrow {
+  position: absolute;
+  right: calc(30 * var(--px));
+  bottom: calc(30 * var(--px));
+  width: calc(152 * var(--px));
+  height: calc(152 * var(--px));
+}
+
+/* Метка видео: полупрозрачный круг с треугольником, ровно по центру кадра.
+   Пропорции круга и треугольника заданы долей, чтобы метка сжималась
+   вместе с карточкой. */
+.card__play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(152 * var(--px));
+  height: calc(152 * var(--px));
+  border-radius: 50%;
+  background: #ffffff80;
+  transform: translate(-50%, -50%);
+}
+
+.card__play svg {
+  width: 31.6%; /* 48 из 152 в макете */
+  height: 31.6%;
+  fill: #00000080;
+}
+
+.card__text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(10 * var(--px));
+}
+
+.card__title {
+  margin: 0;
+  font-size: calc(26 * var(--px));
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Две строки держим всегда: в макете подпись занимает ровно этот бокс,
+   и без него ряды карточек разъезжаются по высоте. */
+.card__desc {
+  min-height: calc(66 * var(--px));
+  margin: 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.portfolio__more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(580 * var(--px));
+  height: calc(59 * var(--px));
+  margin: calc(60 * var(--px)) auto 0;
+  background: #000000;
+  color: var(--paper);
+  font-size: calc(22 * var(--px));
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.portfolio__more:hover {
+  opacity: 0.8;
+}
+
+/* ---------- Планшет и телефон ---------- */
+
+@media (max-width: 1199px) {
+  /* Телефон: одна колонка, ритм блока сжимается с 60 до 30. */
+  .portfolio {
+    padding-bottom: 60px;
+  }
+
+  .breadcrumbs--flow {
+    margin-bottom: 30px;
+    padding-top: 30px;
+  }
+
+  .portfolio__head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .portfolio__title {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.4667;
+  }
+
+  .portfolio__lead {
+    margin-top: 30px;
+    font-size: 16px;
+  }
+
+  .portfolio__grid {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 30px;
+    row-gap: 30px;
+  }
+
+  .card__media {
+    aspect-ratio: 290 / 205;
+  }
+
+  .card__name {
+    font-size: 22px;
+  }
+
+  .card__arrow {
+    right: 15px;
+    bottom: 15px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .card__play {
+    width: 72px;
+    height: 72px;
+  }
+
+  .card__title {
+    font-size: 22px;
+  }
+
+  .card__desc {
+    min-height: 72px; /* три строки по 24 */
+    font-size: 16px;
+  }
+
+  .portfolio__more {
+    width: 100%;
+    height: 30px;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  /* Планшет: карточки возвращаются в две колонки, набор крупнее. */
+  .portfolio__head {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 30px;
+  }
+
+  .portfolio__title {
+    font-size: 56px;
+    font-weight: 600;
+  }
+
+  .portfolio__lead {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+
+  .portfolio__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 30px;
+    row-gap: 40px;
+  }
+
+  .card__media {
+    aspect-ratio: 885 / 533;
+  }
+
+  .card__arrow {
+    right: 20px;
+    bottom: 20px;
+    width: 72px;
+    height: 72px;
+  }
+
+  .card__play {
+    width: 72px;
+    height: 72px;
+  }
+
+  .card__desc {
+    min-height: 54px; /* две строки по 27 */
+    font-size: 18px;
+  }
+
+  .portfolio__more {
+    width: 380px;
+    height: 48px;
+    font-size: 18px;
+    font-weight: 500;
   }
 }
 

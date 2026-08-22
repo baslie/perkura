@@ -47,7 +47,7 @@
         <nav class="nav" id="site-nav" aria-label="Основная навигация">
           <a class="nav__link" href="home.html#about">О нас</a>
           <a class="nav__link" href="home.html#services">Услуги</a>
-          <a class="nav__link nav__link--active" href="home.html#works">Портфолио</a>
+          <a class="nav__link nav__link--active" href="portfolio.html">Портфолио</a>
           <a class="nav__link" href="home.html#blog">Блог</a>
           <a class="nav__link" href="home.html#contacts">Контакты</a>
           <a class="nav__phone" href="tel:+79999999999">+7(999)999-99-99</a>
@@ -62,12 +62,12 @@
       <nav class="breadcrumbs" aria-label="Хлебные крошки">
         <a class="breadcrumbs__link" href="home.html">Главная</a>
         <span class="breadcrumbs__sep" aria-hidden="true">-</span>
-        <span class="breadcrumbs__current" aria-current="page">Портфолио</span>
+        <a class="breadcrumbs__link breadcrumbs__current" href="portfolio.html">Портфолио</a>
       </nav>
 
       <h1 class="project-hero__title">Modern and Monochrome</h1>
 
-      <button class="project-hero__next" type="button" aria-label="Следующий кадр">
+      <button class="project-hero__next ring-arrow" type="button" aria-label="Следующий кадр">
         <svg viewBox="0 0 152 152" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <mask id="heroArrowCut">
@@ -79,12 +79,12 @@
             </mask>
           </defs>
 
-          <circle class="project-hero__ring" cx="76" cy="76" r="74.5" />
-          <g class="project-hero__arrow" transform="translate(41 47)">
+          <circle class="ring-arrow__ring" cx="76" cy="76" r="74.5" />
+          <g class="ring-arrow__arrow" transform="translate(41 47)">
             <path fill="none" stroke="currentColor" stroke-width="18.06" stroke-linejoin="miter" transform="translate(0 0.703) scale(0.3867 0.3882)" d="M0 74.49995l170.145 0c2.20101 0 2.862-3.1629 0.857-4.07049-28.507-12.9044-75.4571-39.7591-94.002-70.42946" />
             <path fill="none" stroke="currentColor" stroke-width="18.06" stroke-linejoin="miter" transform="translate(0 29.038) scale(0.3867 0.3882)" d="M0 0l170.145 0c2.20101 0 2.85999 3.15521 0.85199 4.05811-28.677 12.8995-76.44609 39.7619-94.99699 70.4419" />
           </g>
-          <circle class="project-hero__fill" cx="76" cy="76" r="76" mask="url(#heroArrowCut)" />
+          <circle class="ring-arrow__fill" cx="76" cy="76" r="76" mask="url(#heroArrowCut)" />
         </svg>
       </button>
 
