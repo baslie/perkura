@@ -3215,9 +3215,12 @@ a.contacts__note:hover {
 }
 
 /* Тут крошки идут обычной строкой по потоку, а не поверх снимка,
-   как на странице проекта. */
+   как на странице проекта. Отступы задаёт страница: они у всех свои. */
 .breadcrumbs--flow {
   position: static;
+}
+
+.portfolio > .breadcrumbs {
   margin-bottom: calc(60 * var(--px));
   padding-top: calc(60 * var(--px));
 }
@@ -3382,7 +3385,7 @@ a.contacts__note:hover {
     padding-bottom: 60px;
   }
 
-  .breadcrumbs--flow {
+  .portfolio > .breadcrumbs {
     margin-bottom: 30px;
     padding-top: 30px;
   }
@@ -3495,6 +3498,170 @@ a.contacts__note:hover {
     height: 48px;
     font-size: 18px;
     font-weight: 500;
+  }
+}
+
+/* ======================================================================
+   НОВОСТЬ (article.html)
+
+   Одна публикация: снимок во всю колонку, заголовок, текст и кнопка
+   «поделиться» в правом нижнем углу. Шапка, крошки, Contact me и футер —
+   общие, живут выше по файлу.
+   ====================================================================== */
+
+.article {
+  display: block;
+  padding: 0 var(--gutter) calc(60 * var(--px));
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* Здесь крошки прижаты к шапке плотнее, чем на портфолио: в макете 30. */
+.article > .breadcrumbs {
+  padding-top: calc(30 * var(--px));
+}
+
+.article__media {
+  margin: calc(60 * var(--px)) 0 0;
+  aspect-ratio: 1800 / 726;
+}
+
+/* Снимок растянут на блок, а не обрезан, — как в макете и как план на
+   странице проекта. Кадрирование тут не подходит: исходник почти
+   квадратный, и в полосу 1800x726 попала бы либо люстра, либо диван. */
+.article__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.article__title {
+  margin: calc(60 * var(--px)) 0 0;
+  font-size: calc(50 * var(--px));
+  font-weight: 400;
+  line-height: 1.48;
+  text-transform: uppercase;
+}
+
+.article__text {
+  margin-top: calc(30 * var(--px));
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.article__text p {
+  margin: 0;
+}
+
+.article__text p + p {
+  margin-top: calc(33 * var(--px));
+}
+
+/* Кнопка прижата к правому краю колонки — в макете так же. */
+.article__share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(20 * var(--px));
+  width: calc(580 * var(--px));
+  height: calc(59 * var(--px));
+  margin: calc(30 * var(--px)) 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: #000000;
+  color: var(--paper);
+  font-family: inherit;
+  font-size: calc(22 * var(--px));
+  font-weight: 500;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.article__share:hover {
+  opacity: 0.8;
+}
+
+.article__share svg {
+  flex: none;
+  width: calc(30 * var(--px));
+  height: calc(30 * var(--px));
+}
+
+/* ---------- Планшет и телефон ---------- */
+
+@media (max-width: 1199px) {
+  /* Телефон: ритм блока сжимается с 60 до 30, кнопка занимает всю ширину. */
+  .article {
+    padding-bottom: 60px;
+  }
+
+  .article__media {
+    margin-top: 30px;
+    aspect-ratio: 290 / 167;
+  }
+
+  .article__title {
+    margin-top: 30px;
+    font-size: 25px;
+  }
+
+  .article__text {
+    margin-top: 30px;
+    font-size: 16px;
+  }
+
+  .article__text p + p {
+    margin-top: 24px;
+  }
+
+  .article__share {
+    gap: 10px;
+    width: 100%;
+    height: 30px;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .article__share svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  /* Планшет: набор крупнее, кнопка снова уходит вправо. */
+  .article__media {
+    margin-top: 40px;
+    aspect-ratio: 1800 / 726;
+  }
+
+  .article__title {
+    margin-top: 40px;
+    font-size: 40px;
+  }
+
+  .article__text {
+    font-size: 18px;
+  }
+
+  .article__text p + p {
+    margin-top: 27px;
+  }
+
+  .article__share {
+    gap: 16px;
+    width: 380px;
+    height: 48px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .article__share svg {
+    width: 24px;
+    height: 24px;
   }
 }
 
