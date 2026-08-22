@@ -3140,20 +3140,25 @@ a.contacts__note:hover {
    Оглавление (index.html)
 
    Служебная страница: показывает клиенту, какие страницы уже свёрстаны.
-   Никакой графики, только набор — открывается мгновенно. Размеры здесь
-   в обычных пикселях: страница не повторяет макет, ей незачем тянуться.
+   Не часть дизайна сайта, поэтому набирается по-своему — светлая сетка
+   плиток на белом. Размеры здесь в обычных пикселях: страница не
+   повторяет макет, ей незачем тянуться вместе с ним.
+
+   Все селекторы ниже начинаются с .dir — блок изолирован от home.html и
+   project.html. Единственный общий класс, .arrow-ne, переопределяется
+   только внутри .dir, базовое правило выше не трогаем.
    ====================================================================== */
 
 .dir {
   min-height: 100vh;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
 }
 
 .dir__inner {
-  max-width: 860px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding: 80px 24px 120px;
+  padding: 72px 32px 120px;
 }
 
 .dir__head {
@@ -3178,7 +3183,7 @@ a.contacts__note:hover {
 }
 
 .dir__title {
-  margin: 64px 0 0;
+  margin: 56px 0 0;
   font-size: 88px;
   font-weight: 600;
   line-height: 1.1;
@@ -3188,120 +3193,234 @@ a.contacts__note:hover {
 .dir__lead {
   max-width: 46ch;
   margin: 20px 0 0;
+  color: #6b6b6b;
   font-size: 18px;
   font-weight: 300;
   line-height: 1.55;
-  opacity: 0.72;
 }
 
+.dir__section {
+  margin-top: 64px;
+}
+
+/* Заголовок группы — строка на линии: название слева, счётчик рядом. */
 .dir__group {
-  margin: 72px 0 0;
-  font-size: 16px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.14);
+  font-size: 15px;
   font-weight: 500;
   line-height: 1.4;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  opacity: 0.55;
 }
 
-.dir__list {
-  margin: 16px 0 0;
+.dir__count {
+  color: #a0a0a0;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+
+.dir__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px 24px;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.dir__row {
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+/* Ячейке нужен min-width: иначе длинное слово в подписи распирает колонку. */
+.dir__cell {
+  min-width: 0;
 }
 
-.dir__row:last-child {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.dir__link {
+.dir__card {
   display: flex;
-  align-items: center;
-  gap: 24px;
-  padding: 24px 4px;
+  flex-direction: column;
   color: inherit;
   text-decoration: none;
-  transition: opacity 0.2s ease, padding-left 0.2s ease;
 }
 
-a.dir__link:hover,
-a.dir__link:focus-visible {
-  padding-left: 12px;
-  opacity: 0.65;
+/* Плитка: квадрат с крупным номером. Стрелка в углу — признак того,
+   что страница открывается. */
+.dir__tile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(23, 23, 23, 0.14);
+  background: #f6f6f6;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .dir__num {
-  font-size: 15px;
-  font-weight: 300;
+  font-size: 56px;
+  font-weight: 200;
   line-height: 1;
-  opacity: 0.5;
-  flex: none;
+  letter-spacing: 0.02em;
 }
 
-.dir__body {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1 1 auto;
+.dir .arrow-ne {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  opacity: 0.3;
+  transition: opacity 0.2s ease;
 }
 
 .dir__name {
-  font-size: 30px;
+  margin-top: 14px;
+  font-size: 18px;
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1.25;
   text-transform: uppercase;
 }
 
 .dir__note {
-  font-size: 15px;
+  margin-top: 6px;
+  color: #8a8a8a;
+  font-size: 13px;
   font-weight: 300;
   line-height: 1.45;
-  opacity: 0.6;
 }
 
-.dir .arrow-ne {
-  width: 26px;
-  height: 26px;
+/* Наведение только там, где есть курсор: на тачскрине состояние залипает
+   после тапа и плитка остаётся чёрной. */
+@media (hover: hover) {
+  a.dir__card:hover .dir__tile {
+    transform: translateY(-4px);
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  a.dir__card:hover .arrow-ne {
+    opacity: 1;
+  }
 }
 
-/* Строки без вёрстки не кликаются и приглушены. */
-.dir__row--soon .dir__link {
+/* Обводку по фокусу вешаем на плитку, а не на карточку целиком:
+   иначе рамка обхватывает и подпись под ней. */
+a.dir__card:focus-visible {
+  outline: none;
+}
+
+a.dir__card:focus-visible .dir__tile {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+a.dir__card:focus-visible .arrow-ne {
+  opacity: 1;
+}
+
+/* Несвёрстанные страницы не кликаются: пунктир вместо рамки, приглушённый тон. */
+.dir__card--soon {
   cursor: default;
-  opacity: 0.4;
 }
 
-@media (max-width: 640px) {
+.dir__card--soon .dir__tile {
+  border-style: dashed;
+  background: transparent;
+  color: #c4c4c4;
+}
+
+.dir__card--soon .dir__name {
+  color: #a0a0a0;
+}
+
+.dir__card--soon .dir__note {
+  color: #b4b4b4;
+}
+
+/* Планшет: колонок три, поля уже. */
+@media (max-width: 1000px) {
   .dir__inner {
-    padding: 48px 20px 80px;
+    max-width: none;
+    padding: 64px 30px 96px;
   }
 
   .dir__title {
-    margin-top: 40px;
-    font-size: 48px;
+    font-size: 72px;
+  }
+
+  .dir__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Телефон: две колонки, кегли задаём явно — иначе приедут десктопные. */
+@media (max-width: 640px) {
+  .dir__inner {
+    padding: 44px 20px 72px;
+  }
+
+  .dir__head {
+    gap: 12px;
+  }
+
+  .dir__logo {
+    width: 100px;
+    height: 26px;
+  }
+
+  .dir__caption {
+    padding-left: 12px;
+    font-size: 13px;
+  }
+
+  .dir__title {
+    margin-top: 36px;
+    font-size: 46px;
   }
 
   .dir__lead {
     font-size: 16px;
   }
 
-  .dir__group {
-    margin-top: 48px;
+  .dir__section {
+    margin-top: 44px;
   }
 
-  .dir__link {
-    gap: 16px;
-    padding: 20px 2px;
+  .dir__group {
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+
+  .dir__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 16px;
+  }
+
+  .dir__num {
+    font-size: 40px;
+  }
+
+  .dir .arrow-ne {
+    top: 10px;
+    right: 10px;
+    width: 15px;
+    height: 15px;
   }
 
   .dir__name {
-    font-size: 22px;
+    margin-top: 12px;
+    font-size: 16px;
   }
 
   .dir__note {
-    font-size: 14px;
+    margin-top: 4px;
+    font-size: 12px;
   }
 }
