@@ -5290,12 +5290,6 @@ a.contacts__note:hover {
   line-height: 1.5;
 }
 
-/* У раскрытой строки номера нет — так в макете, и название само встаёт
-   к левому краю колонки. */
-.svc2-item[open] .svc2-item__num {
-  display: none;
-}
-
 .svc2-item__name {
   font-size: calc(80 * var(--px));
   font-weight: 400;
@@ -5335,10 +5329,26 @@ a.contacts__note:hover {
 }
 
 .svc2-item[open] .svc2-item__mark {
+  position: relative;
+  z-index: 1;
   width: calc(16 * var(--px));
   height: calc(10 * var(--px));
   margin: calc(61 * var(--px)) 0 0 auto;
   border: 0;
+}
+
+/* Текст раскрытой строки лежит поверх правого края заголовка и перехватывает
+   нажатие на галку — поэтому она поднята над панелью. Сама галка мельче
+   ногтя, площадь нажатия ей растит невидимый квадрат размером со свёрнутый
+   кружок: закрыть строку галкой должно быть так же легко, как открыть. */
+.svc2-item[open] .svc2-item__mark::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(39 * var(--px));
+  height: calc(39 * var(--px));
+  transform: translate(-50%, -50%);
 }
 
 .svc2-item__chevron {
