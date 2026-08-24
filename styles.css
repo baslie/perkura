@@ -33,6 +33,15 @@
   --hover-soft: 0.6;
   --hover-strong: 0.8;
 
+  /* Движение. Кривая одна на весь сайт — та же easeOutQuint, что уже стояла
+     литералом у подчёркиваний меню и у зума снимка в ленте новостей.
+     Длительности названы по тому, что они двигают, а не числом: линейка
+     прочерчивается, текст проявляется, снимок открывается шторкой. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-rule: 0.6s;
+  --dur-text: 0.5s;
+  --dur-media: 0.8s;
+
   /* Высота окна для первых экранов. svh — самая маленькая из динамических
      высот мобильного браузера: экран влезает целиком при любом положении
      адресной строки и не дёргается, когда она уезжает при скролле. */
@@ -62,6 +71,229 @@ body {
 img {
   display: block;
   max-width: 100%;
+}
+
+/* ---------- Появление блоков при прокрутке ---------- */
+
+/* Жестов ровно три, и каждый закреплён за своим типом содержимого: снимок
+   открывается шторкой, текст проявляется со сдвигом, линейка прочерчивается
+   от того края, которым она держится в композиции. Больше жестов не заводим —
+   иначе движение читается как набор украшений, а не как замысел.
+
+   Класс reveal сам по себе не делает ничего: и начальное состояние, и переход
+   висят на атрибуте data-reveal, а его ставит только скрипт и только тем
+   элементам, которые при загрузке оказались ниже кромки окна. Поэтому первый
+   экран неподвижен на любой ширине, а без скрипта страница видна целиком.
+   Подробности — в NOTES.md, раздел «Движение». */
+
+.reveal[data-reveal] {
+  transition-timing-function: var(--ease-out);
+}
+
+/* Снимок: шторка сверху вниз. Едет clip-path, а не размер, поэтому разметка
+   не пересчитывается и соседи не двигаются. */
+.reveal--media[data-reveal] {
+  transition-property: clip-path;
+  transition-duration: var(--dur-media);
+}
+
+.reveal--media[data-reveal="pending"] {
+  clip-path: inset(0 0 100% 0);
+}
+
+.reveal--media[data-reveal="shown"] {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Текст: проявление со сдвигом снизу. Сдвиг в макетных пикселях — на 1440
+   он должен быть не крупнее, чем на 1920. */
+.reveal--text[data-reveal] {
+  transition-property: opacity, transform;
+  transition-duration: var(--dur-text);
+}
+
+.reveal--text[data-reveal="pending"] {
+  opacity: 0;
+  transform: translateY(calc(12 * var(--px)));
+}
+
+.reveal--text[data-reveal="shown"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Линейка прочерчивается от закреплённого края: горизонтальные — слева,
+   вертикальные черты у верхней кромки секций — сверху вниз. Жест один,
+   просто вдоль своей оси.
+
+   Режет тоже clip-path, а не scaleX: масштаб в ноль схлопывает бокс, и
+   IntersectionObserver перестаёт считать элемент видимым — линейка так и
+   осталась бы спрятанной навсегда. Обрезка габаритов не трогает. */
+.reveal--rule[data-reveal],
+.reveal--rule-down[data-reveal] {
+  transition-property: clip-path;
+  transition-duration: var(--dur-rule);
+}
+
+.reveal--rule[data-reveal="pending"] {
+  clip-path: inset(0 100% 0 0);
+}
+
+.reveal--rule-down[data-reveal="pending"] {
+  clip-path: inset(0 0 100% 0);
+}
+
+.reveal--rule[data-reveal="shown"],
+.reveal--rule-down[data-reveal="shown"] {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Лесенка. Задержки собраны здесь, а не разбросаны по секциям: ритм появления
+   читается только целиком. Правил всего два — соседи по ряду разъезжаются на
+   60 мс, подпись идёт следом за своим снимком через 120 мс. Всё остальное
+   складывается из этих двух. */
+
+/* About us: снимки в паре */
+.about__photo--2[data-reveal],
+.about__photo--4[data-reveal] {
+  transition-delay: 60ms;
+}
+
+/* Blog на главной: три карточки в ряд */
+.news__item:nth-child(1) .news__body[data-reveal] {
+  transition-delay: 120ms;
+}
+
+.news__item:nth-child(2) .news__media[data-reveal] {
+  transition-delay: 60ms;
+}
+
+.news__item:nth-child(2) .news__body[data-reveal] {
+  transition-delay: 180ms;
+}
+
+.news__item:nth-child(3) .news__media[data-reveal] {
+  transition-delay: 120ms;
+}
+
+.news__item:nth-child(3) .news__body[data-reveal] {
+  transition-delay: 240ms;
+}
+
+/* Contact me: черта, заголовок, адрес, форма */
+.contacts__info[data-reveal] {
+  transition-delay: 60ms;
+}
+
+.form[data-reveal] {
+  transition-delay: 120ms;
+}
+
+/* Портфолио: сетка в две колонки */
+.card__text[data-reveal] {
+  transition-delay: 120ms;
+}
+
+.card:nth-child(even) .card__media[data-reveal] {
+  transition-delay: 60ms;
+}
+
+.card:nth-child(even) .card__text[data-reveal] {
+  transition-delay: 180ms;
+}
+
+/* Новости: лента в две колонки */
+.post__text[data-reveal] {
+  transition-delay: 120ms;
+}
+
+.blog__grid .post:nth-child(even) .post__media[data-reveal] {
+  transition-delay: 60ms;
+}
+
+.blog__grid .post:nth-child(even) .post__text[data-reveal] {
+  transition-delay: 180ms;
+}
+
+/* Страница проекта: цифры об объекте */
+.stat:nth-child(2)[data-reveal] {
+  transition-delay: 60ms;
+}
+
+.stat:nth-child(3)[data-reveal] {
+  transition-delay: 120ms;
+}
+
+.stat:nth-child(4)[data-reveal] {
+  transition-delay: 180ms;
+}
+
+/* Страница проекта: до и после */
+.project-plan__media[data-reveal] {
+  transition-delay: 60ms;
+}
+
+.specs[data-reveal] {
+  transition-delay: 120ms;
+}
+
+/* Страница проекта: наборы кадров */
+.project-set__title[data-reveal],
+.project-set__side--1[data-reveal] {
+  transition-delay: 60ms;
+}
+
+.project-set__side--2[data-reveal] {
+  transition-delay: 120ms;
+}
+
+.project-set__text[data-reveal] {
+  transition-delay: 180ms;
+}
+
+.project-pair__media--2[data-reveal] {
+  transition-delay: 60ms;
+}
+
+.project-pair__text[data-reveal] {
+  transition-delay: 120ms;
+}
+
+.project-split__large[data-reveal] {
+  transition-delay: 60ms;
+}
+
+.project-split__small-text[data-reveal] {
+  transition-delay: 120ms;
+}
+
+.project-split__large-text[data-reveal] {
+  transition-delay: 180ms;
+}
+
+.project-row__media:nth-child(2)[data-reveal] {
+  transition-delay: 60ms;
+}
+
+.project-row__media:nth-child(3)[data-reveal] {
+  transition-delay: 120ms;
+}
+
+/* Страница проекта: лента других проектов */
+.other__card--2[data-reveal] {
+  transition-delay: 60ms;
+}
+
+.other__card--3[data-reveal] {
+  transition-delay: 120ms;
+}
+
+.other__card--4[data-reveal] {
+  transition-delay: 180ms;
+}
+
+.other__card--5[data-reveal] {
+  transition-delay: 240ms;
 }
 
 /* ---------- Шапка ---------- */
@@ -172,7 +404,7 @@ img {
   background: currentColor;
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.35s var(--ease-out);
 }
 
 .nav__link:hover::after,
@@ -186,13 +418,6 @@ img {
    наведения и в покое его нет ни у одного пункта. */
 .nav__link--active {
   font-weight: 700;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .nav__link::after,
-  .nav__phone-label::after {
-    transition-duration: 0.01ms;
-  }
 }
 
 /* Телефон лежит в боксе фиксированной ширины с центровкой. */
@@ -584,12 +809,6 @@ img {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .fullservice__scroll-ring {
-    animation: none;
-  }
-}
-
 /* ---------- Works ---------- */
 
 .works {
@@ -925,7 +1144,7 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.5s var(--ease-out);
 }
 
 .news__card:hover .news__media img {
@@ -1121,6 +1340,7 @@ a.contacts__note:hover {
   font-size: calc(22 * var(--px));
   font-weight: 300;
   line-height: 1.5;
+  transition: border-bottom-color 0.15s ease;
 }
 
 .field__input::placeholder {
@@ -1165,8 +1385,7 @@ a.contacts__note:hover {
   width: calc(23 * var(--px));
   height: calc(23 * var(--px));
   border: calc(1 * var(--px)) solid var(--paper);
-  color: transparent;
-  transition: color 0.15s ease;
+  color: var(--paper);
 }
 
 .consent__check {
@@ -1175,8 +1394,17 @@ a.contacts__note:hover {
   overflow: visible;
 }
 
-.consent__input:checked + .consent__box {
-  color: var(--paper);
+/* Галочка не проявляется, а прочерчивается от угла: контур длиной 26.03
+   в координатах viewBox, поэтому штрих 27 закрывает его целиком. Обратный
+   ход — тем же путём, галочка стирается туда же, откуда пришла. */
+.consent__check path {
+  stroke-dasharray: 27;
+  stroke-dashoffset: 27;
+  transition: stroke-dashoffset 0.2s var(--ease-out);
+}
+
+.consent__input:checked + .consent__box .consent__check path {
+  stroke-dashoffset: 0;
 }
 
 .consent__input:focus-visible + .consent__box {
@@ -1212,12 +1440,18 @@ a.contacts__note:hover {
   line-height: 1.5;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.12s ease;
 }
 
 .form__submit:hover {
   background: var(--accent);
   color: var(--paper);
+}
+
+/* Кнопка проседает под пальцем — единственная задача этого движения
+   в том, чтобы нажатие было замечено. */
+.form__submit:active {
+  transform: scale(0.98);
 }
 
 /* ---------- Футер ---------- */
@@ -1299,24 +1533,6 @@ a.contacts__note:hover {
 
 .social:hover {
   transform: translateY(calc(-3 * var(--px)));
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero__next,
-  .slide__button,
-  .news__media img,
-  .social,
-  .works__item,
-  .works__nav {
-    transition: none;
-  }
-
-  /* Кадры проектов меняются сразу и без наезда: скрипт в этом режиме и
-     сам список листает без подъезда. */
-  .works__shot {
-    transform: none;
-    transition: none;
-  }
 }
 
 /* ======================================================================
@@ -1428,7 +1644,7 @@ a.contacts__note:hover {
     margin-left: auto;
     border-radius: 2px;
     background: currentColor;
-    transition: transform 0.25s ease, opacity 0.2s ease;
+    transition: transform 0.25s ease;
   }
 
   .burger[aria-expanded="true"] .burger__bar:first-child {
@@ -3867,11 +4083,15 @@ a.contacts__note:hover {
   font-weight: 500;
   line-height: 1.5;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.12s ease;
 }
 
 .article__share:hover {
   opacity: var(--hover-strong);
+}
+
+.article__share:active {
+  transform: scale(0.98);
 }
 
 .article__share svg {
@@ -4530,5 +4750,103 @@ a.dir__card:focus-visible .arrow-ne {
   .dir__note {
     margin-top: 4px;
     font-size: 12px;
+  }
+}
+
+/* ======================================================================
+   Поменьше движения
+
+   Все ответы на prefers-reduced-motion собраны здесь, а не разбросаны
+   по секциям: так видно разом, что именно замирает. Блок стоит последним
+   и потому выигрывает у одинаково весомых правил по порядку следования.
+
+   Режим не означает «ничего не двигается вообще»: цвет, прозрачность
+   и смена состояний остаются — уходят перемещения, наезды и раскрытия.
+   ====================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Раскрытия при прокрутке здесь нет вовсе: скрипт выходит из initReveal
+     до того, как хоть что-то спрячет. Правило ниже — страховка на случай,
+     когда режим включили при уже открытой странице: спрятанное показываем
+     как есть, без перехода. */
+  .reveal[data-reveal] {
+    transition: none;
+  }
+
+  .reveal[data-reveal="pending"] {
+    clip-path: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Кольцо «page scroll» останавливается. */
+  .fullservice__scroll-ring {
+    animation: none;
+  }
+
+  /* Подчёркивания в меню гасятся не в none, а в 0.01ms: событие
+     transitionend должно дойти. */
+  .nav__link::after,
+  .nav__phone-label::after {
+    transition-duration: 0.01ms;
+  }
+
+  /* Состояния меняются мгновенно. */
+  .about__more,
+  .article__share,
+  .blog__more,
+  .breadcrumbs__link,
+  .breadcrumbs__sep,
+  .burger__bar,
+  .card__overlay,
+  .consent__check path,
+  .contacts__mail,
+  .contacts__note,
+  .dir .arrow-ne,
+  .dir__tile,
+  .dot,
+  .field__input,
+  .footer__legal,
+  .form__submit,
+  .hero__next,
+  .nav,
+  .news__media img,
+  .news__more,
+  .other__cta,
+  .portfolio__more,
+  .post__media img,
+  .post__more,
+  .project-info__more,
+  .ring-arrow__arrow,
+  .ring-arrow__fill,
+  .ring-arrow__ring,
+  .slide__button,
+  .social,
+  .works__cta,
+  .works__item,
+  .works__nav {
+    transition: none;
+  }
+
+  /* А здесь уходит и само перемещение: мгновенный скачок на 4 пикселя
+     ничем не лучше плавного. */
+  .hero__next:hover,
+  .social:hover,
+  .news__card:hover .news__media img,
+  .post__media:hover img,
+  .form__submit:active,
+  .article__share:active {
+    transform: none;
+  }
+
+  a.dir__card:hover .dir__tile {
+    transform: none;
+  }
+
+  /* Кадры проектов в Works меняются сразу и без наезда: скрипт в этом
+     режиме и сам список листает без подъезда. */
+  .works__shot {
+    transform: none;
+    transition: none;
   }
 }

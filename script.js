@@ -1,7 +1,8 @@
 /* Скрипт один на все страницы, поэтому каждая часть сначала убеждается, что
-   её разметка на месте, и молча уходит, если нет. Частей три: слайдер первого
-   экрана, карусель проектов в Works и меню под бургером. Всё лежит внутри
-   одной функции, чтобы не заводить глобальных имён. */
+   её разметка на месте, и молча уходит, если нет. Частей четыре: слайдер
+   первого экрана, карусель проектов в Works, меню под бургером и появление
+   блоков при прокрутке. Всё лежит внутри одной функции, чтобы не заводить
+   глобальных имён. */
 (() => {
   /* Просьбу «поменьше движения» уважают оба слайдера, поэтому запрос один. */
   const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -57,8 +58,6 @@
      Дуга сделана свойством рамки, а не слайда: сдвиг названия вправо зависит от
      того, на какой высоте оно сейчас находится, а не от его номера. Поэтому при
      листании названия скользят по дуге, а сама дуга остаётся неподвижной. */
-  const works = document.querySelector(".works");
-
   const initWorks = () => {
     const works = document.querySelector(".works");
     if (!works || !window.EmblaCarousel) return;
@@ -359,7 +358,69 @@
     setMenu(false);
   };
 
+  /* Появление блоков при прокрутке. Начальное — спрятанное — состояние
+     навешивает скрипт, а не разметка: в HTML стоит класс reveal, который сам
+     по себе ничего не значит, и только здесь элемент получает data-reveal.
+     Из этого следуют два свойства, ради которых всё и сделано так.
+
+     Первое: то, что видно при загрузке, не анимируется вовсе. Правило
+     «первый экран без движения» держится этой проверкой, а не памятью
+     верстальщика — элемент выше нижнего края окна просто не получает
+     начального состояния, и неважно, 1920 сейчас или 390.
+
+     Второе: без скрипта страница видна целиком. Прячет только состояние
+     pending, а поставить его больше некому. Тот же приём, что у data-ready
+     в Works. */
+  const initReveal = () => {
+    const items = document.querySelectorAll(".reveal");
+    if (!items.length || calm.matches) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.dataset.reveal = "shown";
+          io.unobserve(entry.target);
+        });
+      },
+      /* Нижний край кадра поднят: у самой кромки окна раскрытие не читается,
+         блок должен войти в кадр по-настоящему. */
+      { rootMargin: "0px 0px -12% 0px" },
+    );
+
+    /* Сначала все чтения, потом все записи — как в drawArc. Вперемешку
+       браузер пересчитывал бы разметку на каждом элементе списка. */
+    const tops = [...items].map((el) => el.getBoundingClientRect().top);
+    const fold = window.innerHeight;
+
+    items.forEach((el, i) => {
+      if (tops[i] < fold) return;
+      el.dataset.reveal = "pending";
+      io.observe(el);
+    });
+
+    /* Хвост страницы короче поднятой кромки: линейка футера лежит в тех самых
+       последних процентах окна, до которых наблюдателю уже не дотянуться, —
+       прокручивать дальше некуда. Дочитав до низа, показываем остаток сами. */
+    const flushTail = () => {
+      const doc = document.documentElement;
+      if (window.innerHeight + Math.ceil(window.scrollY) < doc.scrollHeight - 1) return;
+
+      items.forEach((el) => {
+        if (el.dataset.reveal !== "pending") return;
+        el.dataset.reveal = "shown";
+        io.unobserve(el);
+      });
+
+      window.removeEventListener("scroll", flushTail);
+    };
+
+    window.addEventListener("scroll", flushTail, { passive: true });
+    flushTail();
+  };
+
   initHero();
   initWorks();
   initMenu();
+  initReveal();
 })();
