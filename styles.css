@@ -129,31 +129,63 @@ img {
 
 .nav__link,
 .nav__phone {
+  position: relative;
   color: inherit;
   font-size: calc(18 * var(--px));
   font-weight: 600;
   line-height: 1.5;
   text-decoration: none;
   white-space: nowrap;
-  transition: opacity 0.2s ease;
 }
 
-.nav__link:hover,
-.nav__phone:hover {
-  opacity: 0.7;
+/* Подчёркивание рисуем линией, а не text-decoration: её можно раскрыть
+   слева направо. В покое линия сжата в точку у левого края и невидима.
+
+   У телефона линию несёт вложенный span: бокс ссылки шире набора, и линия
+   по боксу вылезала бы за номер с обеих сторон. */
+.nav__link::after,
+.nav__phone-label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(-3 * var(--px));
+  height: max(1px, calc(1 * var(--px)));
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.nav__link:hover::after,
+.nav__link:focus-visible::after,
+.nav__phone:hover .nav__phone-label::after,
+.nav__phone:focus-visible .nav__phone-label::after {
+  transform: scaleX(1);
+}
+
+/* Текущий раздел выделен только насыщенностью: подчёркивание — состояние
+   наведения и в покое его нет ни у одного пункта. */
 .nav__link--active {
   font-weight: 700;
-  text-decoration: underline;
-  text-decoration-thickness: calc(1 * var(--px));
-  text-underline-offset: calc(3 * var(--px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav__link::after,
+  .nav__phone-label::after {
+    transition-duration: 0.01ms;
+  }
 }
 
 /* Телефон лежит в боксе фиксированной ширины с центровкой. */
 .nav__phone {
   width: calc(154 * var(--px));
   text-align: center;
+}
+
+.nav__phone-label {
+  position: relative;
+  display: inline-block;
 }
 
 /* Телефон иконкой и бургер нужны только на узких экранах. */
@@ -186,21 +218,39 @@ img {
   color: var(--paper);
 }
 
-.hero__track {
+/* Рамка слайдера: за её краем лента обрезается. Лежит там же, где раньше
+   лежала сама лента, и тянется до правого края окна — из-под правого края
+   выглядывает начало следующего проекта, как в макете. */
+.hero__viewport {
   position: absolute;
   left: calc(-4 * var(--u));
   top: var(--media-top);
+  width: calc(100vw + 4 * var(--u));
   height: var(--media-h);
-  display: flex;
-  gap: calc(276 * var(--u)); /* шаг 1500 минус ширина слайда 1224 */
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+  cursor: grab;
 }
 
+.hero__viewport[data-dragging="true"] {
+  cursor: grabbing;
+}
+
+/* Ленту двигает Embla — своих transform и transition у неё нет.
+   pan-y оставляет странице вертикальную прокрутку пальцем. */
+.hero__track {
+  display: flex;
+  height: 100%;
+  touch-action: pan-y pinch-zoom;
+}
+
+/* Промежуток задан полем слайда, а не gap: так библиотека учитывает его и
+   на стыке последнего слайда с первым при зацикливании. */
 .slide {
   position: relative;
   flex: none;
   width: calc(1224 * var(--u));
   height: 100%;
+  margin-right: calc(276 * var(--u)); /* шаг 1500 минус ширина слайда 1224 */
 }
 
 /* Заголовок выходит за правый край снимка, поэтому обрезается только медиа. */
@@ -500,6 +550,26 @@ img {
   font-family: var(--font);
   color: var(--paper);
   overflow: visible;
+}
+
+/* Крутится только кольцо надписи — стрелка в центре стоит на месте.
+   Центр вращения задан в координатах viewBox: 216 / 2. */
+.fullservice__scroll-ring {
+  transform-box: view-box;
+  transform-origin: 108px 108px;
+  animation: scroll-ring-spin 26s linear infinite;
+}
+
+@keyframes scroll-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fullservice__scroll-ring {
+    animation: none;
+  }
 }
 
 /* ---------- Works ---------- */
@@ -1086,7 +1156,6 @@ a.contacts__note:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__track,
   .hero__next,
   .slide__button,
   .news__media img,
@@ -1239,11 +1308,24 @@ a.contacts__note:hover {
     transform: none;
   }
 
+  /* В панели пункты идут колонкой: без align-self линия растянулась бы на
+     всю ширину экрана, а подчеркнуть надо набор. */
   .nav__link,
   .nav__phone {
+    align-self: flex-start;
     padding: 11px 0;
     font-size: 18px;
     font-weight: 500;
+  }
+
+  /* У пункта линия поднята на высоту нижнего поля, у телефона она висит
+     под самим набором — поле лежит на ссылке, а не на span. */
+  .nav__link::after {
+    bottom: 8px;
+  }
+
+  .nav__phone-label::after {
+    bottom: -3px;
   }
 
   .nav__phone {
@@ -1253,33 +1335,35 @@ a.contacts__note:hover {
 
   .nav__link--active {
     font-weight: 700;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
   }
 
   /* ---------- Первый экран ---------- */
 
+  /* Ниже 1200 первый экран в окно не вписывается — и не должен. Кадры
+     проектов горизонтальные, и если тянуть снимок на всю оставшуюся
+     высоту окна, он превращается в портретную полосу, обрезанную по
+     бокам. Поэтому высота считается от ширины колонки в пропорции
+     мобильного макета (305 x 191), а секция растёт по содержимому. */
   .hero {
-    --hero-h: calc(var(--vh) - 59px);
-    /* Первый экран ровно в окно: снимок забирает всю высоту, которая
-       остаётся от полей, заголовка и подписи — 50 + (132 - 67) + 30 + 24
-       + 50 = 219. Ниже 200 снимок не опускаем: на альбомном телефоне
-       лучше немного вылезти за экран, чем оставить от фотографии полоску. */
-    --media-h: max(200px, calc(var(--hero-h) - 219px));
-    min-height: var(--hero-h);
+    --media-h: calc(var(--col) * 191 / 305);
     height: auto;
     padding: 50px 0 50px;
   }
 
-  .hero__track {
+  .hero__viewport {
     position: static;
+    width: auto;
     height: auto;
-    gap: 15px;
+  }
+
+  .hero__track {
+    height: auto;
   }
 
   .slide {
     width: calc(100vw - 15px);
     height: auto;
+    margin-right: 15px;
   }
 
   .slide__media {
@@ -1288,10 +1372,15 @@ a.contacts__note:hover {
     height: var(--media-h);
   }
 
+  /* Кнопка стоит по центру снимка (снимок здесь в потоке и начинается от
+     верха слайда, поэтому отсчёт от top). Но не ниже предела: название
+     кейса заходит на снимок на 67px, и между ним и кнопкой остаётся 12px
+     воздуха — 67 + 12 + 30 (высота кнопки) = 109 от нижнего края снимка.
+     На узком телефоне срабатывает именно предел, а не центр. */
   .slide__button {
     left: 50%;
-    top: auto;
-    bottom: 43%;
+    top: min(calc(var(--media-h) / 2 - 15px), calc(var(--media-h) - 109px));
+    bottom: auto;
     width: 140px;
     height: 30px;
     font-size: 16px;
@@ -1837,19 +1926,27 @@ a.contacts__note:hover {
 
   .nav__link,
   .nav__phone {
+    align-self: center;
     padding: 0;
     font-size: 16px;
     font-weight: 600;
   }
 
+  .nav__link::after,
+  .nav__phone-label::after {
+    bottom: -3px;
+  }
+
+  /* Та же пропорция снимка, что на телефоне, только поля крупнее. */
   .hero {
-    /* Как на телефоне, только крупнее: 60 + (239 - 96) + 30 + 33 + 60 = 326. */
-    --media-h: max(280px, calc(var(--hero-h) - 326px));
+    --media-h: calc(var(--col) * 191 / 305);
+    height: auto;
     padding: 60px 0 60px;
   }
 
   .slide {
     width: calc(100vw - 30px);
+    margin-right: 30px;
   }
 
   .slide__title {
@@ -1857,7 +1954,10 @@ a.contacts__note:hover {
     font-size: 76px;
   }
 
+  /* Тот же расчёт, что на телефоне, под здешние размеры: название заходит
+     на снимок на 96px, кнопка выше 48px, воздуха между ними 16. */
   .slide__button {
+    top: min(calc(var(--media-h) / 2 - 24px), calc(var(--media-h) - 160px));
     width: 220px;
     height: 48px;
     font-size: 22px;

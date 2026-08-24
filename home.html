@@ -50,29 +50,41 @@
           <a class="nav__link" href="portfolio.html">Портфолио</a>
           <a class="nav__link" href="news.html">Блог</a>
           <a class="nav__link" href="#contacts">Контакты</a>
-          <a class="nav__phone" href="tel:+79999999999">+7(999)999-99-99</a>
+          <a class="nav__phone" href="tel:+79999999999"><span class="nav__phone-label">+7(999)999-99-99</span></a>
         </nav>
       </div>
     </header>
 
+    <!-- Слайдер проектов. Разметка под Embla Carousel: рамка с обрезкой,
+         внутри неё лента, внутри ленты слайды. Первый заголовок — h1
+         страницы, остальные набраны абзацем: заголовок на странице один. -->
     <section class="hero">
-      <div class="hero__track">
-        <article class="slide">
-          <div class="slide__media">
-            <img src="assets/hero-1.jpg" alt="Светлая гостиная в монохромной палитре" />
-          </div>
-          <a class="slide__button" href="#works">Подробнее</a>
-          <h1 class="slide__title">MODERN<br />AND<br />MONOCHROME</h1>
-        </article>
+      <div class="hero__viewport">
+        <div class="hero__track">
+          <article class="slide">
+            <div class="slide__media">
+              <img src="assets/hero-1.jpg" alt="Светлая гостиная в монохромной палитре" />
+            </div>
+            <a class="slide__button" href="project.html">Подробнее</a>
+            <h1 class="slide__title">MODERN<br />AND<br />MONOCHROME</h1>
+          </article>
 
-        <!-- Копия слайда для слайдера: без заголовка — на первом экране
-             он один, а чужой выглядывал бы справа. -->
-        <article class="slide" aria-hidden="true">
-          <div class="slide__media">
-            <img src="assets/hero-1.jpg" alt="" />
-          </div>
-          <a class="slide__button" href="#works" tabindex="-1">Подробнее</a>
-        </article>
+          <article class="slide">
+            <div class="slide__media">
+              <img src="assets/works-1.jpg" alt="Гостиная с деревянными панелями и мягким светом" loading="lazy" />
+            </div>
+            <a class="slide__button" href="project.html">Подробнее</a>
+            <p class="slide__title">WARM<br />AND<br />MINIMAL</p>
+          </article>
+
+          <article class="slide">
+            <div class="slide__media">
+              <img src="assets/portfolio-1.jpg" alt="Просторная светлая комната с панорамным окном" loading="lazy" />
+            </div>
+            <a class="slide__button" href="project.html">Подробнее</a>
+            <p class="slide__title">LIGHT<br />AND<br />CALM</p>
+          </article>
+        </div>
       </div>
 
       <button class="hero__next" type="button" aria-label="Следующий проект">
@@ -133,9 +145,11 @@
         <defs>
           <path id="scrollRing" fill="none" d="M 189.92 111.58 A 82 82 0 0 1 26.08 104.42 A 82 82 0 0 1 189.92 111.58" />
         </defs>
-        <text fill="currentColor" font-size="22" font-weight="400" letter-spacing="0.99" xml:space="preserve">
-          <textPath href="#scrollRing" textLength="515.22" lengthAdjust="spacing">page scroll  page scroll  page scroll  page scroll  </textPath>
-        </text>
+        <g class="fullservice__scroll-ring">
+          <text fill="currentColor" font-size="22" font-weight="400" letter-spacing="0.99" xml:space="preserve">
+            <textPath href="#scrollRing" textLength="515.22" lengthAdjust="spacing">page scroll  page scroll  page scroll  page scroll  </textPath>
+          </text>
+        </g>
         <path fill="#ffffffff" fill-rule="evenodd" transform="translate(124.681 127.673) rotate(-180) scale(2.6525 2.679) translate(-0 -0)" d="M6.23871 0.21934c0.14063-0.14045 0.33125-0.21934 0.53-0.21934 0.19875 0 0.38937 0.07889 0.53 0.21934l6 6c0.07369 0.06866 0.13279 0.15146 0.17378 0.24346 0.04099 0.092 0.06303 0.19131 0.06481 0.29202 0.00178 0.1007-0.01675 0.20073-0.05447 0.29412-0.03772 0.09339-0.09387 0.17822-0.16508 0.24944-0.07122 0.07122-0.15605 0.12736-0.24944 0.16508-0.09339 0.03772-0.19342 0.05625-0.29412 0.05447-0.1007-0.00178-0.20002-0.02382-0.29202-0.06481-0.092-0.04099-0.1748-0.10009-0.24346-0.17378l-4.72-4.72 0 14.19c0 0.19891-0.07902 0.38968-0.21967 0.53033-0.14065 0.14065-0.33142 0.21967-0.53033 0.21967-0.19891 0-0.38968-0.07902-0.53033-0.21967-0.14065-0.14065-0.21967-0.33142-0.21967-0.53033l0-14.19-4.72 4.72c-0.06866 0.07369-0.15146 0.13279-0.24346 0.17378-0.092 0.04099-0.19131 0.06303-0.29202 0.06481-0.1007 0.00178-0.20073-0.01675-0.29412-0.05447-0.09339-0.03772-0.17822-0.09387-0.24944-0.16508-0.07122-0.07122-0.12736-0.15605-0.16508-0.24944-0.03772-0.09339-0.05625-0.19342-0.05447-0.29412 0.00178-0.1007 0.02382-0.20002 0.06481-0.29202 0.04099-0.092 0.10009-0.1748 0.17378-0.24346l6-6z" />
       </svg>
     </section>
@@ -359,6 +373,10 @@
       </div>
     </footer>
 
+    <!-- Embla Carousel 8.6.0 — библиотека слайдера, лежит в репозитории
+         целиком: ни сборки, ни node_modules, ни запроса к CDN. -->
+    <script src="assets/vendor/embla-carousel.umd.js"></script>
+    <script src="assets/vendor/embla-carousel-autoplay.umd.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
