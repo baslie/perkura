@@ -1,8 +1,8 @@
 /* Скрипт один на все страницы, поэтому каждая часть сначала убеждается, что
-   её разметка на месте, и молча уходит, если нет. Частей четыре: слайдер
-   первого экрана, карусель проектов в Works, меню под бургером и появление
-   блоков при прокрутке. Всё лежит внутри одной функции, чтобы не заводить
-   глобальных имён. */
+   её разметка на месте, и молча уходит, если нет. Частей пять: слайдер первого
+   экрана, лента проектов, карусель проектов в Works, меню под бургером и
+   появление блоков при прокрутке. Всё лежит внутри одной функции, чтобы не
+   заводить глобальных имён. */
 (() => {
   /* Просьбу «поменьше движения» уважают оба слайдера, поэтому запрос один. */
   const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -46,6 +46,132 @@
     hero.on("pointerUp", () => {
       heroViewport.dataset.dragging = "false";
     });
+  };
+
+  /* Лента проектов — «авторский надзор» на услугах и «другие проекты» на
+     странице проекта. Разметка и стили у них общие, поведение тоже.
+
+     Веер из пяти кадров выложен в стилях обычной flex-строкой, и середина
+     строки совпадает с серединой среднего кадра. Поэтому выравнивания по
+     центру и третьего слайда стартовым хватает, чтобы в покое лента встала
+     ровно как в макете, — подгонять ничего не нужно.
+
+     Лента зациклена: у неё нет краёв, за которыми появлялась бы пустота.
+     Оговорка из Works — «на десктопе не зацикливаем, иначе колесо залипает» —
+     сюда не относится: колесо здесь не перехватывается. */
+  /* Узлы раскладки — три места кадра: в центре, соседом, с краю. Все числа
+     из макета: масштаб — отношение ширин 580 / 384 / 326, спуск — бывшие
+     координаты top, поправка вбок — разница между равномерным шагом слотов
+     и настоящим расстоянием до крайнего кадра (1024 против 897). Кегль и поле
+     подписи убывают отдельно: 22 / 20 / 18 и 30 / 30 / 27. */
+  const SHAPE = {
+    s: [1, 0.662069, 0.562069],
+    dy: [0, 115, 149],
+    dx: [0, 0, 127],
+    cap: [22, 20, 18],
+    pad: [30, 30, 27],
+  };
+
+  /* Между узлами — сглаживание с нулевой производной на концах: по ломаной
+     кадры дёргались бы, проходя узел. За последним узлом значение замирает —
+     дальше двух слотов от середины кадр всё равно за обрезом рамки. */
+  const step = (nodes, away) => {
+    const from = Math.min(Math.floor(away), nodes.length - 1);
+    const to = Math.min(from + 1, nodes.length - 1);
+    const t = Math.min(Math.max(away - from, 0), 1);
+    return nodes[from] + (nodes[to] - nodes[from]) * (t * t * (3 - 2 * t));
+  };
+
+  const initReel = () => {
+    const reel = document.querySelector(".reel");
+    if (!reel || !window.EmblaCarousel) return;
+
+    const viewport = reel.querySelector(".reel__viewport");
+    const slots = [...reel.querySelectorAll(".reel__slot")];
+    const cards = slots.map((slot) => slot.querySelector(".reel__card"));
+    if (!viewport || !slots.length) return;
+
+    /* Точки лежат по-разному: на услугах внутри ленты, на странице проекта
+       соседом. Координаты у них считаются от разных предков, переносить нельзя —
+       поэтому ищем по секции целиком. */
+    const dots = [...reel.closest("section").querySelectorAll(".reel__dots .dot")];
+
+    /* Метку ставим до сборки, а не после. Она снимает статическое центрирование
+       строки, а Embla при инициализации меряет, где слайды лежат сейчас: успей
+       центрирование дожить до замера — библиотека посчитала бы смещения от него
+       и после снятия вся лента уехала бы вправо на полразницы ширин. Заодно
+       метка включает курсор-ладонь. */
+    reel.dataset.ready = "true";
+
+    const embla = window.EmblaCarousel(viewport, {
+      loop: true,
+      align: "center",
+      containScroll: false,
+      startIndex: 2,
+      duration: calm.matches ? 0 : 30,
+    });
+
+    /* Раскладка. Сначала читаем положение всех слотов, потом пишем всем кадрам —
+       вперемешку браузер пересчитывал бы разметку на каждом слоте, как и
+       в drawArc у карусели Works.
+
+       d — насколько слот отошёл от середины рамки, в слотах. Ноль — кадр
+       в центре, единица — сосед, двойка — край. Знак нужен только поправке
+       вбок: она тянет крайние кадры внутрь, к середине. */
+    const shape = () => {
+      const frame = viewport.getBoundingClientRect();
+      const middle = frame.left + frame.width / 2;
+      const boxes = slots.map((slot) => slot.getBoundingClientRect());
+
+      boxes.forEach((box, i) => {
+        const d = ((box.left + box.right) / 2 - middle) / box.width;
+        const away = Math.abs(d);
+        const card = cards[i];
+        if (!card) return;
+
+        card.style.setProperty("--s", step(SHAPE.s, away).toFixed(4));
+        card.style.setProperty("--dy", step(SHAPE.dy, away).toFixed(2));
+        card.style.setProperty("--dx", (-Math.sign(d) * step(SHAPE.dx, away)).toFixed(2));
+        card.style.setProperty("--cap", step(SHAPE.cap, away).toFixed(2));
+        card.style.setProperty("--pad", step(SHAPE.pad, away).toFixed(2));
+      });
+    };
+
+    /* Круг стоит неподвижно, но ведёт он на тот проект, что сейчас в центре:
+       адрес лежит на самом кадре, в data-href. Сейчас у всех пяти он один —
+       других страниц проектов в макете нет, — и когда они появятся, править
+       придётся только разметку. */
+    const cta = reel.querySelector(".reel__cta");
+
+    const select = () => {
+      const index = embla.selectedScrollSnap();
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("dot--active", i === index);
+        dot.setAttribute("aria-selected", String(i === index));
+      });
+
+      const href = cards[index] && cards[index].dataset.href;
+      if (cta && href) cta.setAttribute("href", href);
+    };
+
+    dots.forEach((dot, i) => dot.addEventListener("click", () => embla.scrollTo(i)));
+
+    embla.on("select", select);
+    embla.on("scroll", shape);
+    embla.on("reInit", shape);
+    /* Последний scroll приходит на кадр раньше, чем лента встаёт окончательно,
+       и без этой строки центральный снимок замирал на десяток пикселей правее
+       середины — доводку видно по кругу, который стоит неподвижно. */
+    embla.on("settle", shape);
+    embla.on("pointerDown", () => {
+      viewport.dataset.dragging = "true";
+    });
+    embla.on("pointerUp", () => {
+      viewport.dataset.dragging = "false";
+    });
+
+    shape();
+    select();
   };
 
   /* Секция Works — карусель проектов. Названия едут вдоль дуги, точка на орбите
@@ -314,8 +440,8 @@
     build();
   };
 
-  /* Меню под бургером. На планшете и десктопе панель не используется:
-     там навигация — обычная строка, и кнопка скрыта стилями. */
+  /* Меню под бургером. С 900 и выше панель не используется: там навигация —
+     обычная строка, и кнопка скрыта стилями. */
   const initMenu = () => {
     const burger = document.querySelector(".burger");
     const nav = document.querySelector(".nav");
@@ -349,8 +475,9 @@
       if (isMenuOpen() && !e.target.closest(".header")) setMenu(false);
     });
 
-    /* Кнопка исчезает при переходе на планшет — панель не должна остаться открытой. */
-    const wide = window.matchMedia("(min-width: 768px)");
+    /* Кнопка исчезает на 900 — панель не должна остаться открытой. Порог тот же,
+       что у строчного меню в стилях: ниже него семь пунктов в строку не влезают. */
+    const wide = window.matchMedia("(min-width: 900px)");
     wide.addEventListener("change", () => {
       if (wide.matches) setMenu(false);
     });
@@ -422,6 +549,7 @@
   };
 
   initHero();
+  initReel();
   initWorks();
   initMenu();
   initReveal();
