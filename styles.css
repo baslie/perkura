@@ -5173,6 +5173,7 @@ a.contacts__note:hover {
   font-size: calc(130 * var(--px));
   font-weight: 400;
   line-height: 1.4846; /* 193 / 130 */
+  text-transform: uppercase;
 }
 
 /* Строки заходят одна на другую: в макете между ними отрицательный
