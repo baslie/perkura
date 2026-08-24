@@ -5277,10 +5277,6 @@ a.contacts__note:hover {
   display: none;
 }
 
-.svc2-item[open] .svc2-item__head {
-  padding-top: calc(60 * var(--px));
-}
-
 .svc2-item__num {
   width: calc(36 * var(--px));
   margin-right: calc(20 * var(--px));
@@ -5296,12 +5292,6 @@ a.contacts__note:hover {
   line-height: 1.4875;
   text-transform: uppercase;
   white-space: nowrap;
-}
-
-/* У раскрытой строки название прижато к линейке плотнее: в макете его
-   строка равна кеглю, без обычного межстрочного воздуха. */
-.svc2-item[open] .svc2-item__name {
-  line-height: 1;
 }
 
 /* Метка справа: у свёрнутой строки кружок с плюсом, у раскрытой — голая
@@ -5333,7 +5323,7 @@ a.contacts__note:hover {
   z-index: 1;
   width: calc(16 * var(--px));
   height: calc(10 * var(--px));
-  margin: calc(61 * var(--px)) 0 0 auto;
+  margin: calc(91 * var(--px)) 0 0 auto;
   border: 0;
 }
 
@@ -5367,10 +5357,14 @@ a.contacts__note:hover {
 
 /* Раскрытая часть: снимок слева, ссылка и кнопка справа, а текст лежит выше
    всех — в одной строке с названием. Поэтому координаты у всех четырёх
-   отсчитываются от самой строки, а панель только держит высоту. */
+   отсчитываются от самой строки, а панель только держит высоту.
+
+   Отступ 49 вместо макетных 58: раскрытая шапка стала на 9 выше свёрнутой,
+   когда её отступ и межстрочный воздух сравняли с остальными строками.
+   Разницу отдали панели, и низ раскрытой строки остался там же, где в макете. */
 .svc2-item__panel {
   height: calc(406 * var(--px));
-  margin-top: calc(58 * var(--px));
+  margin-top: calc(49 * var(--px));
 }
 
 .svc2-item__media {
@@ -5508,8 +5502,7 @@ a.contacts__note:hover {
     margin-bottom: 30px;
   }
 
-  .svc2-item__head,
-  .svc2-item[open] .svc2-item__head {
+  .svc2-item__head {
     align-items: center;
     padding-top: 30px;
   }
@@ -5520,8 +5513,7 @@ a.contacts__note:hover {
     font-size: 16px;
   }
 
-  .svc2-item__name,
-  .svc2-item[open] .svc2-item__name {
+  .svc2-item__name {
     width: auto;
     font-size: 22px;
     line-height: 1.5;
@@ -5604,8 +5596,7 @@ a.contacts__note:hover {
     font-size: 20px;
   }
 
-  .svc2-item__name,
-  .svc2-item[open] .svc2-item__name {
+  .svc2-item__name {
     font-size: 40px;
   }
 
