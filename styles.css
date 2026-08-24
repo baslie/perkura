@@ -4793,9 +4793,11 @@ a.contacts__note:hover {
   margin-top: calc(30 * var(--px));
 }
 
-/* Обводка внутренняя: рамки соседних карточек не должны слипаться
-   в двойную линию по стыку сетки. */
+/* Высота задана явно, чтобы рамка легла внутрь бокса: в макете обводка
+   внутренняя и в 174 уже входит, а при height:auto CSS прибавил бы её
+   к содержимому и ряд стал бы выше на два пикселя. */
 .pros__card {
+  height: calc(174 * var(--px));
   padding: calc(30 * var(--px));
   border: 1px solid currentColor;
 }
@@ -4807,10 +4809,7 @@ a.contacts__note:hover {
   line-height: 1.5;
 }
 
-/* Две строки держим всегда: в макете у карточек одна высота на ряд,
-   а текст в них разной длины. */
 .pros__card-text {
-  min-height: calc(66 * var(--px));
   margin: calc(10 * var(--px)) 0 0;
   font-size: calc(22 * var(--px));
   font-weight: 300;
@@ -4996,12 +4995,16 @@ a.contacts__note:hover {
     margin-top: 20px;
   }
 
+  /* Высоту карточке снова задаёт текст: на узком экране он длиннее. */
+  .pros__card {
+    height: auto;
+  }
+
   .pros__card-title {
     font-size: 20px;
   }
 
   .pros__card-text {
-    min-height: 0;
     font-size: 16px;
   }
 
@@ -5136,6 +5139,479 @@ a.contacts__note:hover {
 
   .svc-super__media {
     aspect-ratio: 1800 / 945;
+  }
+}
+
+/* ======================================================================
+   УСЛУГИ, ВАРИАНТ 2 (services-2.html)
+
+   Второй вариант той же страницы: крупный английский заголовок со снимком
+   во всю колонку и гармошка услуг вместо перечисления блоками. Ссылок на
+   неё нигде, кроме оглавления, нет — это витрина альтернативы.
+
+   Шапка, крошки, Description, Contact me и футер — общие блоки, живут выше
+   по файлу. Своего здесь два: первый экран и гармошка.
+   ====================================================================== */
+
+/* ---------- Первый экран ---------- */
+
+/* Композиция собрана координатами: заголовок и снимок держатся левого края,
+   два примечания — правого, и заезжают друг на друга по вертикали. */
+.svc2-hero {
+  position: relative;
+  height: calc(1105 * var(--px));
+  background: var(--paper);
+  color: var(--black);
+}
+
+.svc2-hero__title {
+  position: absolute;
+  left: var(--gutter);
+  top: 0;
+  width: calc(1190 * var(--px));
+  margin: 0;
+  font-size: calc(130 * var(--px));
+  font-weight: 400;
+  line-height: 1.4846; /* 193 / 130 */
+}
+
+/* Строки заходят одна на другую: в макете между ними отрицательный
+   промежуток 49, поэтому шаг строки 144, а не 193. */
+.svc2-hero__line {
+  display: block;
+}
+
+.svc2-hero__line + .svc2-hero__line {
+  margin-top: calc(-49 * var(--px));
+}
+
+.svc2-hero__note {
+  position: absolute;
+  top: calc(351 * var(--px));
+  width: calc(580 * var(--px));
+  margin: 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.svc2-hero__note--1 {
+  left: calc(620 * var(--px));
+}
+
+.svc2-hero__note--2 {
+  left: calc(1280 * var(--px));
+}
+
+/* Снимок в макете растянут на полосу, а не обрезан, — как в новости.
+   Кадрировать нечем: исходник почти квадратный, а полоса втрое шире. */
+.svc2-hero__media {
+  position: absolute;
+  left: var(--gutter);
+  top: calc(521 * var(--px));
+  width: calc(1800 * var(--px));
+  height: calc(584 * var(--px));
+  margin: 0;
+  overflow: hidden;
+}
+
+.svc2-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+/* ---------- Гармошка услуг ---------- */
+
+.svc2-services {
+  padding: calc(120 * var(--px)) var(--gutter);
+  background: var(--paper);
+  color: var(--black);
+}
+
+.svc2-services__title {
+  margin: 0;
+  font-size: calc(50 * var(--px));
+  font-weight: 700;
+  line-height: 1.48;
+  text-transform: uppercase;
+}
+
+.svc2-list {
+  margin-top: calc(28 * var(--px));
+}
+
+/* Раскрытие держится на <details name>: браузер сам закрывает соседей,
+   когда открывают одну строку, и сам даёт клавиатуру и чтение с экрана.
+   Скрипта здесь нет вовсе. */
+.svc2-item {
+  position: relative;
+  border-top: 1px solid #00000080;
+}
+
+/* Свёрнутые строки заходят друг на друга: в макете шаг 125 при высоте
+   содержимого 149, поэтому названия почти касаются линеек. */
+.svc2-item:not([open]) {
+  height: calc(125 * var(--px));
+}
+
+.svc2-item:last-child {
+  height: auto;
+}
+
+.svc2-item[open] {
+  margin-bottom: calc(60 * var(--px));
+}
+
+.svc2-item__head {
+  display: flex;
+  align-items: flex-start;
+  padding-top: calc(30 * var(--px));
+  list-style: none;
+  cursor: pointer;
+}
+
+.svc2-item__head::-webkit-details-marker {
+  display: none;
+}
+
+.svc2-item[open] .svc2-item__head {
+  padding-top: calc(60 * var(--px));
+}
+
+.svc2-item__num {
+  width: calc(36 * var(--px));
+  margin-right: calc(20 * var(--px));
+  color: #00000080;
+  font-size: calc(26 * var(--px));
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* У раскрытой строки номера нет — так в макете, и название само встаёт
+   к левому краю колонки. */
+.svc2-item[open] .svc2-item__num {
+  display: none;
+}
+
+.svc2-item__name {
+  font-size: calc(80 * var(--px));
+  font-weight: 400;
+  line-height: 1.4875; /* 119 / 80 */
+}
+
+.svc2-item[open] .svc2-item__name {
+  width: calc(580 * var(--px));
+  line-height: 1;
+}
+
+/* Метка справа: у свёрнутой строки кружок с плюсом, у раскрытой — голая
+   галка вверх. Размер и отступ у них разные, поэтому переключается всё. */
+.svc2-item__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: calc(39 * var(--px));
+  height: calc(39 * var(--px));
+  margin: 0 calc(65 * var(--px)) 0 auto;
+  border: 1px solid #00000080;
+  border-radius: 50%;
+  color: #00000080;
+  font-size: calc(26 * var(--px));
+  font-weight: 600;
+  line-height: 1;
+  transition: color 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
+}
+
+.svc2-item__head:hover .svc2-item__mark {
+  color: var(--black);
+  border-color: var(--black);
+}
+
+.svc2-item[open] .svc2-item__mark {
+  width: calc(16 * var(--px));
+  height: calc(10 * var(--px));
+  margin: calc(61 * var(--px)) 0 0 auto;
+  border: 0;
+}
+
+.svc2-item__chevron {
+  display: none;
+}
+
+.svc2-item[open] .svc2-item__chevron {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.svc2-item[open] .svc2-item__plus {
+  display: none;
+}
+
+/* Раскрытая часть: снимок слева, ссылка и кнопка справа, а текст лежит выше
+   всех — в одной строке с названием. Поэтому координаты у всех четырёх
+   отсчитываются от самой строки, а панель только держит высоту. */
+.svc2-item__panel {
+  height: calc(406 * var(--px));
+  margin-top: calc(58 * var(--px));
+}
+
+.svc2-item__media {
+  position: absolute;
+  left: 0;
+  top: calc(199 * var(--px));
+  width: calc(758 * var(--px));
+  height: calc(406 * var(--px));
+  margin: 0;
+  overflow: hidden;
+}
+
+.svc2-item__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.svc2-item__excerpt {
+  position: absolute;
+  left: calc(780 * var(--px));
+  top: calc(60 * var(--px));
+  width: calc(831 * var(--px));
+  margin: 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.svc2-item__more {
+  position: absolute;
+  left: calc(868 * var(--px));
+  top: calc(292 * var(--px));
+  color: inherit;
+  font-size: calc(26 * var(--px));
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.svc2-item__more:hover {
+  opacity: var(--hover-soft);
+}
+
+.svc2-item__order {
+  position: absolute;
+  left: calc(1220 * var(--px));
+  top: calc(546 * var(--px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(580 * var(--px));
+  height: calc(59 * var(--px));
+  background: var(--black);
+  color: var(--paper);
+  font-size: calc(22 * var(--px));
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.svc2-item__order:hover {
+  opacity: var(--hover-strong);
+}
+
+/* ---------- Планшет и телефон ---------- */
+
+@media (max-width: 1199px) {
+  /* Телефон: композиция первого экрана разбирается в столбик, и снимок
+     встаёт между двумя примечаниями — как в мобильном макете. */
+  .svc2-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+    padding: 0 var(--gutter) 60px;
+  }
+
+  .svc2-hero__title,
+  .svc2-hero__note,
+  .svc2-hero__media {
+    position: static;
+    width: auto;
+  }
+
+  .svc2-hero__title {
+    font-size: 35px;
+    line-height: 1.42;
+  }
+
+  .svc2-hero__line + .svc2-hero__line {
+    margin-top: 0;
+  }
+
+  .svc2-hero__note {
+    font-size: 16px;
+  }
+
+  .svc2-hero__media {
+    height: auto;
+    aspect-ratio: 1800 / 584;
+  }
+
+  .svc2-services {
+    padding-top: 0;
+    padding-bottom: 60px;
+  }
+
+  .svc2-services__title {
+    font-size: 30px;
+  }
+
+  .svc2-list {
+    margin-top: 30px;
+  }
+
+  /* Строки больше не заходят друг на друга: набор мельче, и высоты хватает. */
+  .svc2-item:not([open]) {
+    height: auto;
+  }
+
+  .svc2-item[open] {
+    margin-bottom: 30px;
+  }
+
+  .svc2-item__head,
+  .svc2-item[open] .svc2-item__head {
+    align-items: center;
+    padding-top: 30px;
+  }
+
+  .svc2-item__num {
+    width: 36px;
+    margin-right: 10px;
+    font-size: 16px;
+  }
+
+  .svc2-item__name,
+  .svc2-item[open] .svc2-item__name {
+    width: auto;
+    font-size: 22px;
+    line-height: 1.5;
+  }
+
+  .svc2-item__mark {
+    width: 24px;
+    height: 24px;
+    margin-right: 0;
+    font-size: 16px;
+  }
+
+  .svc2-item[open] .svc2-item__mark {
+    width: 16px;
+    height: 10px;
+    margin-top: 0;
+  }
+
+  /* Панель встаёт обычным столбиком: снимок, текст, ссылка, кнопка. */
+  .svc2-item__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+    margin-top: 20px;
+  }
+
+  .svc2-item__media,
+  .svc2-item__excerpt,
+  .svc2-item__more,
+  .svc2-item__order {
+    position: static;
+    width: auto;
+  }
+
+  .svc2-item__media {
+    height: auto;
+    aspect-ratio: 290 / 155;
+  }
+
+  .svc2-item__excerpt {
+    font-size: 16px;
+  }
+
+  .svc2-item__more {
+    font-size: 16px;
+  }
+
+  .svc2-item__order {
+    height: 30px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  /* Планшет: набор крупнее, панель услуги снова в две колонки. */
+  .svc2-hero {
+    gap: 30px;
+    padding-bottom: 80px;
+  }
+
+  .svc2-hero__title {
+    font-size: 64px;
+  }
+
+  .svc2-hero__note {
+    font-size: 18px;
+  }
+
+  .svc2-services {
+    padding-bottom: 80px;
+  }
+
+  .svc2-services__title {
+    font-size: 56px;
+  }
+
+  .svc2-item__num {
+    font-size: 20px;
+  }
+
+  .svc2-item__name,
+  .svc2-item[open] .svc2-item__name {
+    font-size: 40px;
+  }
+
+  .svc2-item__mark {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+  }
+
+  .svc2-item__panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 20px 30px;
+  }
+
+  .svc2-item__media {
+    grid-row: 1 / span 3;
+    aspect-ratio: 758 / 406;
+  }
+
+  .svc2-item__excerpt,
+  .svc2-item__more {
+    font-size: 18px;
+  }
+
+  .svc2-item__order {
+    height: 48px;
+    font-size: 18px;
+    font-weight: 500;
   }
 }
 
