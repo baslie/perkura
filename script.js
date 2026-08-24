@@ -232,6 +232,12 @@
     const photo = works.querySelector(".works__photo");
     const navPrev = works.querySelector(".works__nav--prev");
     const navNext = works.querySelector(".works__nav--next");
+    /* Проверка та же, что у ленты, и по той же причине: секция здесь одна на
+       весь сайт, и стоит разметке разъехаться — обращение к пропавшему узлу
+       уронит не только карусель, а всё, что вызывается ниже, вплоть до меню
+       под бургером. */
+    if (!viewport || !list || !photo || !navPrev || !navNext || !items.length) return;
+    if (!photo.querySelector(".works__shot")) return;
 
     const desktop = window.matchMedia("(min-width: 1200px)");
 
