@@ -27,6 +27,12 @@
      пикселей, и оба первых экрана подхватывают это сами. */
   --header-h: calc(63 * var(--px));
 
+  /* Приглушение при наведении. Ступени всего две: текстовые ссылки
+     и мелкие элементы гаснут до --hover-soft, залитые кнопки — до
+     --hover-strong. Раньше тот же приём давал пять разных значений. */
+  --hover-soft: 0.6;
+  --hover-strong: 0.8;
+
   /* Высота окна для первых экранов. svh — самая маленькая из динамических
      высот мобильного браузера: экран влезает целиком при любом положении
      адресной строки и не дёргается, когда она уезжает при скролле. */
@@ -406,7 +412,7 @@ img {
 }
 
 .about__more:hover {
-  opacity: 0.6;
+  opacity: var(--hover-soft);
 }
 
 .arrow-ne {
@@ -776,6 +782,8 @@ img {
   will-change: transform;
 }
 
+/* Те же девять чисел лежат в script.js константой OFFSETS: здесь они держат
+   статичную витрину, там двигают живую дугу. Правите одно — правьте и второе. */
 .works__item:nth-child(1) .works__item-inner { transform: translate3d(0, 0, 0); }
 .works__item:nth-child(2) .works__item-inner { transform: translate3d(calc(60 * var(--px)), 0, 0); }
 .works__item:nth-child(3) .works__item-inner { transform: translate3d(calc(90 * var(--px)), 0, 0); }
@@ -828,7 +836,7 @@ img {
 }
 
 .works__nav:hover {
-  opacity: 0.55;
+  opacity: var(--hover-soft);
 }
 
 /* Своей рамки фокуса у стрелок нет: браузер рисует вокруг группы в SVG
@@ -881,7 +889,7 @@ img {
 }
 
 .news__more:hover {
-  opacity: 0.6;
+  opacity: var(--hover-soft);
 }
 
 .news__intro {
@@ -1059,7 +1067,7 @@ img {
 
 a.contacts__mail:hover,
 a.contacts__note:hover {
-  opacity: 0.65;
+  opacity: var(--hover-soft);
 }
 
 /* ---------- Форма обратной связи ---------- */
@@ -1266,7 +1274,7 @@ a.contacts__note:hover {
 }
 
 .footer__legal:hover {
-  opacity: 0.7;
+  opacity: var(--hover-soft);
 }
 
 .footer__social {
@@ -2355,7 +2363,7 @@ a.contacts__note:hover {
 }
 
 .breadcrumbs__link:hover {
-  opacity: 0.7;
+  opacity: var(--hover-soft);
 }
 
 .breadcrumbs__current {
@@ -2533,7 +2541,7 @@ a.contacts__note:hover {
 }
 
 .project-info__more:hover {
-  opacity: 0.6;
+  opacity: var(--hover-soft);
 }
 
 /* ---------- Цифры об объекте ---------- */
@@ -3657,7 +3665,7 @@ a.contacts__note:hover {
 }
 
 .portfolio__more:hover {
-  opacity: 0.8;
+  opacity: var(--hover-strong);
 }
 
 /* ---------- Планшет и телефон ---------- */
@@ -3863,7 +3871,7 @@ a.contacts__note:hover {
 }
 
 .article__share:hover {
-  opacity: 0.8;
+  opacity: var(--hover-strong);
 }
 
 .article__share svg {
@@ -4011,7 +4019,7 @@ a.contacts__note:hover {
 }
 
 .blog__more:hover {
-  opacity: 0.8;
+  opacity: var(--hover-strong);
 }
 
 /* ---------- Карточка публикации ---------- */
@@ -4059,7 +4067,7 @@ a.contacts__note:hover {
 }
 
 .post__more:hover {
-  opacity: 0.6;
+  opacity: var(--hover-soft);
 }
 
 /* Первая публикация: снимок другой пропорции, набор мельче, а текст
