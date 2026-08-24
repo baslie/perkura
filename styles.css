@@ -5631,6 +5631,140 @@ a.contacts__note:hover {
 }
 
 /* ======================================================================
+   О НАС (about.html)
+
+   Три своих блока: первый экран с портретом, «почему ко мне обращаются»
+   и чёрный разворот «Innovate Architecture». Шапка, крошки, лента проектов,
+   Contact me и футер — общие, живут выше по файлу.
+   ====================================================================== */
+
+/* ---------- Первый экран ---------- */
+
+/* Портрет по центру, слова разложены вокруг него по координатам макета:
+   ни сеткой, ни потоком такую раскладку не собрать. */
+.about-hero {
+  position: relative;
+  height: calc(1076 * var(--px));
+  background: var(--paper);
+  color: var(--black);
+}
+
+.about-hero__portrait {
+  position: absolute;
+  left: calc(622 * var(--px));
+  top: calc(60 * var(--px));
+  width: calc(676 * var(--px));
+  height: calc(956 * var(--px));
+  margin: 0;
+  overflow: hidden;
+}
+
+.about-hero__portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Регистр у слов разный — Decorator с прописной, designer со строчной.
+   Так в макете, и это художественный набор, а не опечатка. */
+.about-hero__word,
+.about-hero__name {
+  position: absolute;
+  margin: 0;
+  font-size: calc(80 * var(--px));
+  font-weight: 400;
+  line-height: 1.4875; /* 119 / 80 */
+  text-align: center;
+}
+
+.about-hero__word--decorator {
+  left: calc(319 * var(--px));
+  top: calc(150 * var(--px));
+  width: calc(285 * var(--px));
+}
+
+.about-hero__word--architect {
+  left: calc(230 * var(--px));
+  top: calc(450 * var(--px));
+  width: calc(306 * var(--px));
+  font-weight: 700;
+}
+
+.about-hero__word--designer {
+  left: calc(1200 * var(--px));
+  top: calc(637 * var(--px));
+  width: calc(282 * var(--px));
+  font-weight: 700;
+}
+
+.about-hero__name {
+  left: calc(1233 * var(--px));
+  top: calc(307 * var(--px));
+  width: calc(536 * var(--px));
+}
+
+.about-hero__video {
+  position: absolute;
+  left: calc(1398 * var(--px));
+  top: calc(492 * var(--px));
+  display: flex;
+  align-items: center;
+  gap: calc(21 * var(--px));
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.about-hero__video:hover {
+  opacity: var(--hover-soft);
+}
+
+.about-hero__play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: calc(80 * var(--px));
+  height: calc(80 * var(--px));
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.about-hero__play-icon {
+  width: calc(26 * var(--px));
+  height: calc(30 * var(--px));
+}
+
+.about-hero__video-label {
+  font-size: calc(30 * var(--px));
+  font-weight: 300;
+  line-height: 1.4667;
+  white-space: nowrap;
+}
+
+.about-hero__note {
+  position: absolute;
+  margin: 0;
+  color: var(--ink);
+  font-size: calc(16 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.about-hero__note--left {
+  left: calc(229 * var(--px));
+  top: calc(769 * var(--px));
+  width: calc(293 * var(--px));
+}
+
+.about-hero__note--right {
+  left: calc(1398 * var(--px));
+  top: calc(959 * var(--px));
+  width: calc(457 * var(--px));
+}
+
+/* ======================================================================
    Оглавление (index.html)
 
    Служебная страница: показывает клиенту, какие страницы уже свёрстаны.
