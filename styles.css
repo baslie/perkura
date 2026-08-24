@@ -5764,6 +5764,90 @@ a.contacts__note:hover {
   width: calc(457 * var(--px));
 }
 
+/* ---------- Почему ко мне обращаются ---------- */
+
+.about-why {
+  position: relative;
+  padding: calc(120 * var(--px)) var(--gutter);
+  background: var(--mist);
+  color: var(--black);
+}
+
+.about-why__label {
+  margin: 0;
+  font-size: calc(50 * var(--px));
+  font-weight: 700;
+  line-height: 1.48;
+}
+
+/* Крупный заголовок стоит во второй колонке и по верху выравнен с подписью,
+   поэтому вынут из потока: иначе пришлось бы городить сетку ради двух строк. */
+.about-why__title {
+  position: absolute;
+  left: calc(824 * var(--px));
+  top: calc(120 * var(--px));
+  width: calc(903 * var(--px));
+  margin: 0;
+  font-size: calc(100 * var(--px));
+  font-weight: 400;
+  line-height: 1.1; /* 110 на строку, две строки — 220 */
+}
+
+.about-why__list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--px));
+  margin: calc(208 * var(--px)) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Три колонки ряда складываются в ширину контента: 460 + 720 + 580 = 1760.
+   Иконка живёт в первой, название во второй, описание в третьей. */
+.why-row {
+  display: grid;
+  grid-template-columns: calc(460 * var(--px)) calc(720 * var(--px)) calc(580 * var(--px));
+  align-items: center;
+  padding: calc(29 * var(--px)) calc(20 * var(--px)) 0;
+  border-top: 1px solid #00000080;
+}
+
+/* У последнего ряда линейка есть и снизу — так закрывается таблица. */
+.why-row:last-child {
+  padding-bottom: calc(29 * var(--px));
+  border-bottom: 1px solid #00000080;
+}
+
+/* Рисунок 48 живёт в боксе 60 — так он стоит в макете, с воздухом вокруг. */
+.why-row__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(60 * var(--px));
+  height: calc(60 * var(--px));
+  color: #00000080;
+}
+
+.why-row__icon svg {
+  display: block;
+  width: calc(48 * var(--px));
+  height: calc(48 * var(--px));
+}
+
+.why-row__name {
+  margin: 0;
+  font-size: calc(26 * var(--px));
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.why-row__text {
+  margin: 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
 /* ======================================================================
    Оглавление (index.html)
 
