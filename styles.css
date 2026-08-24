@@ -592,10 +592,27 @@ img {
   overflow: hidden;
 }
 
+/* Снимки лежат друг на друге и переводятся прозрачностью: скрипт кладёт
+   поверх первого второй слой и меняет их местами при смене проекта.
+   Входящий кадр чуть подан вперёд — движение читается даже на похожих
+   интерьерах. */
 .works__photo img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.works__shot {
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity 0.7s ease, transform 0.9s ease;
+}
+
+.works__shot.is-active {
+  opacity: 1;
+  transform: none;
 }
 
 .works__photo::after {
@@ -664,21 +681,98 @@ img {
   flex: none;
 }
 
-/* Названия проектов разложены по дуге — координаты каждого взяты из макета. */
-.works__list {
+/* Названия проектов лежат на дуге. Рамка обрезает ленту по высоте области
+   из макета (732) и растворяет названия у верхнего и нижнего края, чтобы они
+   не обрубались линейкой. Ширину рамка берёт до правого поля страницы,
+   а не по самому длинному названию макета: иначе имя подлиннее срезалось бы
+   справа. Дуга от этого не съезжает — её отсчёт идёт от левого края рамки. */
+.works__viewport {
   position: absolute;
   left: calc(1210 * var(--px));
   top: calc(120 * var(--px));
-  width: calc(322 * var(--px));
+  width: calc(650 * var(--px));
   height: calc(732 * var(--px));
+  overflow: hidden;
+  /* Девять слайдов по шагу дуги на пятнадцать пикселей выше рамки. Живой
+     карусели это не мешает — она их и прокручивает, — а в статике нижнее
+     название срезалось бы по подпись, поэтому там рамка не обрезает. */
+  /* Лента едет по вертикали, поэтому пальцу здесь оставлена горизонтальная
+     прокрутка и щипок; Embla это правило за нас не пишет. Ниже 1200 ось
+     меняется, вместе с ней и разрешённый жест. */
+  touch-action: pan-x pinch-zoom;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.works:not([data-ready="true"]) .works__viewport {
+  overflow: visible;
+}
+
+/* Всё, что имеет смысл только у живой карусели, включается меткой готовности:
+   её ставит скрипт. Без него секция остаётся статичной витриной — девять
+   названий на дуге, все одинаково чёрные и целиком видны. */
+.works[data-ready="true"] .works__viewport {
+  cursor: grab;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+}
+
+/* Курсор-ладонь над лентой названий — как у слайдера первого экрана. */
+.works__viewport[data-dragging="true"] {
+  cursor: grabbing;
+}
+
+/* Высота ленты равна высоте рамки, хотя названий в ней на пятнадцать пикселей
+   макета больше: Embla считает видимой областью именно ленту, и без этой
+   строки она центрировала бы названия по всей их длине, а не по рамке. */
+.works__list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* Шаг между названиями в макете — 83, сам блок названия занимает 68.
+   Слайд высотой в шаг, содержимое по центру: тогда Embla с выравниванием
+   по центру ставит все девять ровно туда, где они стоят в макете. */
 .works__item {
-  position: absolute;
+  height: calc(83 * var(--px));
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: opacity 0.35s ease;
 }
+
+/* Выбранный проект — чёрный, остальные приглушены: точка на орбите
+   указывает на него, цвет это подтверждает. */
+.works[data-ready="true"] .works__item {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.works[data-ready="true"] .works__item.is-active {
+  opacity: 1;
+}
+
+/* Горизонтальный сдвиг названия. Здесь он задан для статики — так секция
+   выглядит и без скрипта, — а живую дугу скрипт пишет инлайном поверх. */
+.works__item-inner {
+  display: block;
+  will-change: transform;
+}
+
+.works__item:nth-child(1) .works__item-inner { transform: translate3d(0, 0, 0); }
+.works__item:nth-child(2) .works__item-inner { transform: translate3d(calc(60 * var(--px)), 0, 0); }
+.works__item:nth-child(3) .works__item-inner { transform: translate3d(calc(90 * var(--px)), 0, 0); }
+.works__item:nth-child(4) .works__item-inner { transform: translate3d(calc(120 * var(--px)), 0, 0); }
+.works__item:nth-child(5) .works__item-inner { transform: translate3d(calc(159 * var(--px)), 0, 0); }
+.works__item:nth-child(6) .works__item-inner { transform: translate3d(calc(129 * var(--px)), 0, 0); }
+.works__item:nth-child(7) .works__item-inner { transform: translate3d(calc(99 * var(--px)), 0, 0); }
+.works__item:nth-child(8) .works__item-inner { transform: translate3d(calc(69 * var(--px)), 0, 0); }
+.works__item:nth-child(9) .works__item-inner { transform: translate3d(calc(9 * var(--px)), 0, 0); }
 
 .works__name {
   margin: 0;
@@ -686,6 +780,23 @@ img {
   font-weight: 500;
   line-height: 1.464286;
   white-space: nowrap;
+}
+
+/* Название — кнопка выбора проекта, но выглядит обычным текстом.
+   Мышью попадает и мимо букв: клик ловит вся строка. */
+.works__pick {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+.works__pick:focus-visible {
+  outline: calc(2 * var(--px)) solid #000000;
+  outline-offset: calc(4 * var(--px));
 }
 
 .works__meta {
@@ -696,15 +807,30 @@ img {
   white-space: nowrap;
 }
 
-.works__item--8 { left: 0; top: 0; }
-.works__item--7 { left: calc(60 * var(--px)); top: calc(83 * var(--px)); }
-.works__item--1 { left: calc(90 * var(--px)); top: calc(166 * var(--px)); }
-.works__item--2 { left: calc(120 * var(--px)); top: calc(249 * var(--px)); }
-.works__item--3 { left: calc(159 * var(--px)); top: calc(332 * var(--px)); }
-.works__item--4 { left: calc(129 * var(--px)); top: calc(415 * var(--px)); }
-.works__item--5 { left: calc(99 * var(--px)); top: calc(498 * var(--px)); }
-.works__item--6 { left: calc(69 * var(--px)); top: calc(581 * var(--px)); }
-.works__item--9 { left: calc(9 * var(--px)); top: calc(664 * var(--px)); }
+/* Стрелки на дуге. Живут внутри орбиты, поэтому на узком экране
+   поворачиваются вместе с ней и всегда смотрят вдоль дуги. Нажимается
+   не тонкий контур, а прозрачный круг под ним. */
+.works__nav {
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
+
+.works__nav:hover {
+  opacity: 0.55;
+}
+
+/* Своей рамки фокуса у стрелок нет: браузер рисует вокруг группы в SVG
+   прямоугольник со скруглёнными углами, чужой этому макету. Клавиатурный
+   фокус показывает сам круг под стрелкой. */
+.works__nav:focus,
+.works__nav:focus-visible {
+  outline: none;
+}
+
+.works__nav:focus-visible .works__nav-hit {
+  fill: rgba(0, 0, 0, 0.08);
+}
+
 
 /* ---------- Новости ---------- */
 
@@ -1159,7 +1285,16 @@ a.contacts__note:hover {
   .hero__next,
   .slide__button,
   .news__media img,
-  .social {
+  .social,
+  .works__item,
+  .works__nav {
+    transition: none;
+  }
+
+  /* Кадры проектов меняются сразу и без наезда: скрипт в этом режиме и
+     сам список листает без подъезда. */
+  .works__shot {
+    transform: none;
     transition: none;
   }
 }
@@ -1660,30 +1795,64 @@ a.contacts__note:hover {
     transform: rotate(90deg);
   }
 
-  /* Названия проектов идут простым столбиком по центру — ниже точки, которой
-     кончается окружность. Отступ считается от ширины секции: 50% — радиус
-     окружности, ещё 2% — точка на ней. */
-  .works__list {
+  /* Дуга здесь лежит внизу, точка — под окружностью, и названия идут не
+     столбиком, а лентой поперёк: под точкой стоит выбранный проект, соседние
+     выглядывают краешками по бокам. Отступ рамки считается от ширины секции:
+     50% — радиус окружности, ещё 2% — точка на ней. */
+  .works__viewport {
     position: static;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 22px;
-    width: auto;
+    width: 100%;
     height: auto;
     margin-top: calc(52% + 26px);
-    padding: 0 var(--gutter);
+    touch-action: pan-y pinch-zoom;
   }
 
+  .works[data-ready="true"] .works__viewport {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 18%, #000 82%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 18%, #000 82%, transparent 100%);
+  }
+
+  .works__list {
+    flex-direction: row;
+    height: auto;
+  }
+
+  /* Слайд уже секции — потому соседние названия и видны по краям. Текст
+     внутри по центру, под точкой. */
+  /* Ширина слайда — это и расстояние между названиями. Доля от секции нужна,
+     чтобы на телефоне соседи выглядывали по краям; потолок в 320 — чтобы на
+     планшете они не уехали за экран и подсказка листания не пропала. */
   .works__item {
-    position: static;
-    left: auto;
-    top: auto;
+    width: min(66%, 320px);
+    height: auto;
+    padding: 0 10px;
     text-align: center;
+  }
+
+  /* Соседние названия здесь приглушены сильнее десктопных: их видно
+     краешками, и на светлом фоне они не должны спорить с выбранным. */
+  .works[data-ready="true"] .works__item {
+    opacity: 0.3;
+  }
+
+  /* Дуга — забота десктопа; здесь названия стоят ровно. Селектор повторяет
+     вес правил статической дуги выше и идёт после них, иначе не перебьёт. */
+  .works__item:nth-child(n) .works__item-inner {
+    transform: none;
+  }
+
+  .works__name {
+    font-size: 28px;
   }
 
   .works__meta {
     margin-left: 0;
+    font-size: 18px;
+  }
+
+  .works__pick:focus-visible {
+    outline-width: 2px;
+    outline-offset: 4px;
   }
 
   /* ---------- Новости ---------- */
