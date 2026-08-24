@@ -98,6 +98,18 @@ function logEvent(message) {
   console.log(`${c.dim(time())}  ${c.cyan('↻')}    ${message}`);
 }
 
+/**
+ * Заголовки ответа. Cache-Control: no-store стоит на всём — иначе браузер
+ * показывает вчерашний CSS, и правка «не применяется» без всякой причины.
+ */
+function head(res, code, type, length) {
+  res.writeHead(code, {
+    'Content-Type': type,
+    'Content-Length': length,
+    'Cache-Control': 'no-store',
+  });
+}
+
 // ─── клиенты живого обновления ────────────────────────────────────────────────
 
 /** @type {Set<import('node:http').ServerResponse>} */
@@ -276,8 +288,9 @@ const CLIENT = `/* Perkura dev server: живое обновление. Файл
     };
 
     source.onopen = function () {
-      if (lost) { reload(); return; }
-      lost = false;
+      /* Связь была потеряна — значит сервер перезапустился, пока нас не было,
+         и на диске могло измениться что угодно: перечитываем страницу. */
+      if (lost) reload();
     };
 
     source.onerror = function () {
@@ -377,11 +390,7 @@ async function notFound(res, pathname) {
 </body>
 </html>`;
 
-  res.writeHead(404, {
-    'Content-Type': MIME['.html'],
-    'Content-Length': Buffer.byteLength(body),
-    'Cache-Control': 'no-store',
-  });
+  head(res, 404, MIME['.html'], Buffer.byteLength(body));
   res.end(body);
   return 404;
 }
@@ -426,11 +435,7 @@ const server = http.createServer(async (req, res) => {
 
     // клиентский скрипт
     if (pathname === '/__dev/client.js') {
-      res.writeHead(200, {
-        'Content-Type': MIME['.js'],
-        'Content-Length': Buffer.byteLength(CLIENT),
-        'Cache-Control': 'no-store',
-      });
+      head(res, 200, MIME['.js'], Buffer.byteLength(CLIENT));
       res.end(req.method === 'HEAD' ? undefined : CLIENT);
       return;
     }
@@ -454,21 +459,13 @@ const server = http.createServer(async (req, res) => {
 
     if (ext === '.html') {
       const html = inject(await fsp.readFile(file, 'utf8'));
-      res.writeHead(200, {
-        'Content-Type': type,
-        'Content-Length': Buffer.byteLength(html),
-        'Cache-Control': 'no-store',
-      });
+      head(res, 200, type, Buffer.byteLength(html));
       res.end(req.method === 'HEAD' ? undefined : html);
       return;
     }
 
     const info = await stat(file);
-    res.writeHead(200, {
-      'Content-Type': type,
-      'Content-Length': info.size,
-      'Cache-Control': 'no-store',
-    });
+    head(res, 200, type, info.size);
     if (req.method === 'HEAD') {
       res.end();
       return;
