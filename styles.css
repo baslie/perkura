@@ -5385,8 +5385,8 @@ a.contacts__note:hover {
 .svc2-item__excerpt {
   position: absolute;
   left: calc(869 * var(--px));
+  right: 0;
   top: calc(60 * var(--px));
-  width: calc(860 * var(--px));
   margin: 0;
   font-size: calc(22 * var(--px));
   font-weight: 300;
@@ -5395,7 +5395,7 @@ a.contacts__note:hover {
 
 .svc2-item__more {
   position: absolute;
-  left: calc(868 * var(--px));
+  left: calc(869 * var(--px));
   top: calc(292 * var(--px));
   color: inherit;
   font-size: calc(26 * var(--px));
@@ -5412,7 +5412,7 @@ a.contacts__note:hover {
 
 .svc2-item__order {
   position: absolute;
-  left: calc(1220 * var(--px));
+  right: 0;
   top: calc(546 * var(--px));
   display: flex;
   align-items: center;
