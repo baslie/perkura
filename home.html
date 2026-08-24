@@ -4,12 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Perkura — студия интерьерного дизайна</title>
+    <meta name="description" content="Студия интерьерного дизайна Perkura: проектирование и комплексная отделка жилых интерьеров под ключ." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Playfair+Display:wght@400..700&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preload" as="image" href="assets/icons.svg" />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -48,310 +50,312 @@
       </div>
     </header>
 
-    <!-- Слайдер проектов. Разметка под Embla Carousel: рамка с обрезкой,
-         внутри неё лента, внутри ленты слайды. Первый заголовок — h1
-         страницы, остальные набраны абзацем: заголовок на странице один. -->
-    <section class="hero">
-      <div class="hero__viewport">
-        <div class="hero__track">
-          <article class="slide">
-            <div class="slide__media">
-              <img src="assets/hero-1.jpg" alt="Светлая гостиная в монохромной палитре" />
-            </div>
-            <a class="slide__button" href="project.html">Подробнее</a>
-            <h1 class="slide__title">MODERN<br />AND<br />MONOCHROME</h1>
-          </article>
+    <main>
+      <!-- Слайдер проектов. Разметка под Embla Carousel: рамка с обрезкой,
+           внутри неё лента, внутри ленты слайды. Первый заголовок — h1
+           страницы, остальные набраны абзацем: заголовок на странице один. -->
+      <section class="hero">
+        <div class="hero__viewport">
+          <div class="hero__track">
+            <article class="slide">
+              <div class="slide__media">
+                <img src="assets/hero-1.jpg" width="1920" height="1080" alt="Светлая гостиная в монохромной палитре" />
+              </div>
+              <a class="slide__button" href="project.html">Подробнее</a>
+              <h1 class="slide__title">MODERN<br />AND<br />MONOCHROME</h1>
+            </article>
 
-          <article class="slide">
-            <div class="slide__media">
-              <img src="assets/works-1.jpg" alt="Гостиная с деревянными панелями и мягким светом" loading="lazy" />
-            </div>
-            <a class="slide__button" href="project.html">Подробнее</a>
-            <p class="slide__title">WARM<br />AND<br />MINIMAL</p>
-          </article>
+            <article class="slide">
+              <div class="slide__media">
+                <img src="assets/works-1.jpg" width="1500" height="2000" alt="Гостиная с деревянными панелями и мягким светом" loading="lazy" />
+              </div>
+              <a class="slide__button" href="project.html">Подробнее</a>
+              <p class="slide__title">WARM<br />AND<br />MINIMAL</p>
+            </article>
 
-          <article class="slide">
-            <div class="slide__media">
-              <img src="assets/portfolio-1.jpg" alt="Просторная светлая комната с панорамным окном" loading="lazy" />
-            </div>
-            <a class="slide__button" href="project.html">Подробнее</a>
-            <p class="slide__title">LIGHT<br />AND<br />CALM</p>
-          </article>
+            <article class="slide">
+              <div class="slide__media">
+                <img src="assets/portfolio-1.jpg" width="1920" height="1358" alt="Просторная светлая комната с панорамным окном" loading="lazy" />
+              </div>
+              <a class="slide__button" href="project.html">Подробнее</a>
+              <p class="slide__title">LIGHT<br />AND<br />CALM</p>
+            </article>
+          </div>
         </div>
-      </div>
 
-      <button class="hero__next" type="button" aria-label="Следующий проект">
-        <svg viewBox="0 0 70 59" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path fill="none" stroke="currentColor" stroke-width="18.06" transform="translate(0 0.703) scale(0.3867 0.3882)" d="M0 74.49995l170.145 0c2.20101 0 2.862-3.1629 0.857-4.07049-28.507-12.9044-75.4571-39.7591-94.002-70.42946" />
-            <path fill="none" stroke="currentColor" stroke-width="18.06" transform="translate(0 29.038) scale(0.3867 0.3882)" d="M0 0l170.145 0c2.20101 0 2.85999 3.15521 0.85199 4.05811-28.677 12.8995-76.44609 39.7619-94.99699 70.4419" />
-        </svg>
-      </button>
-
-      <span class="hero__scroll">scroll to explore</span>
-    </section>
-
-    <section class="about" id="about">
-      <div class="about__head">
-        <h2 class="about__title">About us</h2>
-        <a class="about__more" href="index.html">
-          <span class="about__more-label">подробнее</span>
-          <svg class="arrow-ne" viewBox="0 0 34.72 34.54" aria-hidden="true"><use href="assets/icons.svg#arrow-ne" /></svg>
-        </a>
-      </div>
-
-      <div class="about__pair about__pair--top">
-        <figure class="about__photo about__photo--1">
-        <img src="assets/about-1.jpg" alt="Кресло и диван в бежевой гостиной" loading="lazy" />
-      </figure>
-        <figure class="about__photo about__photo--2">
-        <img src="assets/about-2.jpg" alt="Кухня с мраморной столешницей и подсветкой" loading="lazy" />
-      </figure>
-        <p class="about__text about__text--right">Дизайн-проекты интерьера обладают<br />уникальностью благодаря индивидуальному<br />подходу к каждому клиенту и его потребностям</p>
-      </div>
-
-      <div class="about__pair about__pair--bottom">
-        <span class="about__count" aria-hidden="true">16</span>
-        <figure class="about__photo about__photo--3">
-        <img src="assets/about-3.jpg" alt="Гостиная в классической отделке с люстрой-кольцом" loading="lazy" />
-      </figure>
-        <figure class="about__photo about__photo--4">
-        <img src="assets/about-4.jpg" alt="Обеденная зона с деревянным столом и керамикой" loading="lazy" />
-      </figure>
-        <p class="about__text about__text--left">Дизайн-проекты интерьера обладают<br />уникальностью благодаря индивидуальному<br />подходу к каждому клиенту и его потребностям</p>
-      </div>
-
-    </section>
-
-    <section class="fullservice" id="services">
-      <span class="fullservice__rule" aria-hidden="true"></span>
-
-      <div class="fullservice__lockup">
-        <h2 class="fullservice__title">we are<br />full-service</h2>
-
-        <div class="fullservice__row">
-          <span class="fullservice__accent">agency</span>
-          <p class="fullservice__text">Дизайн-проекты интерьера обладают уникальностью <br />благодаря индивидуальному подходу к каждому клиенту <br />и его потребностям</p>
-        </div>
-      </div>
-
-      <svg class="fullservice__scroll" viewBox="0 0 216 216" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <path id="scrollRing" fill="none" d="M 189.92 111.58 A 82 82 0 0 1 26.08 104.42 A 82 82 0 0 1 189.92 111.58" />
-        </defs>
-        <g class="fullservice__scroll-ring">
-          <text fill="currentColor" font-size="22" font-weight="400" letter-spacing="0.99" xml:space="preserve">
-            <textPath href="#scrollRing" textLength="515.22" lengthAdjust="spacing">page scroll  page scroll  page scroll  page scroll  </textPath>
-          </text>
-        </g>
-        <path fill="#ffffffff" fill-rule="evenodd" transform="translate(124.681 127.673) rotate(-180) scale(2.6525 2.679) translate(-0 -0)" d="M6.23871 0.21934c0.14063-0.14045 0.33125-0.21934 0.53-0.21934 0.19875 0 0.38937 0.07889 0.53 0.21934l6 6c0.07369 0.06866 0.13279 0.15146 0.17378 0.24346 0.04099 0.092 0.06303 0.19131 0.06481 0.29202 0.00178 0.1007-0.01675 0.20073-0.05447 0.29412-0.03772 0.09339-0.09387 0.17822-0.16508 0.24944-0.07122 0.07122-0.15605 0.12736-0.24944 0.16508-0.09339 0.03772-0.19342 0.05625-0.29412 0.05447-0.1007-0.00178-0.20002-0.02382-0.29202-0.06481-0.092-0.04099-0.1748-0.10009-0.24346-0.17378l-4.72-4.72 0 14.19c0 0.19891-0.07902 0.38968-0.21967 0.53033-0.14065 0.14065-0.33142 0.21967-0.53033 0.21967-0.19891 0-0.38968-0.07902-0.53033-0.21967-0.14065-0.14065-0.21967-0.33142-0.21967-0.53033l0-14.19-4.72 4.72c-0.06866 0.07369-0.15146 0.13279-0.24346 0.17378-0.092 0.04099-0.19131 0.06303-0.29202 0.06481-0.1007 0.00178-0.20073-0.01675-0.29412-0.05447-0.09339-0.03772-0.17822-0.09387-0.24944-0.16508-0.07122-0.07122-0.12736-0.15605-0.16508-0.24944-0.03772-0.09339-0.05625-0.19342-0.05447-0.29412 0.00178-0.1007 0.02382-0.20002 0.06481-0.29202 0.04099-0.092 0.10009-0.1748 0.17378-0.24346l6-6z" />
-      </svg>
-    </section>
-
-    <section class="works" id="works">
-      <span class="works__rule" aria-hidden="true"></span>
-
-      <!-- Орбита не помечена aria-hidden: внутри неё живут две стрелки-кнопки.
-           Сами дуги и точка доступного имени не имеют и в озвучку не попадают. -->
-      <svg class="works__orbit" viewBox="0 0 849 828" xmlns="http://www.w3.org/2000/svg">
-        <path fill="none" stroke="#ccccccff" stroke-width="2" vector-effect="non-scaling-stroke" transform="translate(0 27.562) rotate(-1.972) scale(1 1) translate(0 -0)" d="M801.13843 400.56915c0-105.12298-41.32422-206.0329-115.05786-280.96076-73.73365-74.92786-173.9668-117.86785-279.07618-119.55663-105.1094-1.68879-206.67016 38.00899-282.77288 110.52944-76.10272 72.52045-120.64739 172.05073-124.02453 277.11945-3.37714 105.06873 34.68396 207.25412 105.97247 284.51206 71.28851 77.25793 170.09033 123.39575 275.09124 128.46039 105.00092 5.06463 207.78461-31.34998 286.1778-101.38819 78.39318-70.03821 126.1123-168.086 132.86309-272.992" />
-        <path fill="none" stroke="#ccccccff" stroke-width="2" vector-effect="non-scaling-stroke" transform="translate(493.158 415.029) rotate(-45.914) scale(1 1) translate(0 -0)" d="M251.53703 0c0 33.03231-6.50622 65.74119-19.14714 96.25906-12.64091 30.51788-31.16899 58.24709-54.52636 81.60447-23.35738 23.35737-51.08661 41.88545-81.60449 54.52636-30.51788 12.64092-63.22673 19.14714-96.25904 19.14714" />
-        <circle cx="814.5" cy="414.5" r="13.5" fill="none" stroke="#000000" stroke-width="2" />
-        <circle class="works__dot" cx="814.5" cy="414.5" r="8.5" fill="#000000" />
-        <g class="works__nav works__nav--prev" role="button" tabindex="0" aria-label="Предыдущий проект">
-          <circle class="works__nav-hit" cx="645" cy="214" r="38" fill="transparent" />
-          <path fill="currentColor" fill-rule="evenodd" transform="translate(652.261 207.544) rotate(-46.429) scale(-1 1) scale(1.2558 1.2572) translate(-0 -0)" d="M6.23871 0.21934c0.14063-0.14045 0.33125-0.21934 0.53-0.21934 0.19875 0 0.38937 0.07889 0.53 0.21934l6 6c0.07369 0.06866 0.13279 0.15146 0.17378 0.24346 0.04099 0.092 0.06303 0.19131 0.06481 0.29202 0.00178 0.1007-0.01675 0.20073-0.05447 0.29412-0.03772 0.09339-0.09387 0.17822-0.16508 0.24944-0.07122 0.07122-0.15605 0.12736-0.24944 0.16508-0.09339 0.03772-0.19342 0.05625-0.29412 0.05447-0.1007-0.00178-0.20002-0.02382-0.29202-0.06481-0.092-0.04099-0.1748-0.10009-0.24346-0.17378l-4.72-4.72 0 14.19c0 0.19891-0.07902 0.38968-0.21967 0.53033-0.14065 0.14065-0.33142 0.21967-0.53033 0.21967-0.19891 0-0.38968-0.07902-0.53033-0.21967-0.14065-0.14065-0.21967-0.33142-0.21967-0.53033l0-14.19-4.72 4.72c-0.06866 0.07369-0.15146 0.13279-0.24346 0.17378-0.092 0.04099-0.19131 0.06303-0.29202 0.06481-0.1007 0.00178-0.20073-0.01675-0.29412-0.05447-0.09339-0.03772-0.17822-0.09387-0.24944-0.16508-0.07122-0.07122-0.12736-0.15605-0.16508-0.24944-0.03772-0.09339-0.05625-0.19342-0.05447-0.29412 0.00178-0.1007 0.02382-0.20002 0.06481-0.29202 0.04099-0.092 0.10009-0.1748 0.17378-0.24346l6-6z" />
-        </g>
-        <g class="works__nav works__nav--next" role="button" tabindex="0" aria-label="Следующий проект">
-          <circle class="works__nav-hit" cx="668" cy="607" r="38" fill="transparent" />
-          <path fill="currentColor" fill-rule="evenodd" transform="translate(661.261 614.025) rotate(-133.571) scale(1.2558 1.2572) translate(-0 -0)" d="M6.23871 0.21934c0.14063-0.14045 0.33125-0.21934 0.53-0.21934 0.19875 0 0.38937 0.07889 0.53 0.21934l6 6c0.07369 0.06866 0.13279 0.15146 0.17378 0.24346 0.04099 0.092 0.06303 0.19131 0.06481 0.29202 0.00178 0.1007-0.01675 0.20073-0.05447 0.29412-0.03772 0.09339-0.09387 0.17822-0.16508 0.24944-0.07122 0.07122-0.15605 0.12736-0.24944 0.16508-0.09339 0.03772-0.19342 0.05625-0.29412 0.05447-0.1007-0.00178-0.20002-0.02382-0.29202-0.06481-0.092-0.04099-0.1748-0.10009-0.24346-0.17378l-4.72-4.72 0 14.19c0 0.19891-0.07902 0.38968-0.21967 0.53033-0.14065 0.14065-0.33142 0.21967-0.53033 0.21967-0.19891 0-0.38968-0.07902-0.53033-0.21967-0.14065-0.14065-0.21967-0.33142-0.21967-0.53033l0-14.19-4.72 4.72c-0.06866 0.07369-0.15146 0.13279-0.24346 0.17378-0.092 0.04099-0.19131 0.06303-0.29202 0.06481-0.1007 0.00178-0.20073-0.01675-0.29412-0.05447-0.09339-0.03772-0.17822-0.09387-0.24944-0.16508-0.07122-0.07122-0.12736-0.15605-0.16508-0.24944-0.03772-0.09339-0.05625-0.19342-0.05447-0.29412 0.00178-0.1007 0.02382-0.20002 0.06481-0.29202 0.04099-0.092 0.10009-0.1748 0.17378-0.24346l6-6z" />
-        </g>
-      </svg>
-
-      <figure class="works__photo">
-        <img class="works__shot is-active" src="assets/works-1.jpg" alt="" loading="lazy" />
-        <h2 class="works__title">works.</h2>
-      </figure>
-
-      <a class="works__cta" href="project.html">
-        <span class="works__cta-label">
-          see the project
-          <svg class="works__cta-arrow" viewBox="0 0 22 17" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path fill="currentColor" fill-rule="evenodd" transform="translate(22 17) rotate(90) scale(-1 1) scale(1.2558 1.2572) translate(-0 -0)" d="M6.23871 0.21934c0.14063-0.14045 0.33125-0.21934 0.53-0.21934 0.19875 0 0.38937 0.07889 0.53 0.21934l6 6c0.07369 0.06866 0.13279 0.15146 0.17378 0.24346 0.04099 0.092 0.06303 0.19131 0.06481 0.29202 0.00178 0.1007-0.01675 0.20073-0.05447 0.29412-0.03772 0.09339-0.09387 0.17822-0.16508 0.24944-0.07122 0.07122-0.15605 0.12736-0.24944 0.16508-0.09339 0.03772-0.19342 0.05625-0.29412 0.05447-0.1007-0.00178-0.20002-0.02382-0.29202-0.06481-0.092-0.04099-0.1748-0.10009-0.24346-0.17378l-4.72-4.72 0 14.19c0 0.19891-0.07902 0.38968-0.21967 0.53033-0.14065 0.14065-0.33142 0.21967-0.53033 0.21967-0.19891 0-0.38968-0.07902-0.53033-0.21967-0.14065-0.14065-0.21967-0.33142-0.21967-0.53033l0-14.19-4.72 4.72c-0.06866 0.07369-0.15146 0.13279-0.24346 0.17378-0.092 0.04099-0.19131 0.06303-0.29202 0.06481-0.1007 0.00178-0.20073-0.01675-0.29412-0.05447-0.09339-0.03772-0.17822-0.09387-0.24944-0.16508-0.07122-0.07122-0.12736-0.15605-0.16508-0.24944-0.03772-0.09339-0.05625-0.19342-0.05447-0.29412 0.00178-0.1007 0.02382-0.20002 0.06481-0.29202 0.04099-0.092 0.10009-0.1748 0.17378-0.24346l6-6z" />
+        <button class="hero__next" type="button" aria-label="Следующий проект">
+          <svg viewBox="0 0 70 59" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path fill="none" stroke="currentColor" stroke-width="18.06" transform="translate(0 0.703) scale(0.3867 0.3882)" d="M0 74.49995l170.145 0c2.20101 0 2.862-3.1629 0.857-4.07049-28.507-12.9044-75.4571-39.7591-94.002-70.42946" />
+              <path fill="none" stroke="currentColor" stroke-width="18.06" transform="translate(0 29.038) scale(0.3867 0.3882)" d="M0 0l170.145 0c2.20101 0 2.85999 3.15521 0.85199 4.05811-28.677 12.8995-76.44609 39.7619-94.99699 70.4419" />
           </svg>
-        </span>
-      </a>
+        </button>
 
-      <!-- Названия проектов. Рамка обрезает ленту, лента едет вдоль неё,
-           а горизонтальный сдвиг каждому названию считает скрипт по дуге из
-           макета: точка на орбите стоит, названия скользят мимо неё. -->
-      <div class="works__viewport">
-        <ul class="works__list">
-          <li class="works__item" data-shot="assets/shot-2.jpg">
-            <span class="works__item-inner">
-              <h3 class="works__name"><button class="works__pick" type="button">Forty One Oaks</button></h3>
-              <p class="works__meta">квартира, 128 м²</p>
-            </span>
-          </li>
-          <li class="works__item" data-shot="assets/shot-3.jpg">
-            <span class="works__item-inner">
-              <h3 class="works__name"><button class="works__pick" type="button">Nine Elms House</button></h3>
-              <p class="works__meta">дом, 240 м²</p>
-            </span>
-          </li>
-          <li class="works__item" data-shot="assets/shot-4.jpg">
-            <span class="works__item-inner">
-              <h3 class="works__name"><button class="works__pick" type="button">Belmont Terrace</button></h3>
-              <p class="works__meta">квартира, 96 м²</p>
-            </span>
-          </li>
-          <li class="works__item" data-shot="assets/shot-5.jpg">
-            <span class="works__item-inner">
-              <h3 class="works__name"><button class="works__pick" type="button">Cedar Hill Loft</button></h3>
-              <p class="works__meta">лофт, 152 м²</p>
-            </span>
-          </li>
-          <li class="works__item" data-shot="assets/works-1.jpg">
-            <span class="works__item-inner">
-              <h3 class="works__name"><button class="works__pick" type="button">Marble Arch Flat</button></h3>
-              <p class="works__meta">квартира, 184 м²</p>
-            </span>
-          </li>
-          <li class="works__item" data-shot="assets/shot-6.jpg">
-            <span class="works__item-inner">
-              <h3 class="works__name"><button class="works__pick" type="button">Hyde Park Suite</button></h3>
-              <p class="works__meta">апартаменты, 210 м²</p>
-            </span>
-          </li>
-          <li class="works__item" data-shot="assets/shot-7.jpg">
-            <span class="works__item-inner">
-              <h3 class="works__name"><button class="works__pick" type="button">Sable Court</button></h3>
-              <p class="works__meta">квартира, 143 м²</p>
-            </span>
-          </li>
-          <li class="works__item" data-shot="assets/shot-8.jpg">
-            <span class="works__item-inner">
-              <h3 class="works__name"><button class="works__pick" type="button">Linden Grove</button></h3>
-              <p class="works__meta">дом, 265 м²</p>
-            </span>
-          </li>
-          <li class="works__item" data-shot="assets/shot-9.jpg">
-            <span class="works__item-inner">
-              <h3 class="works__name"><button class="works__pick" type="button">Ashcroft Manor</button></h3>
-              <p class="works__meta">дом, 320 м²</p>
-            </span>
-          </li>
-        </ul>
-      </div>
-    </section>
+        <span class="hero__scroll">scroll to explore</span>
+      </section>
 
-    <section class="news" id="blog">
-      <div class="news__inner">
-        <div class="news__head">
-          <h2 class="news__title">Blog</h2>
-          <a class="news__more" href="news.html">
-            <span>подробнее</span>
+      <section class="about" id="about">
+        <div class="about__head">
+          <h2 class="about__title">About us</h2>
+          <a class="about__more" href="index.html">
+            <span class="about__more-label">подробнее</span>
             <svg class="arrow-ne" viewBox="0 0 34.72 34.54" aria-hidden="true"><use href="assets/icons.svg#arrow-ne" /></svg>
           </a>
         </div>
 
-        <p class="news__intro">Рыбатекст, или текст-заполнитель, это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Рыбатекст, или текст-заполнитель, это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания.</p>
-
-        <ul class="news__list">
-          <li class="news__item">
-            <a class="news__card" href="article.html">
-              <figure class="news__media news__media--s">
-                <img src="assets/news-1.jpg" alt="Столик с керамикой в бежевой кухне" loading="lazy" />
-              </figure>
-              <div class="news__body">
-                <div class="news__heading">
-                  <span class="news__rule" aria-hidden="true"></span>
-                  <h3 class="news__name">мы в сми</h3>
-                </div>
-                <p class="news__text">Рыбатекст, или текст-заполнитель,это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Рыбатекст, или текст-заполнитель, это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания.</p>
-              </div>
-            </a>
-          </li>
-          <li class="news__item">
-            <a class="news__card" href="article.html">
-              <figure class="news__media news__media--l">
-                <img src="assets/news-2.jpg" alt="Светлая кухня с фрезерованными фасадами" loading="lazy" />
-              </figure>
-              <div class="news__body">
-                <div class="news__heading">
-                  <span class="news__rule" aria-hidden="true"></span>
-                  <h3 class="news__name">лучший район москвы</h3>
-                </div>
-                <p class="news__text">Рыбатекст, или текст-заполнитель,это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Рыбатекст, или текст-заполнитель, это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания.</p>
-              </div>
-            </a>
-          </li>
-          <li class="news__item">
-            <a class="news__card" href="article.html">
-              <figure class="news__media news__media--s">
-                <img src="assets/news-3.jpg" alt="Гостиная в тёмной палитре с диваном" loading="lazy" />
-              </figure>
-              <div class="news__body">
-                <div class="news__heading">
-                  <span class="news__rule news__rule--ink" aria-hidden="true"></span>
-                  <h3 class="news__name">какие цвета сегодня самые популярные</h3>
-                </div>
-                <p class="news__text">Рыбатекст, или текст-заполнитель,это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Рыбатекст, или текст-заполнитель, это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания.</p>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="seo" id="description">
-      <div class="seo__inner">
-        <h2 class="seo__title">Description</h2>
-        <p class="seo__text">Рыбатекст, или текст-заполнитель,это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Рыбатекст, или текст-заполнитель, это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык публичных выступлений в домашних условиях. При создании генератора мы использовали небезизвестный универсальный код речей. Текст генерируется абзацами случайным образом от двух до десяти предложений в абзаце, что позволяет сделать текст более привлекательным и живым для визуально-слухового восприятия. <br /> По своей сути рыбатекст является альтернативой традиционному lorem ipsum, который вызывает у некторых людей недоумение при попытках прочитать рыбу текст. В отличии от lorem ipsum, текст рыба на русском языке наполнит любой макет непонятным смыслом и придаст неповторимый колорит советских времен. Рыбатекст, или текст-заполнитель,это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Рыбатекст, или текст-заполнитель, это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык публичных выступлений в домашних условиях. При создании генератора мы использовали небезизвестный универсальный код речей. Текст генерируется абзацами случайным образом от двух до десяти предложений в абзаце, что позволяет сделать текст более привлекательным и живым для визуально-слухового восприятия. По своей сути рыбатекст является альтернативой традиционному lorem ipsum, который вызывает у некторых людей недоумение при попытках прочитать рыбу текст. В отличии от lorem ipsum, текст рыба на русском языке наполнит любой макет непонятным смыслом и придаст неповторимый колорит советских времен.</p>
-      </div>
-    </section>
-
-    <section class="contacts" id="contacts">
-      <span class="contacts__rule" aria-hidden="true"></span>
-
-      <div class="contacts__inner">
-        <h2 class="contacts__title">Contact me</h2>
-      </div>
-
-      <address class="contacts__info">
-          <a class="contacts__mail" href="mailto:studiadesign@mail.ru">studiadesign@mail.ru</a>
-          <a class="contacts__note" href="tel:+79999999999">+7(999)999-99-99</a>
-          <span class="contacts__note">Moscow, st. Pushkina, house 43, office 78</span>
-        </address>
-
-      <form class="form" action="#" method="post">
-        <h3 class="form__title">First Name&nbsp;&nbsp;(required)</h3>
-
-        <div class="form__fields">
-              <label class="field">
-                <span class="field__label">First Name</span>
-                <input class="field__input" type="text" name="name" placeholder="Наталья" autocomplete="given-name" required />
-              </label>
-              <label class="field">
-                <span class="field__label">E-mail (required)</span>
-                <input class="field__input" type="email" name="email" placeholder="natalia@mail.ru" autocomplete="email" required />
-              </label>
-              <label class="field">
-                <span class="field__label">Message (required)</span>
-                <input class="field__input" type="text" name="message" placeholder="Вопрос в сообщении" autocomplete="off" required />
-              </label>
+        <div class="about__pair about__pair--top">
+          <figure class="about__photo about__photo--1">
+          <img src="assets/about-1.jpg" width="1600" height="2000" alt="Кресло и диван в бежевой гостиной" loading="lazy" />
+        </figure>
+          <figure class="about__photo about__photo--2">
+          <img src="assets/about-2.jpg" width="1600" height="2000" alt="Кухня с мраморной столешницей и подсветкой" loading="lazy" />
+        </figure>
+          <p class="about__text about__text--right">Дизайн-проекты интерьера обладают<br />уникальностью благодаря индивидуальному<br />подходу к каждому клиенту и его потребностям</p>
         </div>
 
-        <div class="form__foot">
-          <label class="consent">
-            <input class="consent__input" type="checkbox" name="agree" required />
-            <span class="consent__box" aria-hidden="true"><svg class="consent__check" viewBox="0 0 14.5 14.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1" d="M0 7.5l6 7 8.5-14.5" /></svg></span>
-            <span class="consent__text">Нажимая на кнопку, я соглашаюсь с <a href="index.html">политика конфиденциальности</a></span>
-          </label>
-
-          <button class="form__submit" type="submit">submit</button>
+        <div class="about__pair about__pair--bottom">
+          <span class="about__count" aria-hidden="true">16</span>
+          <figure class="about__photo about__photo--3">
+          <img src="assets/about-3.jpg" width="1920" height="1358" alt="Гостиная в классической отделке с люстрой-кольцом" loading="lazy" />
+        </figure>
+          <figure class="about__photo about__photo--4">
+          <img src="assets/about-4.jpg" width="1600" height="2000" alt="Обеденная зона с деревянным столом и керамикой" loading="lazy" />
+        </figure>
+          <p class="about__text about__text--left">Дизайн-проекты интерьера обладают<br />уникальностью благодаря индивидуальному<br />подходу к каждому клиенту и его потребностям</p>
         </div>
-      </form>
-    </section>
+
+      </section>
+
+      <section class="fullservice" id="services">
+        <span class="fullservice__rule" aria-hidden="true"></span>
+
+        <div class="fullservice__lockup">
+          <h2 class="fullservice__title">we are<br />full-service</h2>
+
+          <div class="fullservice__row">
+            <span class="fullservice__accent">agency</span>
+            <p class="fullservice__text">Дизайн-проекты интерьера обладают уникальностью <br />благодаря индивидуальному подходу к каждому клиенту <br />и его потребностям</p>
+          </div>
+        </div>
+
+        <svg class="fullservice__scroll" viewBox="0 0 216 216" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <path id="scrollRing" fill="none" d="M 189.92 111.58 A 82 82 0 0 1 26.08 104.42 A 82 82 0 0 1 189.92 111.58" />
+          </defs>
+          <g class="fullservice__scroll-ring">
+            <text fill="currentColor" font-size="22" font-weight="400" letter-spacing="0.99" xml:space="preserve">
+              <textPath href="#scrollRing" textLength="515.22" lengthAdjust="spacing">page scroll  page scroll  page scroll  page scroll  </textPath>
+            </text>
+          </g>
+          <path fill="#ffffffff" fill-rule="evenodd" transform="translate(124.681 127.673) rotate(-180) scale(2.6525 2.679) translate(-0 -0)" d="M6.23871 0.21934c0.14063-0.14045 0.33125-0.21934 0.53-0.21934 0.19875 0 0.38937 0.07889 0.53 0.21934l6 6c0.07369 0.06866 0.13279 0.15146 0.17378 0.24346 0.04099 0.092 0.06303 0.19131 0.06481 0.29202 0.00178 0.1007-0.01675 0.20073-0.05447 0.29412-0.03772 0.09339-0.09387 0.17822-0.16508 0.24944-0.07122 0.07122-0.15605 0.12736-0.24944 0.16508-0.09339 0.03772-0.19342 0.05625-0.29412 0.05447-0.1007-0.00178-0.20002-0.02382-0.29202-0.06481-0.092-0.04099-0.1748-0.10009-0.24346-0.17378l-4.72-4.72 0 14.19c0 0.19891-0.07902 0.38968-0.21967 0.53033-0.14065 0.14065-0.33142 0.21967-0.53033 0.21967-0.19891 0-0.38968-0.07902-0.53033-0.21967-0.14065-0.14065-0.21967-0.33142-0.21967-0.53033l0-14.19-4.72 4.72c-0.06866 0.07369-0.15146 0.13279-0.24346 0.17378-0.092 0.04099-0.19131 0.06303-0.29202 0.06481-0.1007 0.00178-0.20073-0.01675-0.29412-0.05447-0.09339-0.03772-0.17822-0.09387-0.24944-0.16508-0.07122-0.07122-0.12736-0.15605-0.16508-0.24944-0.03772-0.09339-0.05625-0.19342-0.05447-0.29412 0.00178-0.1007 0.02382-0.20002 0.06481-0.29202 0.04099-0.092 0.10009-0.1748 0.17378-0.24346l6-6z" />
+        </svg>
+      </section>
+
+      <section class="works" id="works">
+        <span class="works__rule" aria-hidden="true"></span>
+
+        <!-- Орбита не помечена aria-hidden: внутри неё живут две стрелки-кнопки.
+             Сами дуги и точка доступного имени не имеют и в озвучку не попадают. -->
+        <svg class="works__orbit" viewBox="0 0 849 828" xmlns="http://www.w3.org/2000/svg">
+          <path fill="none" stroke="#ccccccff" stroke-width="2" vector-effect="non-scaling-stroke" transform="translate(0 27.562) rotate(-1.972) scale(1 1) translate(0 -0)" d="M801.13843 400.56915c0-105.12298-41.32422-206.0329-115.05786-280.96076-73.73365-74.92786-173.9668-117.86785-279.07618-119.55663-105.1094-1.68879-206.67016 38.00899-282.77288 110.52944-76.10272 72.52045-120.64739 172.05073-124.02453 277.11945-3.37714 105.06873 34.68396 207.25412 105.97247 284.51206 71.28851 77.25793 170.09033 123.39575 275.09124 128.46039 105.00092 5.06463 207.78461-31.34998 286.1778-101.38819 78.39318-70.03821 126.1123-168.086 132.86309-272.992" />
+          <path fill="none" stroke="#ccccccff" stroke-width="2" vector-effect="non-scaling-stroke" transform="translate(493.158 415.029) rotate(-45.914) scale(1 1) translate(0 -0)" d="M251.53703 0c0 33.03231-6.50622 65.74119-19.14714 96.25906-12.64091 30.51788-31.16899 58.24709-54.52636 81.60447-23.35738 23.35737-51.08661 41.88545-81.60449 54.52636-30.51788 12.64092-63.22673 19.14714-96.25904 19.14714" />
+          <circle cx="814.5" cy="414.5" r="13.5" fill="none" stroke="#000000" stroke-width="2" />
+          <circle class="works__dot" cx="814.5" cy="414.5" r="8.5" fill="#000000" />
+          <g class="works__nav works__nav--prev" role="button" tabindex="0" aria-label="Предыдущий проект">
+            <circle class="works__nav-hit" cx="645" cy="214" r="38" fill="transparent" />
+            <path fill="currentColor" fill-rule="evenodd" transform="translate(652.261 207.544) rotate(-46.429) scale(-1 1) scale(1.2558 1.2572) translate(-0 -0)" d="M6.23871 0.21934c0.14063-0.14045 0.33125-0.21934 0.53-0.21934 0.19875 0 0.38937 0.07889 0.53 0.21934l6 6c0.07369 0.06866 0.13279 0.15146 0.17378 0.24346 0.04099 0.092 0.06303 0.19131 0.06481 0.29202 0.00178 0.1007-0.01675 0.20073-0.05447 0.29412-0.03772 0.09339-0.09387 0.17822-0.16508 0.24944-0.07122 0.07122-0.15605 0.12736-0.24944 0.16508-0.09339 0.03772-0.19342 0.05625-0.29412 0.05447-0.1007-0.00178-0.20002-0.02382-0.29202-0.06481-0.092-0.04099-0.1748-0.10009-0.24346-0.17378l-4.72-4.72 0 14.19c0 0.19891-0.07902 0.38968-0.21967 0.53033-0.14065 0.14065-0.33142 0.21967-0.53033 0.21967-0.19891 0-0.38968-0.07902-0.53033-0.21967-0.14065-0.14065-0.21967-0.33142-0.21967-0.53033l0-14.19-4.72 4.72c-0.06866 0.07369-0.15146 0.13279-0.24346 0.17378-0.092 0.04099-0.19131 0.06303-0.29202 0.06481-0.1007 0.00178-0.20073-0.01675-0.29412-0.05447-0.09339-0.03772-0.17822-0.09387-0.24944-0.16508-0.07122-0.07122-0.12736-0.15605-0.16508-0.24944-0.03772-0.09339-0.05625-0.19342-0.05447-0.29412 0.00178-0.1007 0.02382-0.20002 0.06481-0.29202 0.04099-0.092 0.10009-0.1748 0.17378-0.24346l6-6z" />
+          </g>
+          <g class="works__nav works__nav--next" role="button" tabindex="0" aria-label="Следующий проект">
+            <circle class="works__nav-hit" cx="668" cy="607" r="38" fill="transparent" />
+            <path fill="currentColor" fill-rule="evenodd" transform="translate(661.261 614.025) rotate(-133.571) scale(1.2558 1.2572) translate(-0 -0)" d="M6.23871 0.21934c0.14063-0.14045 0.33125-0.21934 0.53-0.21934 0.19875 0 0.38937 0.07889 0.53 0.21934l6 6c0.07369 0.06866 0.13279 0.15146 0.17378 0.24346 0.04099 0.092 0.06303 0.19131 0.06481 0.29202 0.00178 0.1007-0.01675 0.20073-0.05447 0.29412-0.03772 0.09339-0.09387 0.17822-0.16508 0.24944-0.07122 0.07122-0.15605 0.12736-0.24944 0.16508-0.09339 0.03772-0.19342 0.05625-0.29412 0.05447-0.1007-0.00178-0.20002-0.02382-0.29202-0.06481-0.092-0.04099-0.1748-0.10009-0.24346-0.17378l-4.72-4.72 0 14.19c0 0.19891-0.07902 0.38968-0.21967 0.53033-0.14065 0.14065-0.33142 0.21967-0.53033 0.21967-0.19891 0-0.38968-0.07902-0.53033-0.21967-0.14065-0.14065-0.21967-0.33142-0.21967-0.53033l0-14.19-4.72 4.72c-0.06866 0.07369-0.15146 0.13279-0.24346 0.17378-0.092 0.04099-0.19131 0.06303-0.29202 0.06481-0.1007 0.00178-0.20073-0.01675-0.29412-0.05447-0.09339-0.03772-0.17822-0.09387-0.24944-0.16508-0.07122-0.07122-0.12736-0.15605-0.16508-0.24944-0.03772-0.09339-0.05625-0.19342-0.05447-0.29412 0.00178-0.1007 0.02382-0.20002 0.06481-0.29202 0.04099-0.092 0.10009-0.1748 0.17378-0.24346l6-6z" />
+          </g>
+        </svg>
+
+        <figure class="works__photo">
+          <img class="works__shot is-active" src="assets/works-1.jpg" width="1500" height="2000" alt="Marble Arch Flat — квартира, 184 м²" loading="lazy" />
+          <h2 class="works__title">works.</h2>
+        </figure>
+
+        <a class="works__cta" href="project.html">
+          <span class="works__cta-label">
+            see the project
+            <svg class="works__cta-arrow" viewBox="0 0 22 17" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path fill="currentColor" fill-rule="evenodd" transform="translate(22 17) rotate(90) scale(-1 1) scale(1.2558 1.2572) translate(-0 -0)" d="M6.23871 0.21934c0.14063-0.14045 0.33125-0.21934 0.53-0.21934 0.19875 0 0.38937 0.07889 0.53 0.21934l6 6c0.07369 0.06866 0.13279 0.15146 0.17378 0.24346 0.04099 0.092 0.06303 0.19131 0.06481 0.29202 0.00178 0.1007-0.01675 0.20073-0.05447 0.29412-0.03772 0.09339-0.09387 0.17822-0.16508 0.24944-0.07122 0.07122-0.15605 0.12736-0.24944 0.16508-0.09339 0.03772-0.19342 0.05625-0.29412 0.05447-0.1007-0.00178-0.20002-0.02382-0.29202-0.06481-0.092-0.04099-0.1748-0.10009-0.24346-0.17378l-4.72-4.72 0 14.19c0 0.19891-0.07902 0.38968-0.21967 0.53033-0.14065 0.14065-0.33142 0.21967-0.53033 0.21967-0.19891 0-0.38968-0.07902-0.53033-0.21967-0.14065-0.14065-0.21967-0.33142-0.21967-0.53033l0-14.19-4.72 4.72c-0.06866 0.07369-0.15146 0.13279-0.24346 0.17378-0.092 0.04099-0.19131 0.06303-0.29202 0.06481-0.1007 0.00178-0.20073-0.01675-0.29412-0.05447-0.09339-0.03772-0.17822-0.09387-0.24944-0.16508-0.07122-0.07122-0.12736-0.15605-0.16508-0.24944-0.03772-0.09339-0.05625-0.19342-0.05447-0.29412 0.00178-0.1007 0.02382-0.20002 0.06481-0.29202 0.04099-0.092 0.10009-0.1748 0.17378-0.24346l6-6z" />
+            </svg>
+          </span>
+        </a>
+
+        <!-- Названия проектов. Рамка обрезает ленту, лента едет вдоль неё,
+             а горизонтальный сдвиг каждому названию считает скрипт по дуге из
+             макета: точка на орбите стоит, названия скользят мимо неё. -->
+        <div class="works__viewport">
+          <ul class="works__list">
+            <li class="works__item" data-shot="assets/shot-2.jpg">
+              <span class="works__item-inner">
+                <h3 class="works__name"><button class="works__pick" type="button">Forty One Oaks</button></h3>
+                <p class="works__meta">квартира, 128 м²</p>
+              </span>
+            </li>
+            <li class="works__item" data-shot="assets/shot-3.jpg">
+              <span class="works__item-inner">
+                <h3 class="works__name"><button class="works__pick" type="button">Nine Elms House</button></h3>
+                <p class="works__meta">дом, 240 м²</p>
+              </span>
+            </li>
+            <li class="works__item" data-shot="assets/shot-4.jpg">
+              <span class="works__item-inner">
+                <h3 class="works__name"><button class="works__pick" type="button">Belmont Terrace</button></h3>
+                <p class="works__meta">квартира, 96 м²</p>
+              </span>
+            </li>
+            <li class="works__item" data-shot="assets/shot-5.jpg">
+              <span class="works__item-inner">
+                <h3 class="works__name"><button class="works__pick" type="button">Cedar Hill Loft</button></h3>
+                <p class="works__meta">лофт, 152 м²</p>
+              </span>
+            </li>
+            <li class="works__item" data-shot="assets/works-1.jpg">
+              <span class="works__item-inner">
+                <h3 class="works__name"><button class="works__pick" type="button">Marble Arch Flat</button></h3>
+                <p class="works__meta">квартира, 184 м²</p>
+              </span>
+            </li>
+            <li class="works__item" data-shot="assets/shot-6.jpg">
+              <span class="works__item-inner">
+                <h3 class="works__name"><button class="works__pick" type="button">Hyde Park Suite</button></h3>
+                <p class="works__meta">апартаменты, 210 м²</p>
+              </span>
+            </li>
+            <li class="works__item" data-shot="assets/shot-7.jpg">
+              <span class="works__item-inner">
+                <h3 class="works__name"><button class="works__pick" type="button">Sable Court</button></h3>
+                <p class="works__meta">квартира, 143 м²</p>
+              </span>
+            </li>
+            <li class="works__item" data-shot="assets/shot-8.jpg">
+              <span class="works__item-inner">
+                <h3 class="works__name"><button class="works__pick" type="button">Linden Grove</button></h3>
+                <p class="works__meta">дом, 265 м²</p>
+              </span>
+            </li>
+            <li class="works__item" data-shot="assets/shot-9.jpg">
+              <span class="works__item-inner">
+                <h3 class="works__name"><button class="works__pick" type="button">Ashcroft Manor</button></h3>
+                <p class="works__meta">дом, 320 м²</p>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="news" id="blog">
+        <div class="news__inner">
+          <div class="news__head">
+            <h2 class="news__title">Blog</h2>
+            <a class="news__more" href="news.html">
+              <span>подробнее</span>
+              <svg class="arrow-ne" viewBox="0 0 34.72 34.54" aria-hidden="true"><use href="assets/icons.svg#arrow-ne" /></svg>
+            </a>
+          </div>
+
+          <p class="news__intro">Рыбатекст, или текст-заполнитель, это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Рыбатекст, или текст-заполнитель, это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания.</p>
+
+          <ul class="news__list">
+            <li class="news__item">
+              <a class="news__card" href="article.html">
+                <figure class="news__media news__media--s">
+                  <img src="assets/news-1.jpg" width="1600" height="2000" alt="Столик с керамикой в бежевой кухне" loading="lazy" />
+                </figure>
+                <div class="news__body">
+                  <div class="news__heading">
+                    <span class="news__rule" aria-hidden="true"></span>
+                    <h3 class="news__name">мы в сми</h3>
+                  </div>
+                  <p class="news__text">Рыбатекст, или текст-заполнитель,это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Рыбатекст, или текст-заполнитель, это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания.</p>
+                </div>
+              </a>
+            </li>
+            <li class="news__item">
+              <a class="news__card" href="article.html">
+                <figure class="news__media news__media--l">
+                  <img src="assets/news-2.jpg" width="1600" height="2000" alt="Светлая кухня с фрезерованными фасадами" loading="lazy" />
+                </figure>
+                <div class="news__body">
+                  <div class="news__heading">
+                    <span class="news__rule" aria-hidden="true"></span>
+                    <h3 class="news__name">лучший район москвы</h3>
+                  </div>
+                  <p class="news__text">Рыбатекст, или текст-заполнитель,это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Рыбатекст, или текст-заполнитель, это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания.</p>
+                </div>
+              </a>
+            </li>
+            <li class="news__item">
+              <a class="news__card" href="article.html">
+                <figure class="news__media news__media--s">
+                  <img src="assets/news-3.jpg" width="1800" height="1000" alt="Гостиная в тёмной палитре с диваном" loading="lazy" />
+                </figure>
+                <div class="news__body">
+                  <div class="news__heading">
+                    <span class="news__rule news__rule--ink" aria-hidden="true"></span>
+                    <h3 class="news__name">какие цвета сегодня самые популярные</h3>
+                  </div>
+                  <p class="news__text">Рыбатекст, или текст-заполнитель,это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Рыбатекст, или текст-заполнитель, это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания.</p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="seo" id="description">
+        <div class="seo__inner">
+          <h2 class="seo__title">Description</h2>
+          <p class="seo__text">Рыбатекст, или текст-заполнитель,это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Рыбатекст, или текст-заполнитель, это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык публичных выступлений в домашних условиях. При создании генератора мы использовали небезизвестный универсальный код речей. Текст генерируется абзацами случайным образом от двух до десяти предложений в абзаце, что позволяет сделать текст более привлекательным и живым для визуально-слухового восприятия. <br /> По своей сути рыбатекст является альтернативой традиционному lorem ipsum, который вызывает у некторых людей недоумение при попытках прочитать рыбу текст. В отличии от lorem ipsum, текст рыба на русском языке наполнит любой макет непонятным смыслом и придаст неповторимый колорит советских времен. Рыбатекст, или текст-заполнитель,это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Рыбатекст, или текст-заполнитель, это специально созданный текст, который используется в макетах и дизайн-проектах для имитации реального содержания. Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык публичных выступлений в домашних условиях. При создании генератора мы использовали небезизвестный универсальный код речей. Текст генерируется абзацами случайным образом от двух до десяти предложений в абзаце, что позволяет сделать текст более привлекательным и живым для визуально-слухового восприятия. По своей сути рыбатекст является альтернативой традиционному lorem ipsum, который вызывает у некторых людей недоумение при попытках прочитать рыбу текст. В отличии от lorem ipsum, текст рыба на русском языке наполнит любой макет непонятным смыслом и придаст неповторимый колорит советских времен.</p>
+        </div>
+      </section>
+
+      <section class="contacts" id="contacts">
+        <span class="contacts__rule" aria-hidden="true"></span>
+
+        <div class="contacts__inner">
+          <h2 class="contacts__title">Contact me</h2>
+        </div>
+
+        <address class="contacts__info">
+            <a class="contacts__mail" href="mailto:studiadesign@mail.ru">studiadesign@mail.ru</a>
+            <a class="contacts__note" href="tel:+79999999999">+7(999)999-99-99</a>
+            <span class="contacts__note">Moscow, st. Pushkina, house 43, office 78</span>
+          </address>
+
+        <form class="form" action="#" method="post">
+          <h3 class="form__title">First Name&nbsp;&nbsp;(required)</h3>
+
+          <div class="form__fields">
+                <label class="field">
+                  <span class="field__label">First Name</span>
+                  <input class="field__input" type="text" name="name" placeholder="Наталья" autocomplete="given-name" required />
+                </label>
+                <label class="field">
+                  <span class="field__label">E-mail (required)</span>
+                  <input class="field__input" type="email" name="email" placeholder="natalia@mail.ru" autocomplete="email" required />
+                </label>
+                <label class="field">
+                  <span class="field__label">Message (required)</span>
+                  <input class="field__input" type="text" name="message" placeholder="Вопрос в сообщении" autocomplete="off" required />
+                </label>
+          </div>
+
+          <div class="form__foot">
+            <label class="consent">
+              <input class="consent__input" type="checkbox" name="agree" required />
+              <span class="consent__box" aria-hidden="true"><svg class="consent__check" viewBox="0 0 14.5 14.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1" d="M0 7.5l6 7 8.5-14.5" /></svg></span>
+              <span class="consent__text">Нажимая на кнопку, я соглашаюсь с <a href="index.html">политика конфиденциальности</a></span>
+            </label>
+
+            <button class="form__submit" type="submit">submit</button>
+          </div>
+        </form>
+      </section>
+    </main>
 
     <footer class="footer">
       <div class="footer__inner">

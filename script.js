@@ -143,10 +143,11 @@
     spare.removeAttribute("src");
     front.after(spare);
 
-    const showShot = (src) => {
+    const showShot = (src, alt) => {
       if (front.getAttribute("src") === src) return;
 
       spare.src = src;
+      spare.alt = alt;
       const swap = () => {
         if (spare.getAttribute("src") !== src) return;
         spare.classList.add("is-active");
@@ -155,6 +156,16 @@
       };
 
       spare.decode().then(swap, swap);
+    };
+
+    /* Подпись снимка собирается из самой карточки: название проекта и строка
+       под ним. Иначе кадр меняется, а альтернативный текст остаётся от
+       предыдущего — для читающего с экрана снимок так и не меняется. */
+    const shotAlt = (item) => {
+      const name = item.querySelector(".works__pick");
+      const meta = item.querySelector(".works__meta");
+      if (!name) return "";
+      return meta ? name.textContent + " — " + meta.textContent : name.textContent;
     };
 
     /* Соседние кадры подгружаются заранее — иначе следующий снимок появляется
@@ -169,7 +180,7 @@
     const select = (index) => {
       current = index;
       items.forEach((item, i) => item.classList.toggle("is-active", i === index));
-      showShot(items[index].dataset.shot);
+      showShot(items[index].dataset.shot, shotAlt(items[index]));
       preload(index);
     };
 
