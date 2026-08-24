@@ -291,20 +291,29 @@ img {
   transition-delay: 120ms;
 }
 
-/* Страница проекта: лента других проектов */
-.other__card--2[data-reveal] {
+/* Услуги: преимущества по три в ряд */
+.pros__card:nth-child(2)[data-reveal] {
   transition-delay: 60ms;
 }
 
-.other__card--3[data-reveal] {
+.pros__card:nth-child(3)[data-reveal] {
   transition-delay: 120ms;
 }
 
-.other__card--4[data-reveal] {
+/* Страница проекта: лента других проектов */
+.reel__card--2[data-reveal] {
+  transition-delay: 60ms;
+}
+
+.reel__card--3[data-reveal] {
+  transition-delay: 120ms;
+}
+
+.reel__card--4[data-reveal] {
   transition-delay: 180ms;
 }
 
-.other__card--5[data-reveal] {
+.reel__card--5[data-reveal] {
   transition-delay: 240ms;
 }
 
@@ -3435,7 +3444,19 @@ a.contacts__note:hover {
   object-fit: cover;
 }
 
-/* ---------- Другие проекты ---------- */
+/* ---------- Лента проектов ---------- */
+
+/* Пять кадров веером: центральный крупный, к краям мельчают, крайние уходят
+   за обрез экрана. Лента — самостоятельный блок: координаты внутри неё свои,
+   от её собственного верха. Поэтому она стоит и в «других проектах» на
+   странице проекта, и в «авторском надзоре» на странице услуг — секции
+   отличаются только тем, куда лента поставлена.
+
+   Высота 736 — от верха центрального кадра до низа ряда точек. */
+.reel {
+  position: relative;
+  height: calc(736 * var(--px));
+}
 
 /* Лента шире экрана и уходит за оба края — как в макете. */
 .other {
@@ -3444,6 +3465,15 @@ a.contacts__note:hover {
   overflow: hidden;
   background: var(--paper);
   color: var(--black);
+}
+
+/* В этой секции заголовок лежит поверх ленты, поэтому лента выставлена
+   от верха секции: 298 — столько до верха центрального кадра в макете. */
+.other .reel {
+  position: absolute;
+  left: 0;
+  top: calc(298 * var(--px));
+  width: 100%;
 }
 
 .other__title {
@@ -3457,59 +3487,87 @@ a.contacts__note:hover {
   text-transform: uppercase;
 }
 
-.other__card {
+.reel__card {
   position: absolute;
   margin: 0;
   overflow: hidden;
 }
 
-.other__card img {
+.reel__card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+/* Подпись лежит плашкой по нижней кромке кадра. Есть не везде: на странице
+   проекта лента идёт без подписей, и правило просто не на что применить.
+   Кегль убывает вместе с кадром — в макете 22 / 20 / 18. */
+.reel__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: calc(30 * var(--px));
+  background: #00000080;
+  color: var(--paper);
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.reel__card--2 .reel__caption,
+.reel__card--4 .reel__caption {
+  font-size: calc(20 * var(--px));
+}
+
+.reel__card--1 .reel__caption,
+.reel__card--5 .reel__caption {
+  padding: calc(27 * var(--px));
+  font-size: calc(18 * var(--px));
+}
+
 /* Карточки к краям ленты мельчают: центральная крупнее всех. */
-.other__card--1,
-.other__card--5 {
-  top: calc(447 * var(--px));
+.reel__card--1,
+.reel__card--5 {
+  top: calc(149 * var(--px));
   width: calc(326 * var(--px));
   height: calc(382 * var(--px));
 }
 
-.other__card--2,
-.other__card--4 {
-  top: calc(413 * var(--px));
+.reel__card--2,
+.reel__card--4 {
+  top: calc(115 * var(--px));
   width: calc(384 * var(--px));
   height: calc(450 * var(--px));
 }
 
-.other__card--1 {
+.reel__card--1 {
   left: calc(-100 * var(--px));
 }
 
-.other__card--2 {
+.reel__card--2 {
   left: calc(256 * var(--px));
 }
 
-.other__card--3 {
+.reel__card--3 {
   left: calc(670 * var(--px));
-  top: calc(298 * var(--px));
+  top: 0;
   width: calc(580 * var(--px));
   height: calc(679 * var(--px));
   overflow: visible;
 }
 
-.other__card--4 {
+.reel__card--4 {
   left: calc(1280 * var(--px));
 }
 
-.other__card--5 {
+.reel__card--5 {
   left: calc(1694 * var(--px));
 }
 
 /* Круг на центральной карточке залит чёрным, набор белый. */
-.other__cta {
+.reel__cta {
   position: absolute;
   left: calc(324 * var(--px));
   top: calc(50 * var(--px));
@@ -3523,12 +3581,12 @@ a.contacts__note:hover {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.other__cta:hover {
+.reel__cta:hover {
   background: var(--paper);
   color: var(--black);
 }
 
-.other__cta-label {
+.reel__cta-label {
   position: absolute;
   left: calc(20 * var(--px));
   top: calc(87 * var(--px));
@@ -3541,17 +3599,17 @@ a.contacts__note:hover {
   white-space: nowrap;
 }
 
-.other__cta-arrow {
+.reel__cta-arrow {
   width: calc(22 * var(--px));
   height: calc(17 * var(--px));
   margin-top: calc(8 * var(--px));
   flex: none;
 }
 
-.other__dots {
+.reel__dots {
   position: absolute;
   left: calc(911 * var(--px));
-  top: calc(1007 * var(--px));
+  top: calc(709 * var(--px));
   display: flex;
   align-items: center;
   gap: calc(20 * var(--px));
@@ -3650,33 +3708,21 @@ a.contacts__note:hover {
     font-size: 32px;
   }
 
-  /* Раз заголовок встал в поток, карточки отсчитываются от ленты, а не от
-     секции: их макетные top уменьшены на 298 — на столько верх композиции
-     отстоял от верха секции, когда заголовок лежал поверх неё. Высота ленты
-     равна высоте центрального кадра, самого высокого из пяти. */
-  .other__track {
-    position: relative;
-    height: calc(679 * var(--px));
+  /* Раз заголовок встал в поток, лента встаёт следом за ним, а не поверх
+     секции. Точки уходят из ленты в поток, поэтому её высота — это высота
+     центрального кадра, самого высокого из пяти. */
+  .other .reel {
+    position: static;
     margin-top: 30px;
   }
 
-  .other__card--3 {
-    top: 0;
-  }
-
-  .other__card--2,
-  .other__card--4 {
-    top: calc(115 * var(--px));
-  }
-
-  .other__card--1,
-  .other__card--5 {
-    top: calc(149 * var(--px));
+  .reel {
+    height: calc(679 * var(--px));
   }
 
   /* На десктопе точки стоят под центральным кадром, а он лежит ровно по
      середине ленты — статичный ряд по центру даёт ту же картину. */
-  .other__dots {
+  .reel__dots {
     position: static;
     justify-content: center;
     margin-top: 30px;
@@ -3684,7 +3730,7 @@ a.contacts__note:hover {
   }
 
   /* Круглая кнопка на центральном кадре в таком масштабе нечитаема. */
-  .other__cta {
+  .reel__cta {
     display: none;
   }
 }
@@ -3832,8 +3878,9 @@ a.contacts__note:hover {
 
 /* Метка видео: полупрозрачный круг с треугольником, ровно по центру кадра.
    Пропорции круга и треугольника заданы долей, чтобы метка сжималась
-   вместе с карточкой. */
-.card__play {
+   вместе с кадром. Блок общий: стоит и на карточке портфолио, и на кадрах
+   страницы услуг — размер задаёт хозяин. */
+.play {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -3847,7 +3894,7 @@ a.contacts__note:hover {
   transform: translate(-50%, -50%);
 }
 
-.card__play svg {
+.play svg {
   width: 31.6%; /* 48 из 152 в макете */
   height: 31.6%;
   fill: #00000080;
@@ -3945,7 +3992,7 @@ a.contacts__note:hover {
     height: 50px;
   }
 
-  .card__play {
+  .play {
     width: 72px;
     height: 72px;
   }
@@ -4002,7 +4049,7 @@ a.contacts__note:hover {
     height: 72px;
   }
 
-  .card__play {
+  .play {
     width: 72px;
     height: 72px;
   }
@@ -4477,6 +4524,483 @@ a.contacts__note:hover {
 }
 
 /* ======================================================================
+   УСЛУГИ (services.html)
+
+   Первый экран со снимком под затемнением, шесть преимуществ в рамках,
+   два разворота про услугу и авторский надзор, лента проектов. Шапка,
+   крошки, метка видео, лента, Contact me и футер — общие блоки, живут
+   выше по файлу.
+   ====================================================================== */
+
+/* Крошки лежат на белой полосе между шапкой и снимком: 30 сверху, 60 снизу
+   до кромки первого экрана — так в макете. */
+.svc-crumbs {
+  padding: calc(30 * var(--px)) var(--gutter) calc(60 * var(--px));
+  background: var(--paper);
+}
+
+/* ---------- Первый экран ---------- */
+
+/* Снимок уходит под затемнение: без него белый набор на светлой гостиной
+   не читается. 99 в конце — те самые 60% чёрного из макета. */
+.svc-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(952 * var(--px));
+  padding: 0 var(--gutter);
+  overflow: hidden;
+  background: var(--black);
+  color: var(--paper);
+  text-align: center;
+}
+
+.svc-hero__media {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+}
+
+.svc-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.svc-hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #00000099;
+}
+
+.svc-hero__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(60 * var(--px));
+  width: calc(1332 * var(--px));
+}
+
+.svc-hero__head {
+  width: 100%;
+}
+
+.svc-hero__kicker {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: calc(80 * var(--px));
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.3375;
+}
+
+.svc-hero__title {
+  margin: calc(30 * var(--px)) 0 0;
+  font-size: calc(80 * var(--px));
+  font-weight: 600;
+  line-height: 1.4875;
+}
+
+.svc-hero__lead {
+  margin: 0;
+  font-size: calc(40 * var(--px));
+  font-weight: 500;
+  line-height: 1.475;
+}
+
+.svc-hero__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(580 * var(--px));
+  height: calc(59 * var(--px));
+  background: var(--paper);
+  color: var(--black);
+  font-size: calc(22 * var(--px));
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.svc-hero__cta:hover {
+  opacity: var(--hover-strong);
+}
+
+/* ---------- Преимущества ---------- */
+
+.pros {
+  padding: calc(120 * var(--px)) var(--gutter);
+  background: var(--paper);
+  color: var(--black);
+}
+
+.pros__title {
+  margin: 0 0 calc(30 * var(--px));
+  font-size: calc(50 * var(--px));
+  font-weight: 700;
+  line-height: 1.48;
+  text-transform: uppercase;
+}
+
+.pros__row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(30 * var(--px));
+}
+
+.pros__row + .pros__row {
+  margin-top: calc(30 * var(--px));
+}
+
+/* Обводка внутренняя: рамки соседних карточек не должны слипаться
+   в двойную линию по стыку сетки. */
+.pros__card {
+  padding: calc(30 * var(--px));
+  border: 1px solid currentColor;
+}
+
+.pros__card-title {
+  margin: 0;
+  font-size: calc(26 * var(--px));
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Две строки держим всегда: в макете у карточек одна высота на ряд,
+   а текст в них разной длины. */
+.pros__card-text {
+  min-height: calc(66 * var(--px));
+  margin: calc(10 * var(--px)) 0 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* ---------- Что входит в услугу ---------- */
+
+/* Две колонки без промежутка: правый кадр начинается ровно там, где
+   кончается левая. Высота левой колонки сходится с высотой кадра —
+   74 + 120 + 463 + 60 + 228 = 945. */
+.svc-what {
+  display: grid;
+  grid-template-columns: calc(1030 * var(--px)) calc(770 * var(--px));
+  padding: calc(120 * var(--px)) var(--gutter);
+  background: var(--paper);
+  color: var(--black);
+}
+
+.svc-what__title {
+  margin: 0;
+  font-size: calc(50 * var(--px));
+  font-weight: 700;
+  line-height: 1.48;
+  text-transform: uppercase;
+}
+
+.svc-what__small {
+  width: calc(463 * var(--px));
+  height: calc(463 * var(--px));
+  margin: calc(120 * var(--px)) 0 0;
+  overflow: hidden;
+}
+
+.svc-what__text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--px));
+  width: calc(920 * var(--px));
+  margin-top: calc(60 * var(--px));
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.svc-what__text p {
+  margin: 0;
+}
+
+.svc-what__media {
+  position: relative;
+  height: calc(945 * var(--px));
+  margin: 0;
+  overflow: hidden;
+}
+
+.svc-what__small img,
+.svc-what__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Что такое авторский надзор ---------- */
+
+/* Лента кадров выходит за оба края экрана, поэтому лишнее режется здесь. */
+.svc-super {
+  padding: calc(120 * var(--px)) 0;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--black);
+}
+
+.svc-super__title {
+  margin: 0 var(--gutter);
+  font-size: calc(50 * var(--px));
+  font-weight: 700;
+  line-height: 1.48;
+  text-transform: uppercase;
+}
+
+.svc-super__lead {
+  width: calc(885 * var(--px));
+  margin: calc(20 * var(--px)) var(--gutter) 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.svc-super__media {
+  position: relative;
+  height: calc(945 * var(--px));
+  margin: calc(30 * var(--px)) var(--gutter) 0;
+  overflow: hidden;
+}
+
+.svc-super__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.svc-super__text {
+  margin: calc(60 * var(--px)) var(--gutter) 0;
+  font-size: calc(22 * var(--px));
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.svc-super .reel {
+  margin-top: calc(60 * var(--px));
+}
+
+/* ---------- Планшет и телефон ---------- */
+
+@media (max-width: 1199px) {
+  /* Телефон: одна колонка, ритм секций 60, внутри блоков 30. */
+  .svc-crumbs {
+    padding: 30px var(--gutter);
+  }
+
+  .svc-hero {
+    height: auto;
+    padding: 30px var(--gutter);
+  }
+
+  .svc-hero__inner {
+    gap: 30px;
+    width: 100%;
+  }
+
+  .svc-hero__kicker {
+    font-size: 30px;
+  }
+
+  .svc-hero__title {
+    margin-top: 0;
+    font-size: 29px;
+  }
+
+  .svc-hero__lead {
+    font-size: 18px;
+  }
+
+  .svc-hero__cta {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .pros,
+  .svc-what,
+  .svc-super {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .pros__title,
+  .svc-what__title,
+  .svc-super__title {
+    font-size: 30px;
+  }
+
+  .pros__title {
+    margin-bottom: 30px;
+  }
+
+  /* Карточки встают столбиком, высоту им задаёт текст. */
+  .pros__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .pros__row + .pros__row {
+    margin-top: 20px;
+  }
+
+  .pros__card-title {
+    font-size: 20px;
+  }
+
+  .pros__card-text {
+    min-height: 0;
+    font-size: 16px;
+  }
+
+  /* Разворот разбирается на столбик: заголовок, квадратный кадр, текст,
+     широкий кадр — как в мобильном макете. */
+  .svc-what {
+    display: block;
+  }
+
+  .svc-what__small {
+    width: 100%;
+    height: auto;
+    margin-top: 30px;
+    aspect-ratio: 1 / 1;
+  }
+
+  .svc-what__text {
+    width: 100%;
+    margin-top: 30px;
+    font-size: 22px;
+  }
+
+  .svc-what__media {
+    height: auto;
+    margin-top: 30px;
+    aspect-ratio: 290 / 356;
+  }
+
+  .svc-super__lead {
+    width: auto;
+    margin-top: 30px;
+    font-size: 16px;
+  }
+
+  .svc-super__media {
+    height: auto;
+    aspect-ratio: 290 / 152;
+  }
+
+  .svc-super__text {
+    margin-top: 30px;
+    font-size: 16px;
+  }
+
+  /* Лента внутри секции возвращает макетную единицу: композиция веером
+     сохраняется, просто уменьшается вместе с окном. Так же устроена лента
+     на странице проекта. */
+  .svc-super .reel {
+    --px: 0.05208333vw;
+
+    height: calc(679 * var(--px));
+    margin-top: 30px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  /* Планшет: преимущества снова в три колонки, набор крупнее. */
+  .svc-crumbs {
+    padding: 30px var(--gutter) 40px;
+  }
+
+  .svc-hero {
+    padding: 80px var(--gutter);
+  }
+
+  .svc-hero__inner {
+    gap: 40px;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .svc-hero__kicker,
+  .svc-hero__title {
+    font-size: 48px;
+  }
+
+  .svc-hero__title {
+    margin-top: 16px;
+  }
+
+  .svc-hero__lead {
+    font-size: 24px;
+  }
+
+  .svc-hero__cta {
+    width: 480px;
+    height: 56px;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .pros,
+  .svc-what,
+  .svc-super {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .pros__title,
+  .svc-what__title,
+  .svc-super__title {
+    font-size: 56px;
+  }
+
+  .pros__row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .pros__row + .pros__row {
+    margin-top: 20px;
+  }
+
+  .pros__card-text {
+    font-size: 18px;
+  }
+
+  .svc-what__small {
+    width: 60%;
+    aspect-ratio: 1 / 1;
+  }
+
+  .svc-what__text {
+    font-size: 18px;
+  }
+
+  .svc-what__media {
+    aspect-ratio: 770 / 945;
+  }
+
+  .svc-super__lead,
+  .svc-super__text {
+    font-size: 18px;
+  }
+
+  .svc-super__media {
+    aspect-ratio: 1800 / 945;
+  }
+}
+
+/* ======================================================================
    Оглавление (index.html)
 
    Служебная страница: показывает клиенту, какие страницы уже свёрстаны.
@@ -4824,7 +5348,7 @@ a.dir__card:focus-visible .arrow-ne {
   .nav,
   .news__media img,
   .news__more,
-  .other__cta,
+  .reel__cta,
   .portfolio__more,
   .post__media img,
   .post__more,
