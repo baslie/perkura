@@ -4693,6 +4693,12 @@ a.contacts__note:hover {
   color: var(--black);
 }
 
+/* Левая колонка разворота: заголовок, кадр и текст идут обычным потоком,
+   отступы между ними разные, поэтому заданы полями у самих элементов. */
+.svc-what__col {
+  min-width: 0;
+}
+
 .svc-what__title {
   margin: 0;
   font-size: calc(50 * var(--px));
