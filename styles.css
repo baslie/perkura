@@ -467,7 +467,7 @@ img {
   display: inline-block;
 }
 
-/* Телефон иконкой и бургер нужны только на узких экранах. */
+/* Бургер нужен только на узких экранах. */
 .header__actions {
   display: none;
 }
@@ -1642,21 +1642,6 @@ a.contacts__note:hover {
   .header__actions {
     display: flex;
     align-items: center;
-    gap: 10px;
-  }
-
-  .header__phone {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    color: inherit;
-  }
-
-  .header__phone svg {
-    width: 18px;
-    height: 18px;
   }
 
   .burger {
