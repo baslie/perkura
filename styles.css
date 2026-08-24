@@ -5848,6 +5848,48 @@ a.contacts__note:hover {
   line-height: 1.5;
 }
 
+/* ---------- Innovate Architecture ---------- */
+
+/* Чёрный разворот: слева крупный светлый заголовок, справа два абзаца
+   разного кегля. Правый край колонки текста лежит на линии гаттера. */
+.about-seo {
+  display: grid;
+  grid-template-columns: calc(1065 * var(--px)) calc(735 * var(--px));
+  padding: calc(120 * var(--px)) var(--gutter);
+  background: var(--black);
+  color: var(--paper);
+}
+
+.about-seo__title {
+  width: calc(750 * var(--px));
+  margin: 0;
+  font-size: calc(100 * var(--px));
+  font-weight: 300;
+  line-height: 1.48;
+}
+
+.about-seo__text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--px));
+}
+
+.about-seo__lead,
+.about-seo__small {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.about-seo__lead {
+  font-size: calc(22 * var(--px));
+  font-weight: 400;
+}
+
+.about-seo__small {
+  font-size: calc(18 * var(--px));
+  font-weight: 300;
+}
+
 /* ======================================================================
    Оглавление (index.html)
 
