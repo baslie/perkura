@@ -150,11 +150,46 @@
         dot.setAttribute("aria-selected", String(i === index));
       });
 
+      /* Метка на слоте нужна одним стилям — курсору. Боковой кадр щелчком
+         уезжает в середину, центральный уже там, и ладонь на нём честнее
+         указателя. Так же помечен выбранный проект в Works. */
+      slots.forEach((slot, i) => slot.classList.toggle("is-active", i === index));
+
       const href = cards[index] && cards[index].dataset.href;
       if (cta && href) cta.setAttribute("href", href);
     };
 
     dots.forEach((dot, i) => dot.addEventListener("click", () => embla.scrollTo(i)));
+
+    /* Щелчок по боковому кадру двигает его в середину — третий способ листать
+       вдобавок к перетаскиванию и точкам. Слушаем рамку целиком, а не каждый
+       кадр: обработчик один, и он переживёт любую перетасовку слотов, которую
+       затевает зацикливание.
+
+       Окончание перетаскивания щелчком не считаем: смотрим, сколько указатель
+       прошёл от нажатия до отпускания, — тот же приём, что у названий в Works.
+       Embla глушит щелчок сама, но только после 10 пикселей хода; дрожь пальца
+       на тач-экране в этот порог укладывается, и без своей проверки кадр уезжал
+       бы от неудавшегося свайпа.
+
+       Центральный кадр из этого выпадает: ехать ему некуда, а вход в проект —
+       круг «see the project», который лежит поверх. Клавиатуре свой обработчик
+       не нужен: тот же выбор делают точки, а они настоящие кнопки. */
+    let pressed = null;
+
+    viewport.addEventListener("pointerdown", (e) => {
+      pressed = { x: e.clientX, y: e.clientY };
+    });
+
+    viewport.addEventListener("click", (e) => {
+      const card = e.target.closest(".reel__card");
+      const shift = pressed ? Math.hypot(e.clientX - pressed.x, e.clientY - pressed.y) : 0;
+      pressed = null;
+
+      const index = card ? cards.indexOf(card) : -1;
+      if (index === -1 || shift > 6 || index === embla.selectedScrollSnap()) return;
+      embla.scrollTo(index);
+    });
 
     embla.on("select", select);
     embla.on("scroll", shape);
