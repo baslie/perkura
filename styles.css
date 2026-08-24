@@ -5890,6 +5890,245 @@ a.contacts__note:hover {
   font-weight: 300;
 }
 
+/* ---------- Планшет и телефон ---------- */
+
+@media (max-width: 1199px) {
+  /* Телефон: композиция первого экрана разбирается в столбик. Порядок в
+     мобильном макете свой — слово, абзац, слово, портрет и так далее, —
+     поэтому элементы переставлены свойством order, а не разметкой. */
+  .about-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+    padding: 0 var(--gutter) 60px;
+  }
+
+  .about-hero__portrait,
+  .about-hero__word,
+  .about-hero__name,
+  .about-hero__video,
+  .about-hero__note {
+    position: static;
+    width: auto;
+  }
+
+  .about-hero__word--decorator {
+    order: 1;
+  }
+
+  .about-hero__note--left {
+    order: 2;
+  }
+
+  .about-hero__word--architect {
+    order: 3;
+  }
+
+  .about-hero__portrait {
+    order: 4;
+    height: auto;
+    aspect-ratio: 290 / 385;
+  }
+
+  .about-hero__name {
+    order: 5;
+  }
+
+  .about-hero__video {
+    order: 6;
+  }
+
+  .about-hero__word--designer {
+    order: 7;
+  }
+
+  .about-hero__note--right {
+    order: 8;
+  }
+
+  .about-hero__word,
+  .about-hero__name {
+    font-size: 40px;
+    text-align: left;
+  }
+
+  /* Два слова из четырёх в макете прижаты к правому краю колонки. */
+  .about-hero__word--architect,
+  .about-hero__word--designer {
+    text-align: right;
+  }
+
+  .about-hero__note {
+    font-size: 16px;
+  }
+
+  .about-hero__video {
+    gap: 12px;
+  }
+
+  .about-hero__play {
+    width: 46px;
+    height: 46px;
+  }
+
+  .about-hero__play-icon {
+    width: 15px;
+    height: 17px;
+  }
+
+  .about-hero__video-label {
+    font-size: 22px;
+  }
+
+  /* Преимущества: заголовок над списком, строки становятся карточками. */
+  .about-why {
+    padding: 30px var(--gutter);
+  }
+
+  .about-why__label {
+    font-size: 30px;
+  }
+
+  .about-why__title {
+    position: static;
+    width: auto;
+    margin-top: 60px;
+    font-size: 50px;
+  }
+
+  .about-why__list {
+    margin-top: 60px;
+  }
+
+  .why-row {
+    display: block;
+    padding: 0;
+    border: 0;
+  }
+
+  .why-row:last-child {
+    padding-bottom: 0;
+    border: 0;
+  }
+
+  .why-row__icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .why-row__icon svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .why-row__name {
+    margin-top: 20px;
+    font-size: 22px;
+  }
+
+  .why-row__text {
+    margin-top: 20px;
+    font-size: 22px;
+  }
+
+  .about-seo {
+    display: block;
+    padding: 50px var(--gutter);
+  }
+
+  .about-seo__title {
+    width: auto;
+    font-size: 43px;
+    font-weight: 300;
+  }
+
+  .about-seo__text {
+    margin-top: 30px;
+  }
+
+  .about-seo__lead,
+  .about-seo__small {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  /* Планшет: набор крупнее, иконка и название строки снова в одну линию. */
+  .about-hero {
+    gap: 30px;
+    padding-bottom: 80px;
+  }
+
+  .about-hero__word,
+  .about-hero__name {
+    font-size: 64px;
+  }
+
+  .about-hero__note {
+    font-size: 18px;
+  }
+
+  .about-hero__play {
+    width: 60px;
+    height: 60px;
+  }
+
+  .about-hero__play-icon {
+    width: 20px;
+    height: 23px;
+  }
+
+  .about-hero__video-label {
+    font-size: 26px;
+  }
+
+  .about-why {
+    padding: 80px var(--gutter);
+  }
+
+  .about-why__label {
+    font-size: 40px;
+  }
+
+  .about-why__title {
+    font-size: 64px;
+  }
+
+  .why-row {
+    display: grid;
+    grid-template-columns: 60px minmax(0, 1fr) minmax(0, 1.4fr);
+    align-items: center;
+    gap: 30px;
+    padding: 29px 0 0;
+    border-top: 1px solid #00000080;
+  }
+
+  .why-row:last-child {
+    padding-bottom: 29px;
+    border-bottom: 1px solid #00000080;
+  }
+
+  .why-row__name,
+  .why-row__text {
+    margin-top: 0;
+    font-size: 18px;
+  }
+
+  .about-seo {
+    padding: 80px var(--gutter);
+  }
+
+  .about-seo__title {
+    font-size: 64px;
+  }
+
+  .about-seo__lead,
+  .about-seo__small {
+    font-size: 18px;
+  }
+}
+
 /* ======================================================================
    Оглавление (index.html)
 
