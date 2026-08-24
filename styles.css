@@ -5224,17 +5224,18 @@ a.contacts__note:hover {
 /* ---------- Гармошка услуг ---------- */
 
 .svc2-services {
-  padding: calc(120 * var(--px)) var(--gutter);
+  padding: calc(104 * var(--px)) var(--gutter) calc(120 * var(--px));
   background: var(--paper);
   color: var(--black);
 }
 
+/* Единственный на сайте секционный заголовок строчными: так он набран
+   в исходной Figma, оттуда же и кегль. */
 .svc2-services__title {
   margin: 0;
-  font-size: calc(50 * var(--px));
+  font-size: calc(60 * var(--px));
   font-weight: 700;
   line-height: 1.48;
-  text-transform: uppercase;
 }
 
 .svc2-list {
@@ -5283,7 +5284,7 @@ a.contacts__note:hover {
   width: calc(36 * var(--px));
   margin-right: calc(20 * var(--px));
   color: #00000080;
-  font-size: calc(26 * var(--px));
+  font-size: calc(30 * var(--px));
   font-weight: 600;
   line-height: 1.5;
 }
@@ -5297,11 +5298,14 @@ a.contacts__note:hover {
 .svc2-item__name {
   font-size: calc(80 * var(--px));
   font-weight: 400;
-  line-height: 1.4875; /* 119 / 80 */
+  line-height: 1.4875;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
+/* У раскрытой строки название прижато к линейке плотнее: в макете его
+   строка равна кеглю, без обычного межстрочного воздуха. */
 .svc2-item[open] .svc2-item__name {
-  width: calc(580 * var(--px));
   line-height: 1;
 }
 
@@ -5314,7 +5318,7 @@ a.contacts__note:hover {
   flex: none;
   width: calc(39 * var(--px));
   height: calc(39 * var(--px));
-  margin: 0 calc(65 * var(--px)) 0 auto;
+  margin: 0 0 0 auto;
   border: 1px solid #00000080;
   border-radius: 50%;
   color: #00000080;
@@ -5368,17 +5372,20 @@ a.contacts__note:hover {
   overflow: hidden;
 }
 
+/* Точку кадра опускаем: в Figma в полосу попадает диван с ковром, а не
+   потолок с кольцами. */
 .svc2-item__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center bottom;
 }
 
 .svc2-item__excerpt {
   position: absolute;
-  left: calc(780 * var(--px));
+  left: calc(869 * var(--px));
   top: calc(60 * var(--px));
-  width: calc(831 * var(--px));
+  width: calc(860 * var(--px));
   margin: 0;
   font-size: calc(22 * var(--px));
   font-weight: 300;
@@ -5393,8 +5400,8 @@ a.contacts__note:hover {
   font-size: calc(26 * var(--px));
   font-weight: 600;
   line-height: 1.5;
-  text-decoration: none;
-  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
   transition: opacity 0.2s var(--ease-out);
 }
 
@@ -5417,6 +5424,7 @@ a.contacts__note:hover {
   font-weight: 500;
   line-height: 1.5;
   text-decoration: none;
+  text-transform: uppercase;
   transition: opacity 0.2s var(--ease-out);
 }
 
@@ -5469,6 +5477,11 @@ a.contacts__note:hover {
 
   .svc2-services__title {
     font-size: 30px;
+  }
+
+  /* Названия услуг на телефоне в одну строку не влезают. */
+  .svc2-item__name {
+    white-space: normal;
   }
 
   .svc2-list {
