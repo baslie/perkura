@@ -528,6 +528,84 @@
     setMenu(false);
   };
 
+  /* Переключатель языков в шапке. Страниц-переводов пока нет, поэтому выбор
+     ничего не грузит: панелька закрывается, активный язык подсвечивается и
+     запоминается в localStorage — так он переживает переходы между
+     страницами. Когда переводы появятся, пункты станут ссылками. */
+  const initLang = () => {
+    const lang = document.querySelector(".lang");
+    if (!lang) return;
+
+    const toggle = lang.querySelector(".lang__toggle");
+    const current = lang.querySelector(".lang__current");
+    const options = [...lang.querySelectorAll(".lang__option")];
+    if (!toggle || !current || !options.length) return;
+
+    const KEY = "perkura:lang";
+
+    const setOpen = (open) => {
+      toggle.setAttribute("aria-expanded", String(open));
+      lang.dataset.open = String(open);
+    };
+
+    const isOpen = () => lang.dataset.open === "true";
+
+    /* Подпись на кнопке — код языка с прописной: Ru, En, Tr. */
+    const setActive = (code) => {
+      options.forEach((option) => {
+        const active = option.dataset.lang === code;
+        option.classList.toggle("lang__option--active", active);
+        if (active) option.setAttribute("aria-current", "true");
+        else option.removeAttribute("aria-current");
+      });
+      current.textContent = code.charAt(0).toUpperCase() + code.slice(1);
+    };
+
+    toggle.addEventListener("click", () => {
+      const open = !isOpen();
+      /* Обе панельки разом под шапкой не уживаются: открывая языки,
+         закрываем меню. Обратное направление бесплатно — клик по бургеру
+         идёт мимо .lang, и его ловит общий обработчик ниже. */
+      if (open) document.querySelector('.burger[aria-expanded="true"]')?.click();
+      setOpen(open);
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        setActive(option.dataset.lang);
+        /* localStorage в приватном режиме может бросить исключение —
+           тогда выбор живёт до перехода на другую страницу. */
+        try {
+          localStorage.setItem(KEY, option.dataset.lang);
+        } catch {}
+        setOpen(false);
+      });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen()) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (isOpen() && !e.target.closest(".lang")) setOpen(false);
+    });
+
+    /* Восстанавливаем прошлый выбор; если сохранённого нет или чтение
+       упало, остаёмся на русском из разметки. */
+    let saved = null;
+    try {
+      saved = localStorage.getItem(KEY);
+    } catch {}
+    if (saved && options.some((option) => option.dataset.lang === saved)) {
+      setActive(saved);
+    }
+
+    setOpen(false);
+  };
+
   /* Появление блоков при прокрутке. Начальное — спрятанное — состояние
      навешивает скрипт, а не разметка: в HTML стоит класс reveal, который сам
      по себе ничего не значит, и только здесь элемент получает data-reveal.
@@ -595,5 +673,6 @@
   initReel();
   initWorks();
   initMenu();
+  initLang();
   initReveal();
 })();

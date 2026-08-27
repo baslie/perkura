@@ -422,13 +422,15 @@ img {
   letter-spacing: calc(0.3 * var(--px));
 }
 
-/* Меню правым краем не доходит до колонки — так в макете. */
+/* Свободное место шапки съедает auto-margin: логотип остаётся слева,
+   а меню и кнопка языка за ним прижимаются вправо — space-between
+   родителя на эту пару уже не влияет. */
 .nav {
   display: flex;
   align-items: baseline;
   gap: calc(60 * var(--px));
   margin-top: calc(18 * var(--px));
-  margin-right: calc(24 * var(--px));
+  margin-left: auto;
 }
 
 .nav__link,
@@ -488,6 +490,99 @@ img {
 /* Бургер нужен только на узких экранах. */
 .header__actions {
   display: none;
+}
+
+/* ---------- Переключатель языков ---------- */
+
+/* Кнопка «Ru» стоит в строке меню последней. Отступ от колонки, который
+   раньше нёс правый край меню, теперь на ней: правым элементом шапки
+   стала она. Переключение пока визуальное — страниц-переводов нет,
+   выбор хранится в localStorage (см. initLang в script.js). */
+.lang {
+  position: relative;
+  margin-top: calc(18 * var(--px));
+  margin-left: calc(60 * var(--px));
+  margin-right: calc(24 * var(--px));
+}
+
+.lang__toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: calc(18 * var(--px));
+  font-weight: 600;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+/* Панелька опускается из-под кнопки той же механикой, что панель меню
+   под бургером: в покое спрятана, проявляется с лёгким сдвигом. Кромку
+   шапки она перекрывает — фон тот же, и выглядит это продолжением. */
+.lang__menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10 * var(--px));
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  min-width: calc(124 * var(--px));
+  padding: calc(10 * var(--px)) calc(20 * var(--px)) calc(14 * var(--px));
+  background: var(--ink);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+}
+
+.lang[data-open="true"] .lang__menu {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+}
+
+/* Язык в списке ведёт себя как пункт меню: активный выделен только
+   насыщенностью, подчёркивание — состояние наведения. Линия по боксу
+   набора, поэтому кнопка не тянется на ширину панельки. */
+.lang__option {
+  position: relative;
+  align-self: flex-start;
+  padding: calc(6 * var(--px)) 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: calc(16 * var(--px));
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+  text-align: left;
+  cursor: pointer;
+}
+
+.lang__option::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(3 * var(--px));
+  height: max(1px, calc(1 * var(--px)));
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.lang__option:hover::after,
+.lang__option:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.lang__option--active {
+  font-weight: 700;
 }
 
 /* ---------- Первый экран ---------- */
@@ -1657,9 +1752,12 @@ a.contacts__note:hover {
     letter-spacing: 0.2px;
   }
 
+  /* order переставляет бургер за кнопку языка: в разметке она последняя,
+     а стоять должна слева от него. */
   .header__actions {
     display: flex;
     align-items: center;
+    order: 1;
   }
 
   .burger {
@@ -1692,6 +1790,31 @@ a.contacts__note:hover {
 
   .burger[aria-expanded="true"] .burger__bar:last-child {
     transform: translateY(-3.5px) rotate(-45deg);
+  }
+
+  /* Кнопка языка прижимается к бургеру: auto-margin съедает свободное
+     место шапки, логотип остаётся слева. */
+  .lang {
+    margin: 0 20px 0 auto;
+  }
+
+  .lang__toggle {
+    font-size: 16px;
+  }
+
+  .lang__menu {
+    top: calc(100% + 10px);
+    min-width: 124px;
+    padding: 8px 16px 12px;
+  }
+
+  .lang__option {
+    padding: 8px 0;
+    font-size: 16px;
+  }
+
+  .lang__option::after {
+    bottom: 5px;
   }
 
   /* Меню выезжает панелью из-под шапки. */
@@ -2498,6 +2621,10 @@ a.contacts__note:hover {
    между логотипом и полем. Раньше их было шесть, и на 768 номер уже
    срезался на десяток пикселей — просто этого никто не измерял.
 
+   Кнопка языка удлинила строку ещё на ~55px, поэтому промежутки ужаты
+   с 24 до 16: шесть промежутков возвращают 48px, и на 900 всё влезает
+   по-прежнему — но с запасом уже в считанные пиксели.
+
    Ниже 900 шапка остаётся телефонной: высота 59, логотип мельче, пункты
    под бургером. Поля и колонки при этом переключаются по-прежнему на 768 —
    поехал порог меню, а не порог планшетной раскладки.
@@ -2554,7 +2681,7 @@ a.contacts__note:hover {
     position: static;
     flex-direction: row;
     align-items: center;
-    gap: 24px;
+    gap: 16px;
     padding: 0;
     background: none;
     visibility: visible;
@@ -2573,6 +2700,11 @@ a.contacts__note:hover {
   .nav__link::after,
   .nav__phone-label::after {
     bottom: -3px;
+  }
+
+  /* Кнопка языка возвращается из угла у бургера в конец строки меню. */
+  .lang {
+    margin: 0 0 0 20px;
   }
 }
 
@@ -6480,7 +6612,8 @@ a.dir__card:focus-visible .arrow-ne {
   /* Подчёркивания в меню гасятся не в none, а в 0.01ms: событие
      transitionend должно дойти. */
   .nav__link::after,
-  .nav__phone-label::after {
+  .nav__phone-label::after,
+  .lang__option::after {
     transition-duration: 0.01ms;
   }
 
@@ -6502,6 +6635,7 @@ a.dir__card:focus-visible .arrow-ne {
   .footer__legal,
   .form__submit,
   .hero__next,
+  .lang__menu,
   .nav,
   .news__media img,
   .news__more,
